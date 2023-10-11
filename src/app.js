@@ -17,9 +17,12 @@ app.get('/', (req, res) => {
 	res.render('inicio');
 });
 
+
+import './models/paciente.js';
+
 async function main() {
     try {
-        await sequelize.authenticate();
+        await sequelize.sync();
         console.log('conexion establecida con exito');
 		app.listen(port, () => {
 			console.log(`Escuchando en el puerto ${port}`);
