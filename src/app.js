@@ -19,10 +19,11 @@ app.get('/', (req, res) => {
 
 
 import './models/paciente.js';
+import './models/orden_trabajo.js';
 
 async function main() {
     try {
-        await sequelize.sync();
+        await sequelize.sync({force: true});
         console.log('conexion establecida con exito');
 		app.listen(port, () => {
 			console.log(`Escuchando en el puerto ${port}`);
