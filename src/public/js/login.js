@@ -8,9 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		const password = document.getElementById('password').value;
 
 		// Realiza la autenticación aquí, por ejemplo, comparando los valores ingresados con los valores válidos.
-		if (username === 'usuario' && password === 'contrasena') {
+		if (username === 'fermin2049' && password === '123456') {
 			// Autenticación exitosa, redirige a la página de inicio.
-			window.location.href = 'inicio.html';
+			window.location.href = 'http://localhost:3000/';
 		} else {
 			alert('Credenciales incorrectas. Inténtalo de nuevo.');
 		}
