@@ -1,0 +1,85 @@
+<header class='navbar sticky-top s-100'>
+	<div class='container-fluid'>
+		<div class='navbar-brand d-flex align-items-end' id='heder-text'>
+			Laboratorio Doña ADN
+		</div>
+		<button
+			class='navbar-toggler position-absolute d-lg-none collapsed'
+			type='button'
+			data-bs-toggle='collapse'
+			id='btnSidebar'
+			data-bs-target='#sidebarMenu'
+		>
+
+		</button>
+		<div id='buscador' class='flex-grow-1 mx-lg-3 d-lg-block collapse'>
+			<div class='input-group'>
+				<input
+					type='search'
+					class='form-control basicAutoComplete'
+					placeholder='Buscar…'
+					autocomplete='off'
+				/>
+			</div>
+		</div>
+		<ul class='nav nav-pills' role='navigation'>
+			<li class='nav-item'>
+				<button
+					class='btn btn-secondary ms-2 ms-xl-3 d-lg-none toggler no-label collapsed'
+					type='button'
+					data-bs-toggle='collapse'
+					data-bs-target='#buscador'
+				>
+					<i class='icn-buscar'></i>
+				</button>
+			</li>
+			<li class='nav-item'></li>
+			<li class='vr d-none d-xl-inline-block ms-lg-3'></li>
+			<li class='nav-item'>
+				<div class='dropdown'>
+					<button
+						class='btn btn-secondary btn-transparent ms-2 ms-xl-3 dropdown-toggle'
+						type='button'
+						id='nombreUsuario'
+						data-bs-toggle='dropdown'
+					>
+						<i class='icn-modo-usuario'></i>
+						<span>FERNANDEZ FERMIN ORLANDO</span>
+					</button>
+
+					<ul
+						class='dropdown-menu dropdown-menu-end s-40'
+						aria-labelledby='nombreUsuario'
+					>
+
+						<li id='numeroCuil'>
+							<div class='dropdown-item'>
+								<i class='bi bi-person'></i>
+								<span>24-33539061-6</span>
+							</div>
+						</li>
+						<li id='numeroTelefono'>
+							<div class='dropdown-item'>
+								<i class='bi bi-telephone'></i>
+								<span>+54 (266) 4297704</span>
+							</div>
+						</li>
+						<li id='correoElectronico'>
+							<div class='dropdown-item'>
+								<i class='bi bi-envelope'></i>
+								<span>fermin2049@gmail.com</span>
+							</div>
+						</li>
+						<li><hr class='dropdown-divider' /></li>
+						<li>
+							<a class='dropdown-item' href='/miansessitiov2/Home/CerrarSesion'>
+								<i class='bi bi-box-arrow-right'></i>
+								<span>Cerrar sesión</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</header>

@@ -18,6 +18,15 @@
 			href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css'
 		/>
 		<link rel='stylesheet' href='/css/styles.css' />
+		{{#if isLoginPage}}
+			<link rel='stylesheet' href='/css/login.css' />
+			<!-- Agrega tu archivo CSS específico para la página de inicio de sesión -->
+			<script src='/js/login.js'></script>
+			<!-- Agrega tu archivo JavaScript específico para la página de inicio de sesión -->
+		{{else}}
+			<script src='/js/index.js'></script>
+			<!-- Utiliza tu archivo JavaScript principal -->
+		{{/if}}
 	</head>
 	<body>
 		{{{body}}}
@@ -26,6 +35,5 @@
 			integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL'
 			crossorigin='anonymous'
 		></script>
-		<script src='/js/index.js'></script>
 	</body>
 </html>
