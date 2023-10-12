@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";    
 
 export const valor_referencia = sequelize.define('valores_referencia', {
-    id: {
+    idValorReferencia: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true

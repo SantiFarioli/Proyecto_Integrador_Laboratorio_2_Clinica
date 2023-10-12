@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import {sequelize} from "../database/database.js";
 
 export const orden_trabajo = sequelize.define('ordenes_trabajo', {
-    id: {
+    idOrdenTrabajo: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
