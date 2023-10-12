@@ -29,6 +29,7 @@ import './models/medico.js';
 import './models/valor_referencia.js';
 import './models/determinacion.js';
 import './models/examen.js';
+import './models/muestra.js';
 async function main() {
 	try {
 		await sequelize.sync({ force: true });
