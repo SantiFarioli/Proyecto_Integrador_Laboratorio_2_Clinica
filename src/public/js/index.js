@@ -1,6 +1,10 @@
-const toggler = document.querySelector('.btn');
-toggler.addEventListener('click', function () {
-	document.querySelector('#sidebar').classList.toggle('collapsed');
-});
+document.addEventListener('DOMContentLoaded', function () {
+	const toggler = document.querySelector('.btn');
+	const sidebar = document.querySelector('#sidebar');
 
-console.log('hola desde el js');
+	toggler.addEventListener('click', function () {
+		sidebar.classList.toggle('collapsed');
+	});
+
+	console.log('Hola desde el JavaScript');
+});
