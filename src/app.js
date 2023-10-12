@@ -28,6 +28,7 @@ import './models/orden_trabajo.js';
 import './models/medico.js';
 import './models/valor_referencia.js';
 import './models/determinacion.js';
+import './models/examen.js';
 async function main() {
 	try {
 		await sequelize.sync({ force: true });
