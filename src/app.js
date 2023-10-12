@@ -25,6 +25,7 @@ app.get('/login', (req, res) => {
 
 import './models/paciente.js';
 import './models/orden_trabajo.js';
+import './models/medico.js';
 
 async function main() {
 	try {

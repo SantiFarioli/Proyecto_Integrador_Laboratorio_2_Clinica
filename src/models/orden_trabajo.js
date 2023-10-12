@@ -12,7 +12,8 @@ export const orden_trabajo = sequelize.define('ordenes_trabajo', {
         defaultValue: sequelize.NOW
     },
     estado: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     diagnostico: {
         type: DataTypes.STRING,

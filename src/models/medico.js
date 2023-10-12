@@ -1,7 +1,7 @@
-import { sequelize } from "../database/database.js";
 import {DataTypes} from 'sequelize';
+import { sequelize } from '../database/database.js';
 
-export const paciente = sequelize.define('pacientes', {
+export const medico = sequelize.define('medicos', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -15,31 +15,11 @@ export const paciente = sequelize.define('pacientes', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    dni:  {
+    dni: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    localidad: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    provincia: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    sexo: {
-        type: DataTypes.STRING,
-        allowNULL: false
-    },
-    embarazo: {
-        type: DataTypes.BOOLEAN,
-        allowNULL: false
-    },
-    fecha_nac: {
-        type: DataTypes.DATE,
-        defaultValue: sequelize.NOW
-    },
-    correo_electronico: {
+    especialidad: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -47,13 +27,12 @@ export const paciente = sequelize.define('pacientes', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    obra_social:{
+    correo: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    num_afiliado: {
+    direccion: {
         type: DataTypes.STRING,
         allowNull: false
     },
 });
-
