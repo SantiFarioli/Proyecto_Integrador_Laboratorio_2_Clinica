@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Autenticación exitosa, redirige a la página de inicio.
 			window.location.href = 'http://localhost:3000/';
 		} else {
-			alert('Credenciales incorrectas. Inténtalo de nuevo.');
+			alert('Credenciales incorrectas. Intentalo de nuevo.');
 		}
 	});
 });
