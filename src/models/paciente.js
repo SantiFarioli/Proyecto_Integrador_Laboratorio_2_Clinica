@@ -1,5 +1,6 @@
 import { sequelize } from "../database/database.js";
 import {DataTypes} from 'sequelize';
+import {orden_trabajo} from './orden_trabajo.js'
 
 export const paciente = sequelize.define('pacientes', {
     idPaciente: {
@@ -55,5 +56,15 @@ export const paciente = sequelize.define('pacientes', {
         type: DataTypes.STRING,
         allowNull: false
     },
+});
+
+paciente.hasMany(orden_trabajo, {
+    foreignKey: 'idPaciente',
+    sourceKey: 'idPaciente'
+});
+
+orden_trabajo.belongsTo(paciente, {
+    foreignKey: 'idPaciente',
+    targetKey: 'idPaciente'
 });
 
