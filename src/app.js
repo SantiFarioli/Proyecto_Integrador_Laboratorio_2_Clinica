@@ -31,6 +31,7 @@ import './models/determinacion.js';
 import './models/examen.js';
 import './models/muestra.js';
 import './models/bioquimico.js';
+import './models/usuario.js';
 async function main() {
 	try {
 		await sequelize.sync({ force: true });
