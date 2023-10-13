@@ -33,6 +33,7 @@ import './models/muestra.js';
 import './models/bioquimico.js';
 import './models/usuario.js';
 import './models/resultado.js';
+import './models/auditoria.js';
 async function main() {
 	try {
 		await sequelize.sync({ force: true });
