@@ -34,6 +34,7 @@ import './models/bioquimico.js';
 import './models/usuario.js';
 import './models/resultado.js';
 import './models/auditoria.js';
+import './models/examenes_y_ordenes.js';
 async function main() {
 	try {
 		await sequelize.sync({ force: true });
