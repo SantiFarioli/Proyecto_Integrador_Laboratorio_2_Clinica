@@ -30,6 +30,7 @@ import './models/valor_referencia.js';
 import './models/determinacion.js';
 import './models/examen.js';
 import './models/muestra.js';
+import './models/bioquimico.js';
 async function main() {
 	try {
 		await sequelize.sync({ force: true });
