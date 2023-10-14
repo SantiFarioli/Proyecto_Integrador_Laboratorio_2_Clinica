@@ -1,5 +1,6 @@
 import {DataTypes} from 'sequelize';
 import {sequelize} from '../database/database.js';
+import {auditoria} from './auditoria.js';
 
 export const usuario = sequelize.define('usuarios', {
     idUsuario: {
@@ -38,4 +39,14 @@ export const usuario = sequelize.define('usuarios', {
         type: DataTypes.STRING,
         allowNull: false
     }
+});
+
+usuario.hasMany(auditoria, {
+    foreignKey: 'idUsuario',
+    sourceKey: 'idUsuario'
+});
+
+auditoria.belongsTo(usuario, {
+    foreignKey: 'idUsuario',
+    sourceKey: 'idUsuario'
 });

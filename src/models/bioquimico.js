@@ -1,5 +1,6 @@
 import {DataTypes} from 'sequelize';
 import {sequelize} from '../database/database.js';
+import { resultado } from './resultado.js';
 
 export const bioquimico = sequelize.define('bioquimicos', {
     idBioquimico: {
@@ -32,3 +33,13 @@ export const bioquimico = sequelize.define('bioquimicos', {
         allowNull: false
     }
 });
+
+bioquimico.hasMany(resultado, {
+    foreignKey: 'idBioquimico',
+    sourceKey: 'idBioquimico'
+});
+
+resultado.belongsTo(bioquimico, {
+    foreignKey: 'idBioquimico',
+    sourceKey: 'idBioquimico'
+})

@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
+import { valor_referencia } from "./valor_referencia.js";
 
 export const determinacion = sequelize.define('determinaciones', {
     idDeterminacion: {
@@ -24,3 +25,13 @@ export const determinacion = sequelize.define('determinaciones', {
         allowNull: false
     },
 });
+
+determinacion.hasMany(valor_referencia, {
+    foreignKey: 'idDeterminacion',
+    surceKey: 'idDeterminacion'
+});
+
+valor_referencia.belongsTo(determinacion, {
+    foreignKey: 'idDeterminacion',
+    targetKey: 'idDeterminacion'
+})
