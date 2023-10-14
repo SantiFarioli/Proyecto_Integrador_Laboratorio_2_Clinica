@@ -15,6 +15,8 @@ app.set('views', path.resolve(__dirname + '/views'));
 app.use('/', express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
 	// Marca la variable isLoginPage como falsa cuando estás en la página de inicio.
 	res.render('inicio', { isLoginPage: false });

@@ -2,7 +2,8 @@ import {paciente} from '../models/paciente.js';
 
 export const getPacientes = async (req, res) => {
     const pacientes = await paciente.findAll(); 
-    res.send('getPacientes')
+    
+    res.json(pacientes);
 };
 
 export const createPaciente = async (req, res) => {
@@ -22,8 +23,7 @@ export const createPaciente = async (req, res) => {
         obra_social,
         num_afiliado
     });
-
-
-    res.send('pacient created')
+    
+    res.json(newPaciente);
 };
 
