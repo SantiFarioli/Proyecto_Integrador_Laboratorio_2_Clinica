@@ -50,11 +50,11 @@ export const paciente = sequelize.define('pacientes', {
     },
     obra_social:{
         type: DataTypes.STRING,
-        allowNull: false
+        
     },
     num_afiliado: {
         type: DataTypes.STRING,
-        allowNull: false
+        
     },
 });
 

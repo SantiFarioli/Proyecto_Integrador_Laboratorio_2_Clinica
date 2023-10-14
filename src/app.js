@@ -3,6 +3,7 @@ import { engine } from 'express-handlebars';
 import { __dirname } from './utils.js';
 import * as path from 'path';
 import { main } from './index.js';
+import pacienteRoutes from './router/paciente.ruta.js';
 
 
 const app = express();
@@ -12,6 +13,7 @@ app.set('view engine', 'handlebars');
 app.set('views', path.resolve(__dirname + '/views'));
 
 app.use('/', express.static(__dirname + '/public'));
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
 	// Marca la variable isLoginPage como falsa cuando estás en la página de inicio.
@@ -24,5 +26,7 @@ app.get('/login', (req, res) => {
 });
 
 
+
+app.use(pacienteRoutes);
 export default app;
 main();
