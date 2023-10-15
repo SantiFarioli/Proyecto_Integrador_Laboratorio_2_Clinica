@@ -2,7 +2,7 @@ import { sequelize } from './database/database.js';
 import app from './app.js';
 const port = process.env.PORT || 3000;
 
-
+/*
 import './models/paciente.js';
 import './models/orden_trabajo.js';
 import './models/medico.js';
@@ -15,11 +15,11 @@ import './models/usuario.js';
 import './models/resultado.js';
 import './models/auditoria.js';
 import './models/examenes_y_ordenes.js';
-
+*/
 
 export async function main() {
 	try {
-		await sequelize.sync({ force: true });
+		await sequelize.sync({ alert: true });
 		console.log('conexion establecida con exito');
 		app.listen(port, () => {
 			console.log(`Escuchando en el puerto ${port}`);
