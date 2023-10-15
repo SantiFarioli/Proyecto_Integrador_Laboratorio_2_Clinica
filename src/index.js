@@ -28,4 +28,3 @@ export async function main() {
 		console.log('No se puede establecer la conexion a la base de datos', error);
 	}
 }
-
