@@ -140,38 +140,44 @@
 			<div class='container-fluid'>
 				<div class='mb-3'>
 					<h3>Bienvenido al Sistema</h3>
-					<div class='container mt-5 d-none' id='formulario-registro'>
-						<h2>Buscar Paciente</h2>
-						<button
-							id='mostrar-formulario-busqueda'
-							class='btn btn-primary'
-						>Registrar Nuevo Paciente</button>
-						<div id='busqueda-pacientes' class='mt-4'>
-							<div class='form-group'>
-								<label for='criterio-busqueda'>Selecciona un criterio de
-									búsqueda:</label>
-								<select id='criterio-busqueda' class='form-control'>
-									<option value='dni'>DNI</option>
-									<option value='correo'>Correo Electrónico</option>
-									<option value='telefono'>Teléfono</option>
-								</select>
+					<div
+						class='container mt-5 d-none text-light d-flex align-items-center justify-content-center'
+						id='formulario-registro'
+					>
+						<div class='text-center'>
+							<h2>Buscar Paciente</h2>
+							<button
+								id='mostrar-formulario-busqueda'
+								class='btn btn-primary'
+							>Registrar Nuevo Paciente</button>
+							<div id='busqueda-pacientes' class='mt-4'>
+								<div class='form-group'>
+									<label for='criterio-busqueda'>Selecciona un criterio de
+										búsqueda:</label>
+									<select id='criterio-busqueda' class='form-control'>
+										<option value='dni'>DNI</option>
+										<option value='correo'>Correo Electrónico</option>
+										<option value='telefono'>Teléfono</option>
+									</select>
+								</div>
+								<div class='form-group'>
+									<label for='valor-busqueda'>Ingresa el valor de búsqueda:</label>
+									<input type='text' id='valor-busqueda' class='form-control' />
+								</div>
+								<button id='buscar-paciente' class='btn btn-primary mt-3'>Buscar
+									Paciente</button>
 							</div>
-							<div class='form-group'>
-								<label for='valor-busqueda'>Ingresa el valor de búsqueda:</label>
-								<input type='text' id='valor-busqueda' class='form-control' />
+							<div id='resultados' class='mt-4'>
+								<!-- La tabla de resultados se generará aquí -->
 							</div>
-							<button id='buscar-paciente' class='btn btn-primary'>Buscar
-								Paciente</button>
-						</div>
-						<div id='resultados' class='mt-4'>
-							<!-- La tabla de resultados se generará aquí -->
 						</div>
 					</div>
+
 					<div class='container mt-5 d-none' id='formulario-paciente'>
 						<div class='row'>
-							<div class='col-md-6 offset-md-3'>
+							<div class='col-md-6 offset-md-3 text-light'>
 								<h2>Formulario de Paciente</h2>
-								<form action="/pacientes" method="post">
+								<form action='/pacientes' method='post'>
 									<div class='form-group'>
 										<label for='nombre'>Nombre:</label>
 										<input
@@ -225,6 +231,7 @@
 									<div class='form-group'>
 										<label for='sexo'>Sexo:</label>
 										<select class='form-control' id='sexo' name='sexo' required>
+											<option value=''>Selecciona el sexo</option>
 											<option value='masculino'>Masculino</option>
 											<option value='femenino'>Femenino</option>
 										</select>

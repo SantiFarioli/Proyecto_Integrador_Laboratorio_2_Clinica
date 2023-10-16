@@ -2,7 +2,6 @@ import { sequelize } from './database/database.js';
 import app from './app.js';
 const port = process.env.PORT || 3000;
 
-/*
 import './models/paciente.js';
 import './models/orden_trabajo.js';
 import './models/medico.js';
@@ -15,7 +14,6 @@ import './models/usuario.js';
 import './models/resultado.js';
 import './models/auditoria.js';
 import './models/examenes_y_ordenes.js';
-*/
 
 export async function main() {
 	try {
