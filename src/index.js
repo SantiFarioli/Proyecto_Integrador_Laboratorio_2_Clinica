@@ -14,10 +14,13 @@ import './models/usuario.js';
 import './models/resultado.js';
 import './models/auditoria.js';
 import './models/examenes_y_ordenes.js';
+import './models/recepcionista.js';
+import './models/tecnicoBioquimico.js';
+import './models/admin.js';
 
 export async function main() {
 	try {
-		await sequelize.sync({ alert: true });
+		await sequelize.sync({ force: true });
 		console.log('conexion establecida con exito');
 		app.listen(port, () => {
 			console.log(`Escuchando en el puerto ${port}`);

@@ -37,7 +37,7 @@ export const paciente = sequelize.define('pacientes', {
         allowNULL: false
     },
     fecha_nac: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: sequelize.NOW
     },
     correo_electronico: {

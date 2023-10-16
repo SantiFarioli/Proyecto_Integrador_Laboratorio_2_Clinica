@@ -1,6 +1,9 @@
 import {DataTypes} from 'sequelize';
 import {sequelize} from '../database/database.js';
 import {auditoria} from './auditoria.js';
+import { recepcionista } from './recepcionista.js';
+import { tecnicoBioquimico } from './tecnicoBioquimico.js';
+import { admin } from './admin.js';
 
 export const usuario = sequelize.define('usuarios', {
     idUsuario: {
@@ -28,7 +31,7 @@ export const usuario = sequelize.define('usuarios', {
         allowNull: false
     },
     fecha_nacimiento: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     genero: {
@@ -48,5 +51,14 @@ usuario.hasMany(auditoria, {
 
 auditoria.belongsTo(usuario, {
     foreignKey: 'idUsuario',
-    sourceKey: 'idUsuario'
+    targetKey: 'idUsuario'
 });
+
+usuario.hasOne(recepcionista);
+recepcionista.belongsTo(usuario);
+
+usuario.hasOne(tecnicoBioquimico);
+tecnicoBioquimico.belongsTo(usuario);
+
+usuario.hasOne(admin);
+admin.belongsTo(usuario);
