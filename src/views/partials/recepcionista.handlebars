@@ -169,7 +169,161 @@
 							</div>
 							<div id='resultados' class='mt-4'>
 								<!-- La tabla de resultados se generará aquí -->
+								<div id='formulario-actualizar' class='d-none'>
+									<h2>Actualizar Paciente</h2>
+									<form action='/pacientes/actualizar' method='post'>
+										<div class='form-group'>
+											<input type='hidden' id='pacienteId' name='pacienteId' />
+											<label for='nombre'>Nombre:</label>
+											<input
+												type='text'
+												class='form-control'
+												id='nombre'
+												name='nombre'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='apellido'>Apellido:</label>
+											<input
+												type='text'
+												class='form-control'
+												id='apellido'
+												name='apellido'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='dni'>DNI:</label>
+											<input
+												type='number'
+												class='form-control'
+												id='dni'
+												name='dni'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='localidad'>Localidad:</label>
+											<input
+												type='text'
+												class='form-control'
+												id='localidad'
+												name='localidad'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='provincia'>Provincia:</label>
+											<input
+												type='text'
+												class='form-control'
+												id='provincia'
+												name='provincia'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='sexo'>Sexo:</label>
+											<select
+												class='form-control'
+												id='sexo'
+												name='sexo'
+												required
+											>
+												<option value=''>Selecciona el sexo</option>
+												<option value='masculino'>Masculino</option>
+												<option value='femenino'>Femenino</option>
+											</select>
+										</div>
+										<div class='form-group'>
+											<label for='embarazo'>Embarazo:</label>
+											<div class='form-check'>
+												<input
+													type='radio'
+													class='form-check-input'
+													id='embarazo-si'
+													name='embarazo'
+													value='true'
+													required
+												/>
+												<label
+													class='form-check-label'
+													for='embarazo-si'
+												>Sí</label>
+											</div>
+											<div class='form-check'>
+												<input
+													type='radio'
+													class='form-check-input'
+													id='embarazo-no'
+													name='embarazo'
+													value='false'
+													required
+												/>
+												<label
+													class='form-check-label'
+													for='embarazo-no'
+												>No</label>
+											</div>
+										</div>
+										<div class='form-group'>
+											<label for='fecha_nac'>Fecha de Nacimiento:</label>
+											<input
+												type='date'
+												class='form-control'
+												id='fecha_nac'
+												name='fecha_nac'
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='correo_electronico'>Correo Electrónico:</label>
+											<input
+												type='email'
+												class='form-control'
+												id='correo_electronico'
+												name='correo_electronico'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='telefono'>Teléfono:</label>
+											<input
+												type='number'
+												class='form-control'
+												id='telefono'
+												name='telefono'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='obra_social'>Obra Social:</label>
+											<input
+												type='text'
+												class='form-control'
+												id='obra_social'
+												name='obra_social'
+												required
+											/>
+										</div>
+										<div class='form-group'>
+											<label for='num_afiliado'>Número de Afiliado:</label>
+											<input
+												type='text'
+												class='form-control'
+												id='num_afiliado'
+												name='num_afiliado'
+												required
+											/>
+										</div>
+										<button
+											type='submit'
+											class='btn btn-primary mt-5 container fluid'
+										>Enviar</button>
+									</form>
+								</div>
 							</div>
+
 						</div>
 					</div>
 

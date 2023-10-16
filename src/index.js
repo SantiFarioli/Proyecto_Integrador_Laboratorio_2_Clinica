@@ -20,7 +20,7 @@ import './models/admin.js';
 
 export async function main() {
 	try {
-		await sequelize.sync({ force: true });
+		await sequelize.sync({ alert: true });
 		console.log('conexion establecida con exito');
 		app.listen(port, () => {
 			console.log(`Escuchando en el puerto ${port}`);
