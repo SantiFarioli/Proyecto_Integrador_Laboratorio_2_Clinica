@@ -4,6 +4,7 @@ import {auditoria} from './auditoria.js';
 import { recepcionista } from './recepcionista.js';
 import { tecnicoBioquimico } from './tecnicoBioquimico.js';
 import { admin } from './admin.js';
+import { bioquimico } from './bioquimico.js';
 
 export const usuario = sequelize.define('usuarios', {
     idUsuario: {
@@ -62,3 +63,6 @@ tecnicoBioquimico.belongsTo(usuario);
 
 usuario.hasOne(admin);
 admin.belongsTo(usuario);
+
+usuario.hasOne(bioquimico);
+bioquimico.belongsTo(usuario);
