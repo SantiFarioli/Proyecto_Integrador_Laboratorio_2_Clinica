@@ -18,7 +18,8 @@ export const paciente = sequelize.define('pacientes', {
     },
     dni:  {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     localidad: {
         type: DataTypes.STRING,
@@ -42,19 +43,19 @@ export const paciente = sequelize.define('pacientes', {
     },
     correo_electronico: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     telefono: {
         type: DataTypes.BIGINT,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     obra_social:{
-        type: DataTypes.STRING,
-        
+        type: DataTypes.STRING, 
     },
     num_afiliado: {
-        type: DataTypes.STRING,
-        
+        type: DataTypes.STRING,   
     },
 });
 
