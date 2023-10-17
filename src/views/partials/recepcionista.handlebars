@@ -224,7 +224,7 @@
 											<label for='sexo'>Sexo:</label>
 											<select
 												class='form-control'
-												id='sexo'
+												id='sexo0'
 												name='sexo'
 												required
 											>
@@ -239,28 +239,28 @@
 												<input
 													type='radio'
 													class='form-check-input'
-													id='embarazo-si'
+													id='embarazo-si0'
 													name='embarazo'
 													value='true'
 													required
 												/>
 												<label
 													class='form-check-label'
-													for='embarazo-si'
+													for='embarazo-si0'
 												>Sí</label>
 											</div>
 											<div class='form-check'>
 												<input
 													type='radio'
 													class='form-check-input'
-													id='embarazo-no'
+													id='embarazo-no0'
 													name='embarazo'
 													value='false'
 													required
 												/>
 												<label
 													class='form-check-label'
-													for='embarazo-no'
+													for='embarazo-no0'
 												>No</label>
 											</div>
 										</div>
@@ -328,7 +328,11 @@
 						<div class='row'>
 							<div class='col-md-6 offset-md-3 text-light'>
 								<h2>Formulario de Paciente</h2>
-								<form action='/pacientes' method='post'>
+								<form
+									action='/pacientes'
+									method='post'
+									id='formulario-paciente2'
+								>
 									<div class='form-group'>
 										<label for='nombre'>Nombre:</label>
 										<input
