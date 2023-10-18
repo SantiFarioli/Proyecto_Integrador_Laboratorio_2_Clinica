@@ -84,17 +84,18 @@ document.addEventListener('DOMContentLoaded', function () {
 					resultados.innerHTML = tablaResultados;
 
 					// Almacenar los campos del formulario
-					const nombreInput = document.getElementById('nombre');
-					const apellidoInput = document.getElementById('apellido');
-					const dniInput = document.getElementById('dni');
-					const localidadInput = document.getElementById('localidad');
-					const provinciaInput = document.getElementById('provincia');
-					const fechaNacimientoInput = document.getElementById('fecha_nac');
-					const correoElectronicoInput =
-						document.getElementById('correo_electronico');
-					const telefonoInput = document.getElementById('telefono');
-					const obraSocialInput = document.getElementById('obra_social');
-					const numAfiliadoInput = document.getElementById('num_afiliado');
+					const nombreInput = document.getElementById('nombre2');
+					const apellidoInput = document.getElementById('apellido2');
+					const dniInput = document.getElementById('dni2');
+					const localidadInput = document.getElementById('localidad2');
+					const provinciaInput = document.getElementById('provincia2');
+					const fechaNacimientoInput = document.getElementById('fecha_nac2');
+					const correoElectronicoInput = document.getElementById(
+						'correo_electronico2'
+					);
+					const telefonoInput = document.getElementById('telefono2');
+					const obraSocialInput = document.getElementById('obra_social2');
+					const numAfiliadoInput = document.getElementById('num_afiliado2');
 
 					const actualizarPaciente = document.getElementById(
 						'actualizar-paciente'
