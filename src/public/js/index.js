@@ -4,13 +4,16 @@ const formularioRegistro = document.getElementById('formulario-registro');
 let mostrarFormularioBusqueda = document.getElementById(
 	'mostrar-formulario-busqueda'
 );
+const mostrarFormularioUpdate = document.getElementById(
+	'formulario-actualizar'
+);
 const formularioPaciente = document.getElementById('formulario-paciente2');
 const buscarPacienteButton = document.getElementById('buscar-paciente');
 const criterioBusqueda = document.getElementById('criterio-busqueda');
 const valorBusqueda = document.getElementById('valor-busqueda');
 const resultados = document.getElementById('resultados');
 const formularioRegistroPaciente = document.getElementById(
-	'formulario-paciente'
+	'formulario-actualizar'
 );
 const formularioRegistroPaciente2 = document.getElementById(
 	'formulario-paciente2'
@@ -93,63 +96,15 @@ document.addEventListener('DOMContentLoaded', function () {
 					const obraSocialInput = document.getElementById('obra_social');
 					const numAfiliadoInput = document.getElementById('num_afiliado');
 
-					const formularioRegistroPaciente = document.getElementById(
-						'formulario-paciente'
-					);
-
-					formularioRegistroPaciente2.addEventListener(
-						'submit',
-						async function (e) {
-							e.preventDefault();
-
-							// Realiza el registro del paciente y obtén la respuesta del servidor
-							const datosPaciente = {
-								nombre: nombreInput.value,
-								apellido: apellidoInput.value,
-								dni: dniInput.value,
-								localidad: localidadInput.value,
-								provincia: provinciaInput.value,
-								fecha_nac: fechaNacimientoInput.value,
-								correo_electronico: correoElectronicoInput.value,
-								telefono: telefonoInput.value,
-								obra_social: obraSocialInput.value,
-								num_afiliado: numAfiliadoInput.value,
-							};
-
-							const response = await fetch('/pacientes', {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify(datosPaciente),
-							});
-
-							if (response.ok) {
-								// Mostrar un mensaje de éxito con Swal.fire
-								Swal.fire({
-									icon: 'success',
-									title: 'Bioquimica Doña ADN',
-									text: 'Paciente Registrado!',
-								}).then(() => {
-									// Redirigir al usuario a la pantalla principal
-									window.location.href = 'http://localhost:3000/';
-								});
-							} else {
-								// Manejar errores (por ejemplo, mostrar un mensaje de error)
-								Swal.fire({
-									icon: 'error',
-									title: 'Bioquimica Doña ADN',
-									text: 'Error al registrar el paciente!',
-								});
-							}
-						}
-					);
-
 					const actualizarPaciente = document.getElementById(
 						'actualizar-paciente'
 					);
 					actualizarPaciente.addEventListener('click', function () {
 						if (pacientes.length > 0) {
+							document
+								.getElementById('formulario-actualizar')
+								.classList.remove('d-none');
+							//mostrarFormularioUpdate.classList.remove('d-none');
 							// Supongamos que seleccionas el primer paciente de la lista
 							const pacienteSeleccionado = pacientes[0];
 							console.log(pacienteSeleccionado.idPaciente);
@@ -168,10 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
 							numAfiliadoInput.value = pacienteSeleccionado.num_afiliado;
 
 							// Mostrar el formulario
-							formularioRegistroPaciente.classList.remove('d-none');
 
 							// Manejar la actualización del paciente al hacer clic en "Enviar"
-							formularioRegistroPaciente.addEventListener(
+							mostrarFormularioUpdate.addEventListener(
 								'submit',
 								async function (e) {
 									e.preventDefault();
@@ -224,6 +178,53 @@ document.addEventListener('DOMContentLoaded', function () {
 							);
 						}
 					});
+					formularioRegistroPaciente2.addEventListener(
+						'submit',
+						async function (e) {
+							e.preventDefault();
+
+							// Realiza el registro del paciente y obtén la respuesta del servidor
+							const datosPaciente = {
+								nombre: nombreInput.value,
+								apellido: apellidoInput.value,
+								dni: dniInput.value,
+								localidad: localidadInput.value,
+								provincia: provinciaInput.value,
+								fecha_nac: fechaNacimientoInput.value,
+								correo_electronico: correoElectronicoInput.value,
+								telefono: telefonoInput.value,
+								obra_social: obraSocialInput.value,
+								num_afiliado: numAfiliadoInput.value,
+							};
+
+							const response = await fetch('/pacientes', {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+								},
+								body: JSON.stringify(datosPaciente),
+							});
+
+							if (response.ok) {
+								// Mostrar un mensaje de éxito con Swal.fire
+								Swal.fire({
+									icon: 'success',
+									title: 'Bioquimica Doña ADN',
+									text: 'Paciente Registrado!',
+								}).then(() => {
+									// Redirigir al usuario a la pantalla principal
+									window.location.href = 'http://localhost:3000/';
+								});
+							} else {
+								// Manejar errores (por ejemplo, mostrar un mensaje de error)
+								Swal.fire({
+									icon: 'error',
+									title: 'Bioquimica Doña ADN',
+									text: 'Error al registrar el paciente!',
+								});
+							}
+						}
+					);
 				} else {
 					// Si no se encuentran pacientes, muestra un mensaje
 					mostrarFormularioBusqueda.disabled = false;

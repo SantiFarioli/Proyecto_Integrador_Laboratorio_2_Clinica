@@ -166,7 +166,7 @@
 							</div>
 							<div id='resultados' class='mt-4'>
 								<!-- La tabla de resultados se generará aquí -->
-								<div id='formulario-actualizar' class='d-none'>
+								<div class='container d-none' id='formulario-actualizar'>
 									<h2>Actualizar Paciente</h2>
 									<form action='/pacientes/actualizar' method='post'>
 										<div class='form-group'>
@@ -224,7 +224,7 @@
 											<label for='sexo'>Sexo:</label>
 											<select
 												class='form-control'
-												id='sexo0'
+												id='sexo'
 												name='sexo'
 												required
 											>
@@ -239,28 +239,28 @@
 												<input
 													type='radio'
 													class='form-check-input'
-													id='embarazo-si0'
+													id='embarazo-si'
 													name='embarazo'
 													value='true'
 													required
 												/>
 												<label
 													class='form-check-label'
-													for='embarazo-si0'
+													for='embarazo-si'
 												>Sí</label>
 											</div>
 											<div class='form-check'>
 												<input
 													type='radio'
 													class='form-check-input'
-													id='embarazo-no0'
+													id='embarazo-no'
 													name='embarazo'
 													value='false'
 													required
 												/>
 												<label
 													class='form-check-label'
-													for='embarazo-no0'
+													for='embarazo-no'
 												>No</label>
 											</div>
 										</div>
@@ -320,7 +320,6 @@
 									</form>
 								</div>
 							</div>
-
 						</div>
 					</div>
 
