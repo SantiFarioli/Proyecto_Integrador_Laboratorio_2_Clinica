@@ -4,12 +4,15 @@ const formularioRegistro = document.getElementById('formulario-registro');
 let mostrarFormularioBusqueda = document.getElementById(
 	'mostrar-formulario-busqueda'
 );
-const formularioPaciente = document.getElementById('formulario-paciente');
+const formularioPaciente = document.getElementById('formulario-paciente2');
 const buscarPacienteButton = document.getElementById('buscar-paciente');
 const criterioBusqueda = document.getElementById('criterio-busqueda');
 const valorBusqueda = document.getElementById('valor-busqueda');
 const resultados = document.getElementById('resultados');
 const formularioRegistroPaciente = document.getElementById(
+	'formulario-paciente'
+);
+const formularioRegistroPaciente2 = document.getElementById(
 	'formulario-paciente2'
 );
 const sexoSelect = document.getElementById('sexo0');
@@ -91,10 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					const numAfiliadoInput = document.getElementById('num_afiliado');
 
 					const formularioRegistroPaciente = document.getElementById(
-						'formulario-paciente2'
+						'formulario-paciente'
 					);
 
-					formularioRegistroPaciente.addEventListener(
+					formularioRegistroPaciente2.addEventListener(
 						'submit',
 						async function (e) {
 							e.preventDefault();
