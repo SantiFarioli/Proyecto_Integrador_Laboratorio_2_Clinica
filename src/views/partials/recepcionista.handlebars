@@ -473,6 +473,76 @@
 					</div>
 				</form>
 			</div>
+			<div
+				class='container mt-5 text-light text-center d-flex align-items-center justify-content-center'
+				id='formulario-orden-trabajo'
+			>
+
+				<div id='formulario-orden' class='mt-4'>
+					<h2>Formulario de Orden de Trabajo</h2>
+					<div class='form-group'>
+						<label for='pacienteId'>ID del Paciente:</label>
+						<div class='input-group justify-content-center'>
+							<div class='input-group-append'>
+								<button
+									type='button'
+									class='btn btn-primary'
+									id='buscarPaciente'
+								>Buscar Paciente</button>
+							</div>
+						</div>
+
+					</div>
+					<div class='form-group'>
+						<label for='medicoId'>ID del Médico:</label>
+						<div class='input-group justify-content-center'>
+							<div class='input-group-append'>
+								<button
+									type='button'
+									class='btn btn-primary'
+									id='cargarMedico'
+								>Cargar Datos del Médico</button>
+							</div>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='estado'>Estado:</label>
+						<input
+							type='text'
+							class='form-control'
+							id='estado'
+							name='estado'
+							required
+						/>
+					</div>
+					<div class='form-group'>
+						<label for='diagnostico'>Diagnóstico:</label>
+						<textarea
+							class='form-control'
+							id='diagnostico'
+							name='diagnostico'
+							required
+						></textarea>
+					</div>
+					<div class='form-group'>
+						<label for='examenId'>ID del Examen:</label>
+						<div class='input-group justify-content-center'>
+							<div class='input-group-append'>
+								<button
+									type='button'
+									class='btn btn-primary'
+									id='seleccionarExamen'
+								>Seleccionar Tipo de Examen</button>
+							</div>
+						</div>
+					</div>
+					<div class='d-flex justify-content-center'>
+						<!-- Agregar esta línea -->
+						<button type='submit' class='btn btn-success mt-3'>Crear Orden de
+							Trabajo</button>
+					</div>
+				</div>
+			</div>
 
 		</main>
 	</div>
