@@ -4,6 +4,7 @@ import { __dirname } from './utils.js';
 import * as path from 'path';
 import { main } from './index.js';
 import pacienteRoutes from './router/paciente.ruta.js';
+import muestraRouter from './router/muestra.ruta.js';
 const app = express();
 
 app.engine('handlebars', engine());
@@ -26,5 +27,6 @@ app.get('/login', (req, res) => {
 });
 
 app.use(pacienteRoutes);
+app.use(muestraRouter);
 export default app;
 main();

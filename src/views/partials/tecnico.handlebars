@@ -51,7 +51,13 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link'>Cargar Muestras</a> <!-- consultar orden de trabajo(buscar)-->
+							<a
+							href='#'
+							class='sidebar-link'
+							id="cargar-muestras-btn"
+					>
+							Cargar Muestras
+							</a> <!-- consultar orden de trabajo(buscar)-->
 						</li>
 						<li class='sidebar-item'>
 							<a href='#' class='sidebar-link'>Cargar Examen</a> <!-- consultar orden de trabajo(buscar)-->
@@ -133,7 +139,7 @@
 					<div class='col-lg-6 offset-md-3'>
 						<h3>Registro de Muestra</h3>
 
-							<form id="muestra-form">
+							<form id="form" class="d-none">
 								<div class="mb-3">
 									<label for="nombreMuestra" class="form-label">Nombre de la Muestra</label>
 									<input type="text" class="form-control" id="nombreMuestra" name="nombreMuestra" required>
