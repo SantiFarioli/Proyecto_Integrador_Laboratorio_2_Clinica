@@ -18,10 +18,9 @@ const formularioRegistroPaciente = document.getElementById(
 const formularioRegistroPaciente2 = document.getElementById(
 	'formulario-paciente2'
 );
-const sexoSelect = document.getElementById('sexo2');
-const embarazoField = document.getElementById('embarazo-field');
-const embarazoSiRadio = document.getElementById('embarazo-si2');
-const embarazoNoRadio = document.getElementById('embarazo-no');
+const sexoSelect = document.getElementById('sexo0');
+const embarazoSi = document.getElementById('embarazo-si0');
+const embarazoNo = document.getElementById('embarazo-no0');
 
 document.addEventListener('DOMContentLoaded', function () {
 	// Agrega un evento al enlace 'Registrar Paciente' en la barra lateral
@@ -101,9 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					const actualizarPaciente = document.getElementById(
 						'actualizar-paciente'
 					);
-					const sexoSelect = document.getElementById('sexo2');
-					const embarazoSiRadio = document.getElementById('embarazo-si2');
-					const embarazoNoRadio = document.getElementById('embarazo-no2');
 					actualizarPaciente.addEventListener('click', function () {
 						if (pacientes.length > 0) {
 							document
@@ -126,9 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
 							telefonoInput.value = pacienteSeleccionado.telefono;
 							obraSocialInput.value = pacienteSeleccionado.obra_social;
 							numAfiliadoInput.value = pacienteSeleccionado.num_afiliado;
-							sexoSelect.value = pacienteSeleccionado.sexo;
-							embarazoSiRadio.checked = pacienteSeleccionado.embarazo === true;
-							embarazoNoRadio.checked = pacienteSeleccionado.embarazo === false;
 
 							// Mostrar el formulario
 
@@ -151,8 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
 										telefono: telefonoInput.value,
 										obra_social: obraSocialInput.value,
 										num_afiliado: numAfiliadoInput.value,
-										sexo: selectedSexo,
-										embarazo: embarazoSiRadio.checked,
 									};
 
 									const response = await fetch(
@@ -209,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
 	formularioRegistroPaciente2.addEventListener('submit', async function (e) {
 		e.preventDefault();
-
+		console.log('mensaje de despues del prevent');
 		const nombreInput = document.getElementById('nombre');
 		const apellidoInput = document.getElementById('apellido');
 		const dniInput = document.getElementById('dni');
@@ -234,8 +225,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			telefono: telefonoInput.value,
 			obra_social: obraSocialInput.value,
 			num_afiliado: numAfiliadoInput.value,
-			sexo: selectedSexo,
-			embarazo: isEmbarazoSi ? 'si' : 'no',
 		};
 
 		const response = await fetch('/pacientes', {
@@ -269,17 +258,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 
-// Agrega un evento al campo de selección "Sexo"
-/*sexoSelect.addEventListener('change', function () {
-	const selectedSexo = sexoSelect.value;
-
-	if (selectedSexo === 'masculino') {
-		// Si se selecciona "Masculino," establece "No" en el campo "Embarazo" y deshabilítalo
-		embarazoNoRadio.checked = true;
-		embarazoSiRadio.checked = false;
-		embarazoSiRadio.disabled = true;
-	} else {
-		// Si se selecciona "Femenino," habilita el campo "Embarazo"
-		embarazoSiRadio.disabled = false;
-	}
-});*/
+if (sexoSelect) {
+	sexoSelect.addEventListener('change', function () {
+		if (sexoSelect.value === 'masculino') {
+			embarazoSi.disabled = true;
+			embarazoNo.disabled = true;
+			embarazoNo.checked = true; // Establecer en "No"
+		} else {
+			embarazoSi.disabled = false;
+			embarazoNo.disabled = false;
+		}
+	});
+}
