@@ -28,16 +28,35 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link'>Consultar Nuevas Orden de Trabajo</a>
+							<a href='#' class='sidebar-link'>Consultar Nuevas Orden de Trabajo</a> <!-- consultar orden de trabajo(buscar)-->
 						</li>
 					</ul>
 				</li>
 
 				<li class='sidebar-item'>
-					<a href='#' class='sidebar-link'>
+					<a 
+					href='#'
+					class='sidebar-link collapsed'
+					data-bs-toggle='collapse'
+						data-bs-target='#muestra'
+						aria-expanded='false'
+						aria-controls='muestra'
+					>
 						<i class='fa-solid fa-flask-vial pe-2'></i>
-						Carga Registro de Examen
+						Carga Registros
 					</a>
+					<ul
+						id='muestra'
+						class='sidebar-dropdown list-unstyled collapse'
+						data-bs-parent='#sidebar'
+					>
+						<li class='sidebar-item'>
+							<a href='#' class='sidebar-link'>Cargar Muestras</a> <!-- consultar orden de trabajo(buscar)-->
+						</li>
+						<li class='sidebar-item'>
+							<a href='#' class='sidebar-link'>Cargar Examen</a> <!-- consultar orden de trabajo(buscar)-->
+						</li>
+					</ul>
 				</li>
 
 				<li class='sidebar-item'>
@@ -106,6 +125,35 @@
 			<div class='container-fluid'>
 				<div class='mb-3'>
 					<h3>Bienvenido al Sistema</h3>
+				</div>
+
+				
+
+				<div class='row'>
+					<div class='col-lg-6 offset-md-3'>
+						<h3>Registro de Muestra</h3>
+
+							<form id="muestra-form">
+								<div class="mb-3">
+									<label for="nombreMuestra" class="form-label">Nombre de la Muestra</label>
+									<input type="text" class="form-control" id="nombreMuestra" name="nombreMuestra" required>
+								</div>
+								<div class="mb-3">
+									<label for="tipoMuestra" class="form-label">Tipo de Muestra</label>
+									<input type="text" class="form-control" id="tipoMuestra" name="tipoMuestra" required>
+								</div>
+								<div class="mb-3">
+									<label for="fechaHoraRecepcion" class="form-label">Fecha y Hora de Recepción</label>
+									<input type="datetime-local" class="form-control" id="fechaHoraRecepcion" name="fechaHoraRecepcion" required>
+								</div>
+								<div class="mb-3">
+									<label for="etiqueta" class="form-label">Etiqueta</label>
+									<input type="text" class="form-control" id="etiqueta" name="etiqueta" required>
+								</div>
+								<button type="submit" class="btn btn-primary">Guardar Muestra</button>
+							</form>
+
+					</div>
 				</div>
 			</div>
 		</main>
