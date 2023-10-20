@@ -127,3 +127,8 @@ a.sidebar-link {
 		width: auto;
 	}
 }
+
+.select-fila:hover {
+	background-color: lightsalmon;
+	cursor: pointer;
+}
