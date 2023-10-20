@@ -22,26 +22,9 @@
 			<link rel='stylesheet' href='/css/login.css' />
 			<script src='/js/login.js'></script>
 		{{else}}
-			{{! Scripts y estilos específicos para cada tipo de usuario }}
-			{{#if isBioquimico}}
-				<link rel='stylesheet' href='/css/bioquimico.css' />
-				<script src='/js/bioquimico.js' type='module'></script>
-			{{/if}}
+			<script src='/js/recepcionista.js' type='module'></script>
+			<!--<script src='/js/tecnico.js' type='module'></script>>-->
 
-			{{#if isAdmin}}
-				<link rel='stylesheet' href='/css/admin.css' />
-				<script src='/js/admin.js' type='module'></script>
-			{{/if}}
-
-			{{#if isTecnico}}
-				<link rel='stylesheet' href='/css/tecnico.css' />
-				<script src='/js/tecnico.js' type='module'></script>
-			{{/if}}
-
-			{{#if isRecepcionista}}
-				<link rel='stylesheet' href='/css/recepcionista.css' />
-				<script src='/js/recepcionista.js' type='module'></script>
-			{{/if}}
 		{{/if}}
 	</head>
 	<body>
