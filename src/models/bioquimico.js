@@ -21,7 +21,7 @@ export const bioquimico = sequelize.define('bioquimicos', {
         allowNull: false
     },
     telefono: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false
     },
     correo: {
