@@ -528,11 +528,25 @@
 						<label for='examenId'>ID del Examen:</label>
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
-								<button
-									type='button'
-									class='btn btn-primary'
-									id='seleccionarExamen'
-								>Seleccionar Tipo de Examen</button>
+								<div class='form-group'>
+									<label for='cantidadExamenes'>Cantidad de Exámenes:</label>
+									<input
+										type='number'
+										class='form-control'
+										id='cantidadExamenes'
+										name='cantidadExamenes'
+										required
+									/>
+								</div>
+
+								<div class='d-flex justify-content-center'>
+									<button
+										type='button'
+										class='btn btn-primary'
+										id='agregarExamenes'
+									>Agregar Exámenes</button>
+								</div>
+
 							</div>
 						</div>
 					</div>
