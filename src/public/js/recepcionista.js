@@ -286,24 +286,60 @@ document.addEventListener('DOMContentLoaded', function () {
 					'<input id="nombreMedico" class="swal2-input" placeholder="Nombre">' +
 					'<input id="apellidoMedico" class="swal2-input" placeholder="Apellido">' +
 					'<input id="dniMedico" class="swal2-input" placeholder="DNI">' +
+					'<input id="especialidadMedico" class="swal2-input" placeholder="Especialidad">' +
 					'<input id="telefonoMedico" class="swal2-input" placeholder="Teléfono">' +
-					'<input id="correoMedico" class="swal2-input" placeholder="Correo">',
+					'<input id="correoMedico" class="swal2-input" placeholder="Correo">' +
+					'<input id="direccionMedico" class="swal2-input" placeholder="Dirección">', // Agregado campo "Dirección"
 				focusConfirm: false,
 				preConfirm: () => {
 					return {
 						nombre: document.getElementById('nombreMedico').value,
 						apellido: document.getElementById('apellidoMedico').value,
 						dni: document.getElementById('dniMedico').value,
+						especialidad: document.getElementById('especialidadMedico').value,
 						telefono: document.getElementById('telefonoMedico').value,
 						correo: document.getElementById('correoMedico').value,
+						direccion: document.getElementById('direccionMedico').value, // Agregado campo "Dirección"
 					};
 				},
 			}).then((result) => {
 				if (result.isConfirmed) {
 					// Aquí puedes enviar los datos del médico al servidor o hacer lo que necesites con ellos
 					const medicoData = result.value;
-					console.log('Datos del médico:', medicoData);
-					// También puedes enviar estos datos al servidor mediante una solicitud AJAX
+					Swal.fire({
+						icon: 'info',
+						title: 'Guardando Datos...',
+						showConfirmButton: false,
+					});
+
+					// Enviar los datos del médico al servidor
+					fetch('/medico', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(medicoData),
+					})
+						.then((response) => {
+							if (response.status === 201) {
+								Swal.fire({
+									icon: 'success',
+									title: 'Médico guardado con éxito',
+								});
+							} else {
+								Swal.fire({
+									icon: 'error',
+									title: 'Error al guardar el médico',
+								});
+							}
+						})
+						.catch((error) => {
+							Swal.fire({
+								icon: 'error',
+								title: 'Error al enviar la solicitud al servidor',
+								text: error,
+							});
+						});
 				}
 			});
 		});
