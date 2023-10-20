@@ -66,6 +66,7 @@ paciente.hasMany(orden_trabajo, {
 
 orden_trabajo.belongsTo(paciente, {
     foreignKey: 'idPaciente',
-    targetKey: 'idPaciente'
+    targetKey: 'idPaciente',
+    as: 'paciente'
 });
 

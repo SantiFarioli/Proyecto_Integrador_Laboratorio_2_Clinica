@@ -16,7 +16,7 @@ $muestra.addEventListener('click',  (e) => {
 $cargarOrdenes.addEventListener('click', async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch('/ordenTrabajo'); // Ruta para obtener órdenes desde el servidor
+        const response = await fetch('/ordenTrabajo'); 
         if (response.ok) {
             const ordenes = await response.json();
             renderOrdenesTable(ordenes);
@@ -30,33 +30,45 @@ $cargarOrdenes.addEventListener('click', async (e) => {
 
 function renderOrdenesTable(ordenes) {
     const table = `
-        <table class="table table-striped">
+        <table class="table table-bordered" id='select-fila'>
             <thead>
                 <tr>
-                    <th>ID Orden de Trabajo</th>
-                    <th>Fecha de Creación</th>
-                    <th>Estado</th>
-                    <th>Diagnóstico</th>
-                    <th>ID Paciente</th>
-                    <th>ID Médico</th>
-                    <!-- Agrega más encabezados según tu modelo de datos -->
+                    <th scope="col">ID Orden de Trabajo</th>
+                    <th scope="col">Fecha de Creación</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Diagnóstico</th>
+                    <th scope="col">ID Paciente</th>
+                    <th scope="col" class"text-end">ID Médico</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class ="table-group-divider">
                 ${ordenes.map((ordenTrabajo) => `
-                    <tr>
-                        <td>${ordenTrabajo.idOrdenTrabajo}</td>
+                    <tr id="${ordenTrabajo.idOrdenTrabajo}">
+                        <th scope="row">${ordenTrabajo.idOrdenTrabajo}</th>
                         <td>${ordenTrabajo.fechaCreacion}</td>
                         <td>${ordenTrabajo.estado}</td>
                         <td>${ordenTrabajo.diagnostico}</td>
                         <td>${ordenTrabajo.idPaciente}</td>
-                        <td>${ordenTrabajo.idMedico}</td>
-                        <!-- Agrega más celdas según tu modelo de datos -->
+                        <td>${ordenTrabajo.idMedico}</td>                       
                     </tr>
                 `).join('')}
             </tbody>
         </table>
     `;
     $ordenesTable.innerHTML = table;
+
+    ordenes.forEach((ordenTrabajo) => {
+        const fila = document.getElementById(`${ordenTrabajo.idOrdenTrabajo}`);
+        fila.addEventListener('dblclick', () => {
+
+            $ordenesTable.style.display = 'none';
+
+            document.getElementById('idOrdenTrabajo').value = ordenTrabajo.idOrdenTrabajo;    
+            document.getElementById('idOrdenTrabajo').disabled = true; 
+            
+            $formulario.classList.remove('d-none');
+        });
+    });
 }
+
 
