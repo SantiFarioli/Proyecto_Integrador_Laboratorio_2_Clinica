@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import {
-	getPacientes,
-	createPaciente,
-	updatePaciente,
+	getPacientes,createPaciente,updatePaciente,
 	searchPacientes,
 	deletePaciente,
 } from '../controllers/pacientes.controller.js';

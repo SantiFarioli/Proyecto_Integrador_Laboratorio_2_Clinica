@@ -1,12 +1,3 @@
-{{#if isAdmin}}
-    {{> admin}}
-{{else if isBioquimico}}
-    {{> bioquimico}}
-{{else if isTecnico}}
-    {{> tecnico}}
-{{else if isRecepcionista}}
-    {{> recepcionista}}
-{{else}}
-    {{!-- Puedes definir una vista predeterminada para otros tipos de usuarios o casos --}}
-    {{> predeterminado}}
-{{/if}}
+  {{> header}}
+  {{> recepcionista}}
+
