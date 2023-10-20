@@ -270,3 +270,41 @@ if (sexoSelect) {
 		}
 	});
 }
+
+/*********************************************
+ *     Generar Orden de Trabajo
+ *********************************************/
+
+document.addEventListener('DOMContentLoaded', function () {
+	document
+		.getElementById('cargarMedico')
+		.addEventListener('click', function () {
+			// Mostrar un diálogo de entrada de datos del médico con SweetAlert2
+			Swal.fire({
+				title: 'Guardar Datos del Médico',
+				html:
+					'<input id="nombreMedico" class="swal2-input" placeholder="Nombre">' +
+					'<input id="apellidoMedico" class="swal2-input" placeholder="Apellido">' +
+					'<input id="dniMedico" class="swal2-input" placeholder="DNI">' +
+					'<input id="telefonoMedico" class="swal2-input" placeholder="Teléfono">' +
+					'<input id="correoMedico" class="swal2-input" placeholder="Correo">',
+				focusConfirm: false,
+				preConfirm: () => {
+					return {
+						nombre: document.getElementById('nombreMedico').value,
+						apellido: document.getElementById('apellidoMedico').value,
+						dni: document.getElementById('dniMedico').value,
+						telefono: document.getElementById('telefonoMedico').value,
+						correo: document.getElementById('correoMedico').value,
+					};
+				},
+			}).then((result) => {
+				if (result.isConfirmed) {
+					// Aquí puedes enviar los datos del médico al servidor o hacer lo que necesites con ellos
+					const medicoData = result.value;
+					console.log('Datos del médico:', medicoData);
+					// También puedes enviar estos datos al servidor mediante una solicitud AJAX
+				}
+			});
+		});
+});
