@@ -12,23 +12,28 @@
 				</li>
 				<li class='sidebar-item'>
 					<a
-						href='#'
-						class='sidebar-link collapsed'
+					href='#'
+					class='sidebar-link collapsed'
 						data-bs-toggle='collapse'
-						data-bs-target='#orden'
+						data-bs-target='#ordenTrabajo'
 						aria-expanded='false'
-						aria-controls='orden'
+						aria-controls='ordenTrabajo'
 					>
 						<i class='fa-regular fa-file-lines pe-2'></i>
 						Orden de Trabajo
 					</a>
 					<ul
-						id='orden'
+						id='ordenTrabajo'
 						class='sidebar-dropdown list-unstyled collapse'
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link'>Consultar Nuevas Orden de Trabajo</a> <!-- consultar orden de trabajo(buscar)-->
+							<a 
+							href='#'
+							 class='sidebar-link'
+							 id="cargar-ordenes"
+					>	Consultar Nuevas Orden de Trabajo
+					</a> <!-- consultar orden de trabajo(buscar)-->
 						</li>
 					</ul>
 				</li>
@@ -133,32 +138,50 @@
 					<h3>Bienvenido al Sistema</h3>
 				</div>
 
-				
+				<div id="ordenes-table">
+					
+				</div>
 
+				<!--<div id='busqueda-orden' class='mt-4 col-lg-6 offset-md-3'>
+								<div class='form-group'>
+									<label for='busqueda'>Buscar:</label>
+									<select id='busqueda' class='form-control'>
+										<option value='dni'>DNI</option>
+									</select>
+								</div>
+								<div class='form-group'>
+									<label for='valor-busqueda'>Ingresa el valor de búsqueda:</label>
+									<input type='number' id='valor-busqueda' class='form-control' />
+								</div>
+								<button id='buscar-paciente' class='btn btn-primary mt-3'>Buscar
+									Orden Asociada</button>
+				</div>  -->
+
+				
 				<div class='row'>
 					<div class='col-lg-6 offset-md-3'>
-						<h3>Registro de Muestra</h3>
+						
 
-							<form id="form" class="d-none">
-								<div class="mb-3">
-									<label for="nombreMuestra" class="form-label">Nombre de la Muestra</label>
-									<input type="text" class="form-control" id="nombreMuestra" name="nombreMuestra" required>
-								</div>
+							<form action="/muestra"  method="POST"  id="form" class="d-none">
+							<h3>Registro de Muestra</h3>
 								<div class="mb-3">
 									<label for="tipoMuestra" class="form-label">Tipo de Muestra</label>
-									<input type="text" class="form-control" id="tipoMuestra" name="tipoMuestra" required>
+									<input type="text" class="form-control" id="tipo" name="tipo" required>
 								</div>
 								<div class="mb-3">
 									<label for="fechaHoraRecepcion" class="form-label">Fecha y Hora de Recepción</label>
-									<input type="datetime-local" class="form-control" id="fechaHoraRecepcion" name="fechaHoraRecepcion" required>
+									<input type="datetime-local" class="form-control" id="fechaRecepcion" name="fechaRecepcion" required>
 								</div>
 								<div class="mb-3">
 									<label for="etiqueta" class="form-label">Etiqueta</label>
 									<input type="text" class="form-control" id="etiqueta" name="etiqueta" required>
 								</div>
-								<button type="submit" class="btn btn-primary">Guardar Muestra</button>
+								<div class="mb-3">
+									<leabel for="idOrdenTrabajo" class="form-label">Orden de Trabajo</label>
+									<input type="number" class="form-control" id="idOrdenTrabajo" name="idOrdenTrabajo" required>
+								</div>
+								<button type="submit" class="mb-3 btn btn-primary">Guardar Muestra</button>
 							</form>
-
 					</div>
 				</div>
 			</div>
