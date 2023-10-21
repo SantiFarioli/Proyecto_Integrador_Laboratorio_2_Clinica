@@ -274,7 +274,17 @@ if (sexoSelect) {
 /*********************************************
  *     Generar Orden de Trabajo
  *********************************************/
+const formularioOrdenTrabajo = document.getElementById(
+	'formulario-orden-trabajo'
+);
+const generarOrdenButton = document.getElementById('navbarOrdenTrabjo');
+document.addEventListener('DOMContentLoaded', function () {
+	generarOrdenButton.addEventListener('click', function (e) {
+		e.preventDefault();
 
+		formularioOrdenTrabajo.classList.remove('d-none');
+	});
+});
 document.addEventListener('DOMContentLoaded', function () {
 	document
 		.getElementById('cargarMedico')
