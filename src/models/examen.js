@@ -1,29 +1,29 @@
-import { DataTypes } from "sequelize";
-import {sequelize} from "../database/database.js";
-import {determinacion} from './determinacion.js'
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/database.js';
+import { determinacion } from './determinacion.js';
 
 export const examen = sequelize.define('examenes', {
-    idExamen: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nombre: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    descripcion: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-})
+	idExamen: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		autoIncrement: true,
+	},
+	nombre: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	descripcion: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+});
 
 examen.hasMany(determinacion, {
-    foreignKey: 'idExamen',
-    surceKey: 'idExamen'
+	foreignKey: 'idExamen',
+	surceKey: 'idExamen',
 });
 
 determinacion.belongsTo(examen, {
-    foreignKey: 'idExamen',
-    targetKey: 'idExamen'
+	foreignKey: 'idExamen',
+	targetKey: 'idExamen',
 });
