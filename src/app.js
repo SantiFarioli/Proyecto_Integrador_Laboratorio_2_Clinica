@@ -18,16 +18,32 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 
+// Ruta de inicio (login)
 app.get('/', (req, res) => {
-	// Marca la variable isLoginPage como falsa cuando estás en la página de inicio.
-	res.render('inicio', { isLoginPage: false });
-});
-
-app.get('/login', (req, res) => {
-	// Marca la variable isLoginPage como verdadera cuando estás en la página de inicio de sesión.
+	// Marca la variable isLoginPage como verdadera cuando estás en la página de inicio.
 	res.render('loginPersonalLab', { isLoginPage: true });
 });
 
+// Rutas para diferentes tipos de usuarios
+app.use('/bioquimico', (req, res) => {
+	// Establecer la variable isBioquimico en true para la vista
+	res.render('bioquimico', { isBioquimico: true });
+});
+
+app.use('/admin', (req, res) => {
+	// Establecer la variable isAdmin en true para la vista
+	res.render('admin', { isAdmin: true });
+});
+
+app.use('/tecnico', (req, res) => {
+	// Establecer la variable isTecnico en true para la vista
+	res.render('tecnico', { isTecnico: true });
+});
+
+app.use('/recepcionista', (req, res) => {
+	// Establecer la variable isRecepcionista en true para la vista
+	res.render('recepcionista', { isRecepcionista: true });
+});
 
 app.use(pacienteRoutes);
 app.use(muestraRouter);
