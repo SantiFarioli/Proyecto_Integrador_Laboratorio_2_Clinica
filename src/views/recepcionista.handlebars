@@ -1,4 +1,3 @@
-{{> header}}
 <div class='wrapper'>
 	<aside id='sidebar'>
 		<div class='h-100'>
@@ -53,7 +52,8 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link'id='navbarOrdenTrabjo'>Generar Orden de Trabajo</a>
+							<a href='#' class='sidebar-link' id='navbarOrdenTrabjo'>Generar
+								Orden de Trabajo</a>
 						</li>
 						<li class='sidebar-item'>
 							<a href='#' class='sidebar-link'>Consultar Orden de Trabajo</a>
@@ -130,40 +130,54 @@
 	<div class='main'>
 
 		<main class='content px-3 py-2'>
-			<div class='container-fluid'>
-				<div class='mb-3'>
+			<div class='container'>
+				<div class='row mb-3'>
 					<h3>Bienvenido al Sistema</h3>
 					<div
-						class='container mt-5 d-none text-light d-flex align-items-center justify-content-center'
+						class='row mt-5 d-none text-light d-flex flex-column align-items-center justify-content-center'
 						id='formulario-registro'
 					>
-						<div class='text-center'>
+						<div id='resultados' class='row mt-4'>
 							<h2>Buscar Paciente</h2>
+							<div class='col-12 mt-4'>
+								<h1>Tabla de Pacientes</h1>
+								<div class='table-responsive'>
+									<!-- Agregamos estilos en línea para controlar la altura y el desplazamiento -->
+									<table
+										class='table table-striped display compact text-center'
+										style='width:100%'
+										id='tablaDePacientes'
+									>
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Nombre</th>
+												<th>Apellido</th>
+												<th>DNI</th>
+												<th>Localidad</th>
+												<th>Provincia</th>
+												<th>Sexo</th>
+												<th>Embarazo</th>
+												<th>Fecha de Nacimiento</th>
+												<th>Correo Electrónico</th>
+												<th>Teléfono</th>
+												<th>Obra Social</th>
+												<th>Número de Afiliado</th>
+												<th>Acciones</th>
+											</tr>
+										</thead>
+										<tbody>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class='text-center'>
 							<button
 								id='mostrar-formulario-busqueda'
 								class='btn btn-primary'
 							>Registrar Nuevo Paciente</button>
-							<div id='busqueda-pacientes' class='mt-4'>
-								<div class='form-group'>
-									<label for='criterio-busqueda'>Selecciona un criterio de
-										búsqueda:</label>
-									<select id='criterio-busqueda' class='form-control'>
-										<option value='dni'>DNI</option>
-										<option value='correo'>Correo Electrónico</option>
-										<option value='telefono'>Teléfono</option>
-									</select>
-								</div>
-								<div class='form-group'>
-									<label for='valor-busqueda'>Ingresa el valor de búsqueda:</label>
-									<input type='text' id='valor-busqueda' class='form-control' />
-								</div>
-								<button id='buscar-paciente' class='btn btn-primary mt-3'>Buscar
-									Paciente</button>
-							</div>
-							<div id='resultados' class='mt-4'>
-								<!-- La tabla de resultados se generará aquí -->
-
-							</div>
 						</div>
 					</div>
 
@@ -489,7 +503,6 @@
 									type='button'
 									class='btn btn-primary'
 									id='buscarPaciente'
-									href="class="fa-regular fa-file-lines pe-2""
 								>Buscar Paciente</button>
 							</div>
 						</div>
