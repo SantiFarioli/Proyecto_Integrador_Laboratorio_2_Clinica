@@ -12,16 +12,16 @@ $muestra.addEventListener('click',  (e) => {
 });
 
 $guardarMuestra.addEventListener('click', async (e) => {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Muestra Registrada',
+        showConfirmButton: false,
+        timer: 1500
+      });
     try {
-        const response = await fetch('/tecnico'); 
+        const response = await fetch('/muestra'); 
         if (response.ok) {
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Muestra Registrada',
-                showConfirmButton: false,
-                timer: 1500
-              });
             const muestra = await response.json();
             renderMuestraTable(muestra);
         } else {
@@ -93,7 +93,7 @@ function renderOrdenesTable(ordenes) {
 
             document.getElementById('idOrdenTrabajo').value = ordenTrabajo.idOrdenTrabajo; 
             console.log(ordenTrabajo.idOrdenTrabajo);   
-            document.getElementById('idOrdenTrabajo').disabled = true; 
+        
             
             $formulario.classList.remove('d-none');
         });
