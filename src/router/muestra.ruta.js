@@ -10,7 +10,7 @@ const router = Router();
 router.get('/muestra', getMuestras);
 router.post('/muestra', createMuestra);
 router.get('/muestra');
-router.put('/muestra', updateMuestra);
-router.delete('/muestra', deleteMuestra);
+router.put('/muestra/idMuestra', updateMuestra);
+router.delete('/muestra/idMuestra', deleteMuestra);
 
 export default router;

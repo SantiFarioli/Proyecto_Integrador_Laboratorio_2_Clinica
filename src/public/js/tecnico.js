@@ -5,21 +5,16 @@ const $ordenesTable = document.getElementById('ordenes-table');
 const $guardarMuestra = document.getElementById('guardar');
 const $cargarMuestras = document.getElementById('cargar-muestras');
 const $muestraTable = document.getElementById('muestra-table');
+const $actualizaMuestra = document.getElementById('actualizar');
+const $eliminarMuestra = document.getElementById('eliminar');
 
 
 
 
 
 $guardarMuestra.addEventListener('click', async (e) => {
-    
     try {
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Muestra Registrada',
-            showConfirmButton: false,
-            timer: 1500
-          });
+        
         const response = await fetch('/muestra', {
             method: 'POST',
             headers: {
@@ -47,7 +42,6 @@ $guardarMuestra.addEventListener('click', async (e) => {
 
 
 $cargarOrdenes.addEventListener('click', async (e) => {
-    e.preventDefault();
    const idOrdenTrabajo = document.getElementById('idOrdenTrabajo').value 
    console.log(idOrdenTrabajo);
     try {
@@ -130,14 +124,15 @@ function renderMuestrasTable(muestras) {
         <table class="table table-bordered table-striped" id='myTable'>
         <thead>
             <tr>
-                <th scope="col">ID Muestra</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Fecha de Recepción</th>
-                <th scope="col">Etiqueta</th>
-                <th scope="col">ID Orden de Trabajo</th>
+                <th scope="col" class="text-center">ID Muestra</th>
+                <th scope="col" class="text-center">Tipo</th>
+                <th scope="col" class="text-center">Fecha de Recepción</th>
+                <th scope="col" class="text-center">Etiqueta</th>
+                <th scope="col" class="text-center">ID Orden de Trabajo</th>
+                <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
             ${muestras.map((muestra) => `
                 <tr>
                     <th scope="row">${muestra.idMuestra}</th>
@@ -145,6 +140,11 @@ function renderMuestrasTable(muestras) {
                     <td>${muestra.fechaRecepcion}</td>
                     <td>${muestra.etiqueta}</td>
                     <td>${muestra.idOrdenTrabajo}</td>
+                    <td class="text-center ">
+                    <a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizar"></i></a>
+                    <a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-regular fa-trash-can" id="eliminar"></i></a>
+                    </td>
+                        
                 </tr> 
                 `).join('')}
         </tbody>
@@ -156,6 +156,7 @@ function renderMuestrasTable(muestras) {
         $('#myTable').DataTable();
     });
 };
+
 
 
 

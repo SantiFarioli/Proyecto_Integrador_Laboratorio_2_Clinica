@@ -39,9 +39,42 @@ export const createMuestra = async (req, res) => {
 };
 
 export const updateMuestra = (req, res) => {
+    const { idMuestra } = req.params;
+    const {
+        tipo,
+        fechaRecepcion,
+        etiqueta,
+        idOrdenTrabajo
+    } = req.body;
     
+    try {
+        const updatedMuestra = muestra.update({
+            tipo,
+            fechaRecepcion,
+            etiqueta,
+            idOrdenTrabajo
+        }, {
+            where: {idMuestra}
+        });
+        res.json(updatedMuestra);
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+        });
+    }
 };
 
-export const deleteMuestra = (req, res) => {
-    
+export const deleteMuestra = async(req, res) => {
+    const { idMuestra } = req.params;
+    try {
+        const result = await muestra.destroy({
+            where: {idMuestra}
+        });
+        console.log(result);
+        return res.sendStatus(204);
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        });
+    }
 };
