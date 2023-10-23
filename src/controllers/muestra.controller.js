@@ -69,7 +69,7 @@ export const updateMuestra = async (req, res) => {
 };
 
 export const deleteMuestra = async(req, res) => {
-    const { idMuestra } = req.params;
+    const  idMuestra  = req.params;
     try {
         const result = await muestra.destroy({
             where: {idMuestra}
