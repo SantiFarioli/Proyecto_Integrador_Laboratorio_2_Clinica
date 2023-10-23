@@ -38,25 +38,29 @@ export const createMuestra = async (req, res) => {
     
 };
 
-export const updateMuestra = (req, res) => {
-    const { idMuestra } = req.params;
+export const updateMuestra = async (req, res) => {
+    const  idMuestra  = req.params.id;
     const {
         tipo,
         fechaRecepcion,
         etiqueta,
-        idOrdenTrabajo
     } = req.body;
     
     try {
-        const updatedMuestra = muestra.update({
-            tipo,
-            fechaRecepcion,
-            etiqueta,
-            idOrdenTrabajo
-        }, {
-            where: {idMuestra}
-        });
-        res.json(updatedMuestra);
+        const muestraActualizada = await muestra.findByPk(idMuestra);
+        if (!muestraActualizada) {
+            return res.status(404).json({
+                message: 'Muestra no encontrada',
+            });
+        }
+
+        muestraActualizada.tipo = tipo;
+        muestraActualizada.fechaRecepcion = fechaRecepcion;
+        muestraActualizada.etiqueta = etiqueta;
+
+        await muestraActualizada.save();
+
+        res.json(muestraActualizada);
     } catch (error) {
         return res.status(500).json({
             message: error.message,

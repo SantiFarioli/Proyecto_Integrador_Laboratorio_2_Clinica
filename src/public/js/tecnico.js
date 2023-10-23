@@ -5,14 +5,21 @@ const $ordenesTable = document.getElementById('ordenes-table');
 const $guardarMuestra = document.getElementById('guardar');
 const $cargarMuestras = document.getElementById('cargar-muestras');
 const $muestraTable = document.getElementById('muestra-table');
-const $actualizaMuestra = document.getElementById('actualizar');
-const $eliminarMuestra = document.getElementById('eliminar');
+const $actualizaMuestraBtn = document.getElementById('actualizar');
+
 
 
 
 
 
 $guardarMuestra.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const muestra = {
+                tipo: document.getElementById('tipo').value,
+                fechaRecepcion: document.getElementById('fechaRecepcion').value,
+                etiqueta: document.getElementById('etiqueta').value,
+                idOrdenTrabajo: document.getElementById('idOrdenTrabajo').value
+    }
     try {
         
         const response = await fetch('/muestra', {
@@ -20,19 +27,29 @@ $guardarMuestra.addEventListener('click', async (e) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                tipo: document.getElementById('tipo').value,
-                fechaRecepcion: document.getElementById('fechaRecepcion').value,
-                etiqueta: document.getElementById('etiqueta').value,
-                idOrdenTrabajo: document.getElementById('idOrdenTrabajo').value
-            })
+            body: JSON.stringify(muestra)
         }); 
         if (response.ok) {
-            const muestra = await response.json();
-            console.log(muestra);
-        } else {
-            console.error('Error al obtener las Muestras.');
-        }
+			console.log('mensaje de despues del if');
+			// Mostrar un mensaje de éxito con Swal.fire
+			Swal.fire({
+				icon: 'success',
+				title: 'Bioquimica Doña ADN',
+				text: 'Muestra Registrado!',
+			}).then(() => {
+				// Redirigir al usuario a la pantalla principal
+				window.location.href = 'http://localhost:3000/';
+				window.location.href = 'http://localhost:3000/tecnico';
+			});
+		} else {
+			console.log('mensaje de despues del else');
+			// Manejar errores (por ejemplo, mostrar un mensaje de error)
+			Swal.fire({
+				icon: 'error',
+				title: 'Bioquimica Doña ADN',
+				text: 'Error al registrar Muestra!',
+			});
+		}
     } catch (error) {
         console.error('Error al obtener las Muestras:', error);
     }
@@ -42,8 +59,6 @@ $guardarMuestra.addEventListener('click', async (e) => {
 
 
 $cargarOrdenes.addEventListener('click', async (e) => {
-   const idOrdenTrabajo = document.getElementById('idOrdenTrabajo').value 
-   console.log(idOrdenTrabajo);
     try {
         const response = await fetch('/ordenTrabajo'); 
         if (response.ok) {
@@ -141,8 +156,7 @@ function renderMuestrasTable(muestras) {
                     <td>${muestra.etiqueta}</td>
                     <td>${muestra.idOrdenTrabajo}</td>
                     <td class="text-center ">
-                    <a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizar"></i></a>
-                    <a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-regular fa-trash-can" id="eliminar"></i></a>
+                    <a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
                     </td>
                         
                 </tr> 
@@ -155,9 +169,73 @@ function renderMuestrasTable(muestras) {
     $(document).ready(function () {
         $('#myTable').DataTable();
     });
-};
 
+    document.querySelectorAll('#actualizarIcon').forEach((actualizarBtn, index) => {
+        actualizarBtn.addEventListener('click', () => {
+            // Obtén los datos de la muestra seleccionada
+            const muestraSeleccionada = muestras[index];
+    
+            // Llena el formulario con los datos de la muestra
+            document.getElementById('idMuestra').value = muestraSeleccionada.idMuestra;
+            document.getElementById('tipo').value = muestraSeleccionada.tipo;
+            document.getElementById('fechaRecepcion').value = muestraSeleccionada.fechaRecepcion;
+            document.getElementById('etiqueta').value = muestraSeleccionada.etiqueta;
+            document.getElementById('idOrdenTrabajo').value = muestraSeleccionada.idOrdenTrabajo;
 
+            
+    
+            // Ocultar la tabla de muestras
+            $muestraTable.style.display = 'none';
 
+            //mostramos el formulario
+            $formulario.classList.remove('d-none');
+            $actualizaMuestraBtn.style.display = 'block';
 
+            $guardarMuestra.disabled = true;
 
+            $actualizaMuestraBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const idMuestra = document.getElementById('idMuestra').value;
+                const muestra  = {
+                    
+                    tipo: document.getElementById('tipo').value,
+                    fechaRecepcion: document.getElementById('fechaRecepcion').value,
+                    etiqueta: document.getElementById('etiqueta').value,
+                }
+
+                try {
+                    const response = await fetch(`/muestra/${idMuestra}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(muestra),
+                    });
+                    if (response.ok) {
+                        console.log('mensaje de despues del if');
+                        
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Bioquimica Doña ADN',
+                            text: 'Muestra Actualizada!',
+                        }).then(() => {
+                            
+                            window.location.href = 'http://localhost:3000/';
+                            window.location.href = 'http://localhost:3000/tecnico';
+                        });
+                    } else {
+                        console.log('mensaje de despues del else');
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Bioquimica Doña ADN',
+                            text: 'Error al actualizar la Muestra!',
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error al obtener las Muestras:', error);
+                }
+            });
+        });
+    });
+}
