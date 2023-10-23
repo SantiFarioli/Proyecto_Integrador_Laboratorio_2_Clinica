@@ -1,11 +1,16 @@
-import {Router} from 'express';
-import {getExamen, createExamen, updateExamen, deleteExamen} from '../controllers/exmane.controller.js';
+import { Router } from 'express';
+import {
+	getExamen,
+	createExamen,
+	updateExamen,
+	deleteExamen,
+} from '../controllers/examen.controller.js';
 
 const router = Router();
 
-router.get('/exmane', getExamen);   
-router.post('/exmane', createExamen);
-router.put('/exmane/:id', updateExamen);
-router.delete('/exmane/:id', deleteExamen);
+router.get('/examen', getExamen);
+router.post('/examen', createExamen);
+router.put('/examen/:id', updateExamen);
+router.delete('/examen/:id', deleteExamen);
 
 export default router;
