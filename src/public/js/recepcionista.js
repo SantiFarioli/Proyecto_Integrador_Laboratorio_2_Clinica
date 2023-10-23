@@ -324,11 +324,30 @@ const formularioOrdenTrabajo = document.getElementById(
 	'formulario-orden-trabajo'
 );
 const generarOrdenButton = document.getElementById('navbarOrdenTrabjo');
+const btnAgergarExamen = document.getElementById('agregarExamenes');
+
 document.addEventListener('DOMContentLoaded', function () {
 	generarOrdenButton.addEventListener('click', function (e) {
 		e.preventDefault();
 
 		formularioOrdenTrabajo.classList.remove('d-none');
+		generarOrdenButton.addEventListener('click', async function (e) {
+			e.preventDefault();
+
+			try {
+				const response = await fetch('/pacientes');
+				if (response.ok) {
+					const pacientes = await response.json();
+					renderPacientesTable(pacientes);
+
+					// Obtener las filas después de renderizar la tabla
+				} else {
+					console.error('Error al obtener los pacientes.');
+				}
+			} catch (error) {
+				console.error('Error al obtener los pacientes:', error);
+			}
+		});
 	});
 });
 document.addEventListener('DOMContentLoaded', function () {
@@ -399,4 +418,33 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			});
 		});
+});
+
+generarOrdenButton.addEventListener('click', function () {
+	const tableBody = document
+		.getElementById('tablaExamenes')
+		.querySelector('tbody');
+
+	pacientes.forEach((examen) => {
+		const newRow = tableBody.insertRow();
+		newRow.innerHTML = `
+			<td >${examen.idExamen}</td>
+			<td >${examen.nombre}</td>
+			<td >${examen.descripcion}</td>
+			<td>
+			<input
+				type='checkbox'
+				id='checkboxExam${examen.idExamen}'
+				name='miCheckbox'
+				value='valorPorDefecto'
+			/>								
+			</td>
+		`;
+		tableBody.appendChild(newRow);
+	});
+
+	// Inicializa DataTable
+	$(document).ready(function () {
+		$('#tablaExamenes').DataTable({});
+	});
 });

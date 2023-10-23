@@ -496,6 +496,41 @@
 				<div id='formulario-orden' class='mt-4'>
 					<h2>Formulario de Orden de Trabajo</h2>
 					<div class='form-group'>
+						<label for='fechaCreacion'>Fecha Orden de Trabajo:</label>
+						<div class='input-group justify-content-center'>
+							<div class='input-group-append'>
+								<input
+									type='datetime-local'
+									class='form-control'
+									id='fecha_ord'
+									name='fecha_ord'
+								/>
+							</div>
+						</div>
+
+					</div>
+
+					<div class='form-group'>
+						<label for='estado'>Estado:</label>
+						<input
+							type='text'
+							class='form-control'
+							id='estado'
+							name='estado'
+							required
+						/>
+					</div>
+					<div class='form-group'>
+						<label for='diagnostico'>Diagnóstico:</label>
+						<textarea
+							class='form-control'
+							id='diagnostico'
+							name='diagnostico'
+							required
+						></textarea>
+					</div>
+
+					<div class='form-group'>
 						<label for='pacienteId'>ID del Paciente:</label>
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
@@ -521,52 +556,35 @@
 						</div>
 					</div>
 					<div class='form-group'>
-						<label for='estado'>Estado:</label>
-						<input
-							type='text'
-							class='form-control'
-							id='estado'
-							name='estado'
-							required
-						/>
-					</div>
-					<div class='form-group'>
-						<label for='diagnostico'>Diagnóstico:</label>
-						<textarea
-							class='form-control'
-							id='diagnostico'
-							name='diagnostico'
-							required
-						></textarea>
-					</div>
-					<div class='form-group'>
 						<label for='examenId'>ID del Examen:</label>
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
-								<div class='form-group'>
-									<label for='cantidadExamenes'>Cantidad de Exámenes:</label>
-									<input
-										type='number'
-										class='form-control'
-										id='cantidadExamenes'
-										name='cantidadExamenes'
-										required
-									/>
-								</div>
-
-								<div class='d-flex justify-content-center'>
+								<div class='d-flex flex-column justify-content-center'>
+									<table class='table table-bordered' id='tablaExamenes'>
+										<thead>
+											<tr>
+												<th>ID del Examen</th>
+												<th>Nombre del Examen</th>
+												<th>Descripción</th>
+												<th>Agregar</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- Aquí se mostrarán los exámenes seleccionados -->
+										</tbody>
+									</table>
 									<button
 										type='button'
 										class='btn btn-primary'
 										id='agregarExamenes'
 									>Agregar Exámenes</button>
+
 								</div>
 
 							</div>
 						</div>
 					</div>
 					<div class='d-flex justify-content-center'>
-						<!-- Agregar esta línea -->
 						<button type='submit' class='btn btn-success mt-3'>Crear Orden de
 							Trabajo</button>
 					</div>
