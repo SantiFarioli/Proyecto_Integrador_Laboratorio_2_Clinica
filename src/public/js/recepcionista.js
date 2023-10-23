@@ -248,69 +248,75 @@ function habilitarEmbarazoPorSexo(sexoSelect, embarazoSi, embarazoNo) {
 		});
 	}
 }
-/*const nombreInput = document.getElementById('nombre');
-			const apellidoInput = document.getElementById('apellido');
-			const dniInput = document.getElementById('dni');
-			const localidadInput = document.getElementById('localidad');
-			const provinciaInput = document.getElementById('provincia');
-			const fechaNacimientoInput = document.getElementById('fecha_nac');
-			const correoElectronicoInput =
-				document.getElementById('correo_electronico');
-			const telefonoInput = document.getElementById('telefono');
-			const obraSocialInput = document.getElementById('obra_social');
-			const numAfiliadoInput = document.getElementById('num_afiliado');
-			const sexoInput = document.getElementById('sexo'); // Obtén el valor del campo de sexo
-			const embarazoSi = document.getElementById('embarazo-si');
-			const embarazoNo = document.getElementById('embarazo-no');
+document.addEventListener('DOMContentLoaded', function () {
+	formularioRegistroPaciente2.addEventListener('submit', async function (e) {
+		e.preventDefault();
+		console.log('mensaje de despues del prevent');
+		const nombreInput = document.getElementById('nombre');
+		const apellidoInput = document.getElementById('apellido');
+		const dniInput = document.getElementById('dni');
+		const localidadInput = document.getElementById('localidad');
+		const provinciaInput = document.getElementById('provincia');
+		const fechaNacimientoInput = document.getElementById('fecha_nac');
+		const correoElectronicoInput =
+			document.getElementById('correo_electronico');
+		const telefonoInput = document.getElementById('telefono');
+		const obraSocialInput = document.getElementById('obra_social');
+		const numAfiliadoInput = document.getElementById('num_afiliado');
+		const sexoInput = document.getElementById('sexo'); // Obtén el valor del campo de sexo
+		const embarazoSi = document.getElementById('embarazo-si');
+		const embarazoNo = document.getElementById('embarazo-no');
 
-			const embarazoInput = embarazoSi.checked ? true : false;
+		const embarazoInput = embarazoSi.checked ? true : false;
 
-			habilitarEmbarazoPorSexo(sexoInput, embarazoSi, embarazoNo);
+		habilitarEmbarazoPorSexo(sexoSelect, embarazoSi, embarazoNo);
 
-			// Realiza el registro del paciente y obtén la respuesta del servidor
-			const datosPaciente = {
-				nombre: nombreInput.value,
-				apellido: apellidoInput.value,
-				dni: dniInput.value,
-				localidad: localidadInput.value,
-				provincia: provinciaInput.value,
-				fecha_nac: fechaNacimientoInput.value,
-				correo_electronico: correoElectronicoInput.value,
-				telefono: telefonoInput.value,
-				obra_social: obraSocialInput.value,
-				num_afiliado: numAfiliadoInput.value,
-				sexo: sexoInput.value,
-				embarazo: embarazoInput,
-			};
+		// Realiza el registro del paciente y obtén la respuesta del servidor
+		const datosPaciente = {
+			nombre: nombreInput.value,
+			apellido: apellidoInput.value,
+			dni: dniInput.value,
+			localidad: localidadInput.value,
+			provincia: provinciaInput.value,
+			fecha_nac: fechaNacimientoInput.value,
+			correo_electronico: correoElectronicoInput.value,
+			telefono: telefonoInput.value,
+			obra_social: obraSocialInput.value,
+			num_afiliado: numAfiliadoInput.value,
+			sexo: sexoInput.value,
+			embarazo: embarazoInput,
+		};
 
-			const response = await fetch('/pacientes', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(datosPaciente),
+		const response = await fetch('/pacientes', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(datosPaciente),
+		});
+		if (response.ok) {
+			console.log('mensaje de despues del if');
+			// Mostrar un mensaje de éxito con Swal.fire
+			Swal.fire({
+				icon: 'success',
+				title: 'Bioquimica Doña ADN',
+				text: 'Paciente Registrado!',
+			}).then(() => {
+				// Redirigir al usuario a la pantalla principal
+				window.location.href = 'http://localhost:3000/';
+				window.location.href = 'http://localhost:3000/recepcionista';
 			});
-
-			if (response.ok) {
-				console.log('mensaje de despues del if');
-				// Mostrar un mensaje de éxito con Swal.fire
-				Swal.fire({
-					icon: 'success',
-					title: 'Bioquimica Doña ADN',
-					text: 'Paciente Registrado!',
-				}).then(() => {
-					// Redirigir al usuario a la pantalla principal
-					window.location.href = 'http://localhost:3000/recepcionista';
-				});
-			} else {
-				console.log('mensaje de despues del else');
-				// Manejar errores (por ejemplo, mostrar un mensaje de error)
-				Swal.fire({
-					icon: 'error',
-					title: 'Bioquimica Doña ADN',
-					text: 'Error al registrar el paciente!',
-				});
-			}*/
+		} else {
+			console.log('mensaje de despues del else');
+			// Manejar errores (por ejemplo, mostrar un mensaje de error)
+			Swal.fire({
+				icon: 'error',
+				title: 'Bioquimica Doña ADN',
+				text: 'Error al registrar el paciente!',
+			});
+		}
+	});
+});
 /*********************************************
  *     Generar Orden de Trabajo
  *********************************************/
