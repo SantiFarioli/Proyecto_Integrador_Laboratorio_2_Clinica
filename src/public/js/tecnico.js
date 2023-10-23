@@ -3,27 +3,38 @@ const $muestra = document.getElementById('cargar-muestras-btn');
 const $cargarOrdenes = document.getElementById('cargar-ordenes');
 const $ordenesTable = document.getElementById('ordenes-table');
 const $guardarMuestra = document.getElementById('guardar');
+const $cargarMuestras = document.getElementById('cargar-muestras');
+const $muestraTable = document.getElementById('muestra-table');
 
 
 
-$muestra.addEventListener('click',  (e) => {
-    e.preventDefault();
-    $formulario.classList.remove('d-none');
-});
+
 
 $guardarMuestra.addEventListener('click', async (e) => {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Muestra Registrada',
-        showConfirmButton: false,
-        timer: 1500
-      });
+    
     try {
-        const response = await fetch('/muestra'); 
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Muestra Registrada',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        const response = await fetch('/muestra', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tipo: document.getElementById('tipo').value,
+                fechaRecepcion: document.getElementById('fechaRecepcion').value,
+                etiqueta: document.getElementById('etiqueta').value,
+                idOrdenTrabajo: document.getElementById('idOrdenTrabajo').value
+            })
+        }); 
         if (response.ok) {
             const muestra = await response.json();
-            renderMuestraTable(muestra);
+            console.log(muestra);
         } else {
             console.error('Error al obtener las Muestras.');
         }
@@ -54,7 +65,7 @@ $cargarOrdenes.addEventListener('click', async (e) => {
 
 function renderOrdenesTable(ordenes) {
     const table = `
-        <table class="table table-bordered table-striped" id='select-fila'>
+        <table class="table table-bordered table-striped" id='myTable'>
             <thead>
                 <tr>
                     <th scope="col">ID Orden de Trabajo</th>
@@ -82,7 +93,7 @@ function renderOrdenesTable(ordenes) {
     $ordenesTable.innerHTML = table;
 
     $(document).ready(function () {
-        $('#select-fila').DataTable();
+        $('#myTable').DataTable();
     })
 
     ordenes.forEach((ordenTrabajo) => {
@@ -99,6 +110,52 @@ function renderOrdenesTable(ordenes) {
         });
     });
 }
+
+$muestra.addEventListener('click',  async (e) => {
+    try {
+        const response = await fetch('/muestra');
+        if (response.ok) {
+            const muestras = await response.json();
+            renderMuestrasTable(muestras);
+        } else {
+            console.error('Error al obtener las Muestras.');
+        }
+    } catch (error) {
+        console.error('Error al obtener las Muestras:', error);       
+    } 
+});
+
+function renderMuestrasTable(muestras) {
+    const table = `
+        <table class="table table-bordered table-striped" id='myTable'>
+        <thead>
+            <tr>
+                <th scope="col">ID Muestra</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Fecha de Recepción</th>
+                <th scope="col">Etiqueta</th>
+                <th scope="col">ID Orden de Trabajo</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${muestras.map((muestra) => `
+                <tr>
+                    <th scope="row">${muestra.idMuestra}</th>
+                    <td>${muestra.tipo}</td>
+                    <td>${muestra.fechaRecepcion}</td>
+                    <td>${muestra.etiqueta}</td>
+                    <td>${muestra.idOrdenTrabajo}</td>
+                </tr> 
+                `).join('')}
+        </tbody>
+        </table>
+    `;
+    $muestraTable.innerHTML = table;
+
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+};
 
 
 
