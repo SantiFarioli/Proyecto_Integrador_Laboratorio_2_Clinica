@@ -23,10 +23,6 @@ const sexoSelect = document.getElementById('sexo');
 const embarazoSi = document.getElementById('embarazo-si');
 const embarazoNo = document.getElementById('embarazo-no');
 
-const sexoSelect2 = document.getElementById('sexo2');
-const embarazoSi2 = document.getElementById('embarazo-si2');
-const embarazoNo2 = document.getElementById('embarazo-no2');
-
 function habilitarBotonSegunTabla() {
 	const filas = tablaPacientes.querySelectorAll('tbody tr');
 	mostrarFormularioBusqueda.disabled = filas.length > 0;
@@ -144,8 +140,32 @@ document.addEventListener('click', function (event) {
 					`<input id="dniPaciente" class="swal2-input" placeholder="DNI" value="${rowData.dni}">` +
 					`<input id="localidadPaciente" class="swal2-input" placeholder="Localidad" value="${rowData.localidad}">` +
 					`<input id="provinciaPaciente" class="swal2-input" placeholder="Provincia" value="${rowData.provincia}">` +
-					`<input id="sexoPaciente" class="swal2-input" placeholder="Sexo" value="${rowData.sexo}">` +
-					`<input id="embarazoPaciente" class="swal2-input" placeholder="Embarazo" value="${rowData.embarazo}">` +
+					`<div class='form-group'>
+					<label for='sexo'>Sexo:</label>
+					<select class='form-control' id='sexoPaciente' name='sexoPaciente' required>
+					  <option value='masculino' ${
+							rowData.sexo === 'masculino' ? 'selected' : ''
+						}>Masculino</option>
+					  <option value='femenino' ${
+							rowData.sexo === 'femenino' ? 'selected' : ''
+						}>Femenino</option>
+					</select>
+				 </div>` +
+					`<div class='form-group'>
+					<label for='embarazoPaciente'>Embarazo:</label>
+					<div class='form-check'>
+					  <input type='radio' class='form-check-input' id='embarazo-si' name='embarazoPaciente' value='Sí' required ${
+							rowData.embarazo ? 'checked' : ''
+						} />
+					  <label class='form-check-label' for='embarazo-si'>Sí</label>
+					</div>
+					<div class='form-check'>
+					  <input type='radio' class='form-check-input' id='embarazo-no' name='embarazoPaciente' value='No' required ${
+							!rowData.embarazo ? 'checked' : ''
+						} />
+					  <label class='form-check-label' for='embarazo-no'>No</label>
+					</div>
+				 </div>` +
 					`<input id="fechaNacimientoPaciente" class="swal2-input" placeholder="Fecha de Nacimiento" value="${rowData.fecha_nac}">` +
 					`<input id="correoPaciente" class="swal2-input" placeholder="Correo Electrónico" value="${rowData.correo_electronico}">` +
 					`<input id="telefonoPaciente" class="swal2-input" placeholder="Teléfono" value="${rowData.telefono}">` +
@@ -165,7 +185,9 @@ document.addEventListener('click', function (event) {
 						obra_social: document.getElementById('obraSocialPaciente').value,
 						num_afiliado: document.getElementById('numAfiliadoPaciente').value,
 						sexo: document.getElementById('sexoPaciente').value,
-						embarazo: document.getElementById('embarazoPaciente').value,
+						embarazo:
+							document.querySelector('input[name="embarazoPaciente"]:checked')
+								.value === 'Sí',
 					};
 				},
 			}).then((result) => {
