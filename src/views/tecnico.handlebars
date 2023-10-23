@@ -149,6 +149,10 @@
 						<form action="/muestra"  method="post"  id="form" class="d-none">
 							<h3>Registro de Muestra</h3>
 								<div class="mb-3">
+    								<label for="idMuestra" class="form-label">ID de Muestra</label>
+    								<input type="text" class="form-control" id="idMuestra" name="idMuestra" readonly>
+								</div>
+								<div class="mb-3">
 									<label for="tipoMuestra" class="form-label">Tipo de Muestra</label>
 									<input type="text" class="form-control" id="tipo" name="tipo" required>
 								</div>
@@ -165,6 +169,9 @@
 									<input type="number" class="form-control" id="idOrdenTrabajo" name="idOrdenTrabajo" required>
 								</div>
 								<button type="submit" class="mb-3 btn btn-primary" id="guardar">Guardar Muestra</button>
+								<button type="button" class="mb-3 btn btn-primary" id="actualizar">Actualizar</button>
+								
+
 						</form>
 					</div>
 				</div>

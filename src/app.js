@@ -7,6 +7,7 @@ import pacienteRoutes from './router/paciente.ruta.js';
 import muestraRouter from './router/muestra.ruta.js';
 import medicoRouter from './router/medico.ruta.js';
 import ordenTrabajoRouter from './router/ordenTrabajo.ruta.js';
+import examenRouter from './router/examen.ruta.js';
 const app = express();
 
 app.engine('handlebars', engine());
@@ -49,5 +50,6 @@ app.use(pacienteRoutes);
 app.use(muestraRouter);
 app.use(ordenTrabajoRouter);
 app.use(medicoRouter);
+app.use(examenRouter);
 export default app;
 main();
