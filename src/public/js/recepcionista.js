@@ -197,8 +197,10 @@ document.addEventListener('click', function (event) {
 					Swal.fire({
 						icon: 'info',
 						title: 'Actualizando Datos...',
-						showConfirmButton: false,
+						showConfirmButton: true,
 					});
+					window.location.href = 'http://localhost:3000/';
+					window.location.href = 'http://localhost:3000/recepcionista';
 
 					// Enviar los datos del paciente al servidor para actualizar
 					fetch('/pacientes/actualizar/' + pacienteId, {
@@ -327,30 +329,6 @@ const generarOrdenButton = document.getElementById('navbarOrdenTrabjo');
 const btnAgergarExamen = document.getElementById('agregarExamenes');
 
 document.addEventListener('DOMContentLoaded', function () {
-	generarOrdenButton.addEventListener('click', function (e) {
-		e.preventDefault();
-
-		formularioOrdenTrabajo.classList.remove('d-none');
-		generarOrdenButton.addEventListener('click', async function (e) {
-			e.preventDefault();
-
-			try {
-				const response = await fetch('/pacientes');
-				if (response.ok) {
-					const pacientes = await response.json();
-					renderPacientesTable(pacientes);
-
-					// Obtener las filas después de renderizar la tabla
-				} else {
-					console.error('Error al obtener los pacientes.');
-				}
-			} catch (error) {
-				console.error('Error al obtener los pacientes:', error);
-			}
-		});
-	});
-});
-document.addEventListener('DOMContentLoaded', function () {
 	document
 		.getElementById('cargarMedico')
 		.addEventListener('click', function () {
@@ -420,31 +398,77 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 });
 
-generarOrdenButton.addEventListener('click', function () {
-	const tableBody = document
+function renderexamenTable(examen) {
+	const tableBody2 = document
 		.getElementById('tablaExamenes')
 		.querySelector('tbody');
 
-	pacientes.forEach((examen) => {
-		const newRow = tableBody.insertRow();
+	examen.forEach((examenes) => {
+		const newRow = tableBody2.insertRow();
 		newRow.innerHTML = `
-			<td >${examen.idExamen}</td>
-			<td >${examen.nombre}</td>
-			<td >${examen.descripcion}</td>
+			<td >${examenes.idExamen}</td>
+			<td >${examenes.nombre}</td>
+			<td >${examenes.descripcion}</td>
 			<td>
 			<input
 				type='checkbox'
-				id='checkboxExam${examen.idExamen}'
+				id='checkboxExam${examenes.idExamen}'
 				name='miCheckbox'
 				value='valorPorDefecto'
 			/>								
 			</td>
 		`;
-		tableBody.appendChild(newRow);
+		tableBody2.appendChild(newRow);
 	});
 
 	// Inicializa DataTable
 	$(document).ready(function () {
-		$('#tablaExamenes').DataTable({});
+		$('#tablaExamenes').DataTable({
+			paging: false,
+			scrollCollapse: true,
+			scrollY: '150px',
+		});
 	});
+}
+
+document.addEventListener('click', async function (event) {
+	const target2 = event.target;
+	if (target2 && target2.id.startsWith('iconoOrden')) {
+		// Obtener el ID del paciente desde el icono
+		const pacienteId = target2.id.replace('iconoOrden', '');
+
+		// Mostrar el formulario de registro
+		document.getElementById('formulario-registro').classList.add('d-none');
+
+		// Ocultar el formulario de orden de trabajo
+		document
+			.getElementById('formulario-orden-trabajo')
+			.classList.remove('d-none');
+
+		try {
+			const response = await fetch('/examen');
+			if (response.ok) {
+				const examen = await response.json();
+				renderexamenTable(examen);
+
+				// Obtener las filas después de renderizar la tabla
+			} else {
+				console.error('Error al obtener los examen.');
+			}
+		} catch (error) {
+			console.error('Error al obtener los examen:', error);
+		}
+
+		// Recopilar los datos de la fila de la tabla
+		const pacienteData = [];
+		const tableRow = target2.closest('tr');
+		tableRow.querySelectorAll('td').forEach((cell) => {
+			pacienteData.push(cell.textContent);
+		});
+
+		// Rellenar el campo pacienteId en el formulario de registro con nombre y apellido
+		const pacienteIdInput = document.getElementById('pacienteIdInput');
+		pacienteIdInput.value = `${pacienteData[1]} ${pacienteData[2]}`;
+		console.log(pacienteData);
+	}
 });

@@ -52,20 +52,11 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link' id='navbarOrdenTrabjo'>Generar
-								Orden de Trabajo</a>
-						</li>
-						<li class='sidebar-item'>
 							<a href='#' class='sidebar-link'>Consultar Orden de Trabajo</a>
 						</li>
 					</ul>
 				</li>
-				<li class='sidebar-item'>
-					<a href='#' class='sidebar-link'>
-						<i class='fa-solid fa-flask-vial pe-2'></i>
-						Recepción de Muestras
-					</a>
-				</li>
+
 				<li class='sidebar-item'>
 					<a
 						href='#'
@@ -509,36 +500,39 @@
 						</div>
 
 					</div>
+					<div class='form-row justify-content-center'>
+
+						<div class='col-md-6 mx-auto'>
+							<label for='estado'>Estado:</label>
+							<input
+								type='text'
+								class='form-control'
+								id='estado'
+								name='estado'
+								required
+							/>
+						</div>
+						<div class='col-md-6 mx-auto'>
+							<label for='diagnostico'>Diagnóstico:</label>
+							<textarea
+								class='form-control'
+								id='diagnostico'
+								name='diagnostico'
+								required
+							></textarea>
+						</div>
+					</div>
 
 					<div class='form-group'>
-						<label for='estado'>Estado:</label>
-						<input
-							type='text'
-							class='form-control'
-							id='estado'
-							name='estado'
-							required
-						/>
-					</div>
-					<div class='form-group'>
-						<label for='diagnostico'>Diagnóstico:</label>
-						<textarea
-							class='form-control'
-							id='diagnostico'
-							name='diagnostico'
-							required
-						></textarea>
-					</div>
-
-					<div class='form-group'>
-						<label for='pacienteId'>ID del Paciente:</label>
+						<label for='pacienteId'>Nombre y Apelido del Paciente:</label>
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
-								<button
-									type='button'
-									class='btn btn-primary'
-									id='buscarPaciente'
-								>Buscar Paciente</button>
+								<input
+									type='text'
+									class='form-control'
+									id='pacienteIdInput'
+									name='estado'
+								/>
 							</div>
 						</div>
 
@@ -560,7 +554,10 @@
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
 								<div class='d-flex flex-column justify-content-center'>
-									<table class='table table-bordered' id='tablaExamenes'>
+									<table
+										class='table table-bordered text-center'
+										id='tablaExamenes'
+									>
 										<thead>
 											<tr>
 												<th>ID del Examen</th>
