@@ -6,6 +6,8 @@ const $guardarMuestra = document.getElementById('guardar');
 const $cargarMuestras = document.getElementById('cargar-muestras');
 const $muestraTable = document.getElementById('muestra-table');
 const $actualizaMuestraBtn = document.getElementById('actualizar');
+const $examen = document.getElementById('cargar-examen-btn');
+const $examenForm = document.getElementById('form-examen');
 
 
 
@@ -239,3 +241,10 @@ function renderMuestrasTable(muestras) {
         });
     });
 }
+
+
+$examen.addEventListener('click', async (e) => {
+    e.preventDefault();
+    $examenForm.classList.remove('d-none');
+
+})
