@@ -6,6 +6,9 @@ const $guardarMuestra = document.getElementById('guardar');
 const $cargarMuestras = document.getElementById('cargar-muestras');
 const $muestraTable = document.getElementById('muestra-table');
 const $actualizaMuestraBtn = document.getElementById('actualizar');
+const $examen = document.getElementById('cargar-examen-btn');
+const $examenForm = document.getElementById('form-examen');
+const $guardarExamen = document.getElementById('guardar-examen');
 
 
 
@@ -239,3 +242,49 @@ function renderMuestrasTable(muestras) {
         });
     });
 }
+
+
+$examen.addEventListener('click', async (e) => {
+    e.preventDefault();
+    $examenForm.classList.remove('d-none');
+
+})
+
+$guardarExamen.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value;
+    const descripcion = document.getElementById('descripcion').value;
+
+    try {
+        const response = await fetch('/examen', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nombre, descripcion }),
+        });
+        if (response.ok) {
+            console.log('mensaje de despues del if');
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Bioquimica Doña ADN',
+                text: 'Examen Creado!',
+            }).then(() => {
+                
+                window.location.href = 'http://localhost:3000/';
+                window.location.href = 'http://localhost:3000/tecnico';
+            });
+        } else {
+            console.log('mensaje de despues del else');
+            
+            Swal.fire({
+                icon: 'error',
+                title: 'Bioquimica Doña ADN',
+                text: 'Error al crear el Examen!',
+            });
+        }
+        } catch (error) {
+            console.error('Error al obtener las Muestras:', error);
+        }
+});

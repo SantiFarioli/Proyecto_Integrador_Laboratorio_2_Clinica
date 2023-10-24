@@ -66,7 +66,11 @@
 							</a> <!-- consultar orden de trabajo(buscar)-->
 						</li>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link'>Cargar Examen</a> <!-- consultar orden de trabajo(buscar)-->
+							<a href='#'
+							class='sidebar-link'
+							id="cargar-examen-btn"
+					>
+							Cargar Examen</a> <!-- consultar orden de trabajo(buscar)-->
 						</li>
 					</ul>
 				</li>
@@ -150,7 +154,7 @@
 							<h3>Registro de Muestra</h3>
 								<div class="mb-3">
     								<label for="idMuestra" class="form-label">ID de Muestra</label>
-    								<input type="text" class="form-control" id="idMuestra" name="idMuestra" readonly>
+    								<input type="number" class="form-control" id="idMuestra" name="idMuestra" readonly>
 								</div>
 								<div class="mb-3">
 									<label for="tipoMuestra" class="form-label">Tipo de Muestra</label>
@@ -170,8 +174,6 @@
 								</div>
 								<button type="submit" class="mb-3 btn btn-primary" id="guardar">Guardar Muestra</button>
 								<button type="button" class="mb-3 btn btn-primary" id="actualizar">Actualizar</button>
-								
-
 						</form>
 					</div>
 				</div>
@@ -180,7 +182,26 @@
 
 				</div>
 
-				
+				<div class='row'>
+					<div class='col-lg-6 offset-md-3'>				
+						<form action="/muestra"  method="post"  id="form-examen" class="d-none">
+							<h3>Registro de Examen</h3>
+								<div class="mb-3">
+    								<label for="idExamen" class="form-label">ID de Examen</label>
+    								<input type="number" class="form-control" id="idExamen" name="idExamen" readonly>
+								</div>
+								<div class="mb-3">
+									<label for="nombre" class="form-label">Nombre</label>
+									<input type="text" class="form-control" id="nombre" name="nombre" required>
+								</div>
+								<div class="mb-3">
+									<label for="descripcion" class="form-label">Descripción</label>
+									<input type="text" class="form-control" id="descripcion" name="descripcion" required>
+								</div>
+								<button type="submit" class="mb-3 btn btn-primary" id="guardar-examen">Guardar Examen</button>
+						</form>
+					</div>
+				</div>	
 			</div>
 		</main>
 	</div>
