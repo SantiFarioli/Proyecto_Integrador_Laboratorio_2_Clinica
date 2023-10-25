@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/database.js';
-import { muestra } from './muestra.js';
+import { muestraRequerida } from './muestraRequerida.js';
 
 
 
@@ -24,12 +24,12 @@ export const orden_trabajo = sequelize.define('ordenes_trabajo', {
 	},
 });
 
-orden_trabajo.hasMany(muestra, {
+orden_trabajo.hasMany(muestraRequerida, {
 	foreignKey: 'idOrdenTrabajo',
 	sourceKey: 'idOrdenTrabajo',
 });
 
-muestra.belongsTo(orden_trabajo, {
+muestraRequerida.belongsTo(orden_trabajo, {
 	foreignKey: 'idOrdenTrabajo',
 	targetKey: 'idOrdenTrabajo',
 });

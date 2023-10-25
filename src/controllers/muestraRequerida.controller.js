@@ -1,9 +1,9 @@
-import { muestra } from '../models/muestra.js';
+import { muestraRequerida } from '../models/muestraRequerida.js';
 
 
 export const getMuestras = async (req, res) => {
     try {
-        const muestras = await muestra.findAll();
+        const muestras = await muestraRequerida.findAll();
         res.json(muestras);
     } catch (error) {
         return res.status(500).json({
@@ -22,7 +22,7 @@ export const createMuestra = async (req, res) => {
     } = req.body;
     
     try {
-        const newMuestra = await muestra.create({
+        const newMuestra = await muestraRequerida.create({
             tipo,
             fechaRecepcion,
             etiqueta,
@@ -47,7 +47,7 @@ export const updateMuestra = async (req, res) => {
     } = req.body;
     
     try {
-        const muestraActualizada = await muestra.findByPk(idMuestra);
+        const muestraActualizada = await muestraRequerida.findByPk(idMuestra);
         if (!muestraActualizada) {
             return res.status(404).json({
                 message: 'Muestra no encontrada',
@@ -71,7 +71,7 @@ export const updateMuestra = async (req, res) => {
 export const deleteMuestra = async(req, res) => {
     const  idMuestra  = req.params;
     try {
-        const result = await muestra.destroy({
+        const result = await muestraRequerida.destroy({
             where: {idMuestra}
         });
         console.log(result);

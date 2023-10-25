@@ -4,7 +4,7 @@ import { __dirname } from './utils.js';
 import * as path from 'path';
 import { main } from './index.js';
 import pacienteRoutes from './router/paciente.ruta.js';
-import muestraRouter from './router/muestra.ruta.js';
+import muestraRequeridaRouter from './router/muestraRequerida.ruta.js';
 import medicoRouter from './router/medico.ruta.js';
 import ordenTrabajoRouter from './router/ordenTrabajo.ruta.js';
 import examenRouter from './router/examen.ruta.js';
@@ -47,7 +47,7 @@ app.use('/recepcionista', (req, res) => {
 });
 
 app.use(pacienteRoutes);
-app.use(muestraRouter);
+app.use(muestraRequeridaRouter);
 app.use(ordenTrabajoRouter);
 app.use(medicoRouter);
 app.use(examenRouter);

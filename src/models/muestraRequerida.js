@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/database.js';
 
-export const muestra = sequelize.define('muestras', {
-	idMuestra: {
+export const muestraRequerida = sequelize.define('muestrasRequeridas', {
+	idMuestraRequerida: {
 		type: DataTypes.INTEGER,
 		primaryKey: true,
 		autoIncrement: true,

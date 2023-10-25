@@ -3,7 +3,7 @@ import { getMuestras,
         createMuestra, 
         updateMuestra, 
         deleteMuestra,
-     } from '../controllers/muestra.controller.js';
+     } from '../controllers/muestraRequerida.controller.js';
 
 const router = Router();
 

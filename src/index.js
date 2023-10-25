@@ -8,7 +8,7 @@ import './models/medico.js';
 import './models/valor_referencia.js';
 import './models/determinacion.js';
 import './models/examen.js';
-import './models/muestra.js';
+import './models/muestraRequerida.js';
 import './models/bioquimico.js';
 import './models/usuario.js';
 import './models/resultado.js';
