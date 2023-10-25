@@ -72,6 +72,7 @@ function renderPacientesTable(pacientes) {
 	const tableBody = document
 		.getElementById('tablaDePacientes')
 		.querySelector('tbody');
+	tableBody.innerHTML = '';
 
 	pacientes.forEach((paciente) => {
 		const newRow = tableBody.insertRow();
@@ -98,12 +99,14 @@ function renderPacientesTable(pacientes) {
 		tableBody.appendChild(newRow);
 	});
 
+	if (pacientesDataTable) {
+		pacientesDataTable.destroy();
+	}
+
 	// Inicializa DataTable
-	$(document).ready(function () {
-		$('#tablaDePacientes').DataTable({
-			// Otras opciones de configuración
-			editable: true, // Habilitar la edición en línea
-		});
+	pacientesDataTable = $('#tablaDePacientes').DataTable({
+		// Otras opciones de configuración
+		editable: true, // Habilitar la edición en línea
 	});
 }
 
@@ -214,13 +217,8 @@ document.addEventListener('click', function (event) {
 									icon: 'success',
 									title: 'Paciente actualizado con éxito',
 									showConfirmButton: true,
-								}).then((result) => {
-									if (result.isConfirmed) {
-										window.location.href = 'http://localhost:3000/';
-										window.location.href =
-											'http://localhost:3000/recepcionista';
-									}
 								});
+								refreshPacientesTable();
 							} else {
 								Swal.fire({
 									icon: 'error',
@@ -240,6 +238,22 @@ document.addEventListener('click', function (event) {
 		}
 	}
 });
+
+async function refreshPacientesTable() {
+	try {
+		const response = await fetch('/pacientes');
+		if (response.ok) {
+			const pacientes = await response.json();
+			renderPacientesTable(pacientes);
+
+			// Obtener las filas después de renderizar la tabla
+		} else {
+			console.error('Error al obtener los pacientes.');
+		}
+	} catch (error) {
+		console.error('Error al obtener los pacientes:', error);
+	}
+}
 
 function habilitarEmbarazoPorSexo(sexoSelect, embarazoSi, embarazoNo) {
 	if (sexoSelect) {
