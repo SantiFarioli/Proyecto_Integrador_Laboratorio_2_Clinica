@@ -1,0 +1,4 @@
+#tablaDePacientes {
+	max-height: 70vh; /* Ajusta el valor según tus necesidades */
+	overflow: auto;
+}

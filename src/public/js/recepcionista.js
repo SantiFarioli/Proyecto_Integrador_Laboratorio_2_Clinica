@@ -199,8 +199,6 @@ document.addEventListener('click', function (event) {
 						title: 'Actualizando Datos...',
 						showConfirmButton: true,
 					});
-					window.location.href = 'http://localhost:3000/';
-					window.location.href = 'http://localhost:3000/recepcionista';
 
 					// Enviar los datos del paciente al servidor para actualizar
 					fetch('/pacientes/actualizar/' + pacienteId, {
@@ -215,6 +213,13 @@ document.addEventListener('click', function (event) {
 								Swal.fire({
 									icon: 'success',
 									title: 'Paciente actualizado con éxito',
+									showConfirmButton: true,
+								}).then((result) => {
+									if (result.isConfirmed) {
+										window.location.href = 'http://localhost:3000/';
+										window.location.href =
+											'http://localhost:3000/recepcionista';
+									}
 								});
 							} else {
 								Swal.fire({
