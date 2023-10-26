@@ -9,6 +9,7 @@ import './models/valor_referencia.js';
 import './models/determinacion.js';
 import './models/examen.js';
 import './models/muestraRequerida.js';
+import './models/muestra.js';
 import './models/bioquimico.js';
 import './models/usuario.js';
 import './models/resultado.js';
@@ -20,7 +21,7 @@ import './models/admin.js';
 
 export async function main() {
 	try {
-		await sequelize.sync({ alert: true });
+		await sequelize.sync({ force: true });
 		console.log('conexion establecida con exito');
 		app.listen(port, () => {
 			console.log(`Escuchando en el puerto ${port}`);
