@@ -427,11 +427,13 @@ function renderexamenTable(examen) {
 	examen.forEach((examenes) => {
 		const newRow = tableBody2.insertRow();
 		newRow.innerHTML = `
-			<td >${examenes.idExamen}</td>
-			<td >${examenes.nombre}</td>
-			<td >${examenes.descripcion}</td>
+			<td>${examenes.idExamen}</td>
+			<td>${examenes.codiigo}</td>
+			<td>${examenes.descripcion}</td>
+			<td>${examenes.requisitosExamen}</td>
+			<td>${examenes.tiempoDeExamen}</td>
 			<td>
-			<i class="fa-solid fa-plus" id='checkboxExam${examenes.idExamen}'></i>								
+				<i class="fa-solid fa-plus" id='checkboxExam${examenes.idExamen}'></i>								
 			</td>
 		`;
 		tableBody2.appendChild(newRow);
