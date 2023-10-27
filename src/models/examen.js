@@ -9,14 +9,27 @@ export const examen = sequelize.define('examenes', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	nombre: {
+	codiigo: {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
 	descripcion: {
 		type: DataTypes.STRING,
 		allowNull: false,
+		timeStamp: true,
+	}, 
+	requisitosExamen: {
+		type: DataTypes.STRING,
+		allowNull: false,
 	},
+	tiempoDeExamen: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	}
+	
+}
+, {
+	timestamps: false
 });
 
 examen.hasMany(determinacion, {
