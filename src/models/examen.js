@@ -9,7 +9,7 @@ export const examen = sequelize.define('examenes', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	codiigo: {
+	codigo: {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
