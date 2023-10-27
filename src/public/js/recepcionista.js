@@ -34,6 +34,8 @@ const observer = new MutationObserver(habilitarBotonSegunTabla);
 // Configura el observador para observar cambios en el contenido de la tabla
 const config = { childList: true, subtree: true };
 
+let pacientesDataTable;
+
 document.addEventListener('DOMContentLoaded', function () {
 	// Agrega un evento al enlace 'Registrar Paciente' en la barra lateral
 	formularioBusqueda.addEventListener('click', function (e) {
@@ -69,6 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function renderPacientesTable(pacientes) {
+	if (pacientesDataTable) {
+		pacientesDataTable.destroy();
+	}
 	const tableBody = document
 		.getElementById('tablaDePacientes')
 		.querySelector('tbody');
@@ -98,10 +103,6 @@ function renderPacientesTable(pacientes) {
 		`;
 		tableBody.appendChild(newRow);
 	});
-
-	if (pacientesDataTable) {
-		pacientesDataTable.destroy();
-	}
 
 	// Inicializa DataTable
 	pacientesDataTable = $('#tablaDePacientes').DataTable({
@@ -200,7 +201,7 @@ document.addEventListener('click', function (event) {
 					Swal.fire({
 						icon: 'info',
 						title: 'Actualizando Datos...',
-						showConfirmButton: true,
+						howConfirmButton: false,
 					});
 
 					// Enviar los datos del paciente al servidor para actualizar
@@ -218,6 +219,7 @@ document.addEventListener('click', function (event) {
 									title: 'Paciente actualizado con éxito',
 									showConfirmButton: true,
 								});
+
 								refreshPacientesTable();
 							} else {
 								Swal.fire({
@@ -244,9 +246,9 @@ async function refreshPacientesTable() {
 		const response = await fetch('/pacientes');
 		if (response.ok) {
 			const pacientes = await response.json();
-			renderPacientesTable(pacientes);
 
-			// Obtener las filas después de renderizar la tabla
+			renderPacientesTable(pacientes);
+			console.log('saludo del refresh');
 		} else {
 			console.error('Error al obtener los pacientes.');
 		}
@@ -429,12 +431,7 @@ function renderexamenTable(examen) {
 			<td >${examenes.nombre}</td>
 			<td >${examenes.descripcion}</td>
 			<td>
-			<input
-				type='checkbox'
-				id='checkboxExam${examenes.idExamen}'
-				name='miCheckbox'
-				value='valorPorDefecto'
-			/>								
+			<i class="fa-solid fa-plus" id='checkboxExam${examenes.idExamen}'></i>								
 			</td>
 		`;
 		tableBody2.appendChild(newRow);

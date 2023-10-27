@@ -1,5 +1,6 @@
 const adminPaciente = document.getElementById('adminPaciente');
 const viewsPaciente = document.getElementById('viewsPaciente');
+let pacientesDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
 	adminPaciente.addEventListener('click', async function (e) {
@@ -23,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function renderPacientesTable(pacientes) {
+	if (pacientesDataTable) {
+		pacientesDataTable.destroy();
+	}
 	const tableBody = document
 		.getElementById('tablaDePacientes')
 		.querySelector('tbody');
@@ -52,10 +56,6 @@ function renderPacientesTable(pacientes) {
 		`;
 		tableBody.appendChild(newRow);
 	});
-
-	if (pacientesDataTable) {
-		pacientesDataTable.destroy();
-	}
 
 	// Inicializa DataTable
 	pacientesDataTable = $('#tablaDePacientes').DataTable({
