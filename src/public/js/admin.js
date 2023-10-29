@@ -1,5 +1,8 @@
 const adminPaciente = document.getElementById('adminPaciente');
 const viewsPaciente = document.getElementById('viewsPaciente');
+const $tablaExamen = document.getElementById('table-examen');
+const $adminExamen = document.getElementById('adminExamen');
+const $formExamen = document.getElementById('form');
 let pacientesDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -210,3 +213,57 @@ async function refreshPacientesTable() {
 		console.error('Error al obtener los pacientes:', error);
 	}
 }
+
+function renderExamenesTable(examenes) {
+	const table = `
+		<table class="table table-bordered table-striped" id='myTable'>
+		<thead>
+			<tr>
+				<th scope="col" class="text-center">Codigo</th>
+				<th scope="col" class="text-center">Descripcion</th>
+				<th scope="col" class="text-center">Requisitos</th>
+				<th scope="col" class="text-center">Tiempo de examen</th>
+				<th scope="col" class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tbody class="text-center">
+			${examenes.map((examen) => `
+				<tr>
+					<td>${examen.codigo}</td>
+					<td>${examen.descripcion}</td>
+					<td>${examen.requisitos}</td>
+					<td>${examen.tiempoDeExamen}</td>
+					<td class="text-center ">
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
+					</td>
+				</tr>
+			`).join('')}
+		</tbody>
+		</table>
+	`;
+	$tablaExamen.innerHTML = table;
+
+	$(document).ready(function () {
+		$('#myTable').DataTable();
+	});
+
+	
+};
+
+
+$adminExamen.addEventListener('click',  async (e) => {	
+	try {
+		$formExamen.classList.remove('d-none');
+		const response = await fetch('/examen');
+		if (response.ok) {
+			const examenes = await response.json();
+			renderExamenesTable(examenes);		
+		} else {
+			console.error('Error al obtener los examenes.');
+		}
+	} catch (error) {
+		console.log('Error al obtener los examenes:', error);
+	}
+});
+
+

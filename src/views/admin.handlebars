@@ -150,12 +150,32 @@
 					</div>
 				</div>
 
-				<div id="form-examen">
-
+			<div id="row">
+				<div class='col-lg-6 offset-md-3' id="form-examen">
+					<form action="/muestra"  method="post"  id="form" class="d-none">
+						<h3 class="text-center">Registro de Examen</h3>						
+						<div class="mb-3">
+							<label for="codigo" class="form-label">Codigo</label>
+							<input type="text" class="form-control" id="codigo" name="codigo" placeholder="codigo">
+						</div>
+						<div class="mb-3">
+							<label for="descripcion" class="form-label">Descripcion</label>
+							<input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="descripcion">
+						</div>
+						<div class="mb-3">
+							<label for="requisitosExamen" class="form-label">Requisitos Examen</label>
+							<input type="text" class="form-control" id="requisitosExamen" name="requisitosExamen" placeholder="requisitosExamen">
+						</div>
+						<div class="mb-3">
+							<label for="tiempoDeExamen" class="form-label">Tiempo de Examen</label>
+							<input type="text" class="form-control" id="tiempoDeExamen" name="tiempoDeExamen" placeholder="tiempoDeExamen">
+						</div>
+					</form>
 				</div>
+			</div>
 
 				<div id="table-examen">
-					
+
 				</div>
 			</div>
 		</main>
