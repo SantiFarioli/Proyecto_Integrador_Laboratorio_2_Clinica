@@ -495,7 +495,7 @@ document.addEventListener('click', async function (event) {
 
 		// Rellenar el campo pacienteId en el formulario de registro con nombre y apellido
 		const pacienteIdInput = document.getElementById('pacienteIdInput');
-		pacienteIdInput.value = `${pacienteData[1]} ${pacienteData[2]}`;
+		pacienteIdInput.value = `${pacienteData[1]} ${pacienteData[2]},Dni:${pacienteData[3]}, Obra Social:${pacienteData[11]}`;
 		console.log(pacienteData);
 	}
 });

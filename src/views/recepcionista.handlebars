@@ -354,15 +354,18 @@
 					</div>
 					<div class='form-row justify-content-center'>
 
-						<div class='col-md-6 mx-auto'>
+						<div class='col-md-3 mx-auto'>
 							<label for='estado'>Estado:</label>
-							<input
-								type='text'
-								class='form-control'
+							<select
+								class='form-control text-center'
 								id='estado'
 								name='estado'
 								required
-							/>
+							>
+								<option value='analitica'>Analitica</option>
+								<option value='cancelada'>Cancelada</option>
+							</select>
+
 						</div>
 						<div class='col-md-6 mx-auto'>
 							<label for='diagnostico'>Diagnóstico:</label>
@@ -373,24 +376,25 @@
 								required
 							></textarea>
 						</div>
-					</div>
 
-					<div class='form-group'>
-						<label for='pacienteId'>Nombre y Apelido del Paciente:</label>
-						<div class='input-group justify-content-center'>
-							<div class='input-group-append'>
+						<div class='col-md-5 mx-auto'>
+							<label for='pacienteId'>Datos del Paciente:</label>
+							<div class='input-group justify-content-center'>
+
 								<input
 									type='text'
 									class='form-control'
 									id='pacienteIdInput'
 									name='estado'
+									readonly
 								/>
-							</div>
-						</div>
 
+							</div>
+
+						</div>
 					</div>
 					<div class='form-group'>
-						<label for='medicoId'>ID del Médico:</label>
+						<label for='medicoId'>Médico Solicitante:</label>
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
 								<button
@@ -402,7 +406,27 @@
 						</div>
 					</div>
 					<div class='form-group'>
-						<label for='examenId2'>ID del Examen Agregados:</label>
+						<label for='cantidadMuestras'>Muestras Entregadas:</label>
+						<div class='input-group justify-content-center'>
+							<div class='input-group-append'>
+								<input
+									type='number'
+									class='form-control'
+									id='cantidadMuestras'
+									name='CantidadMuestras'
+									value='0'
+								/>
+								<button
+									type='button'
+									class='btn btn-primary'
+									id='cargarMuestra'
+								>Cargar Muestras</button>
+							</div>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label for='examenId2'>Examen Agregados a Realizar:</label>
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
 								<div class='d-flex flex-column justify-content-center'>
@@ -431,7 +455,7 @@
 						</div>
 					</div>
 					<div class='form-group'>
-						<label for='examenId'>ID del Examen:</label>
+						<label for='examenId'>Examenes:</label>
 						<div class='input-group justify-content-center'>
 							<div class='input-group-append'>
 								<div class='d-flex flex-column justify-content-center'>
@@ -453,11 +477,6 @@
 											<!-- Aquí se mostrarán los exámenes seleccionados -->
 										</tbody>
 									</table>
-									<button
-										type='button'
-										class='btn btn-primary'
-										id='agregarExamenes'
-									>Agregar Exámenes</button>
 
 								</div>
 
