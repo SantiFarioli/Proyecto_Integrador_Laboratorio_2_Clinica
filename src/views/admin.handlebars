@@ -152,7 +152,7 @@
 
 			<div id="row">
 				<div class='col-lg-6 offset-md-3' id="form-examen">
-					<form action="/muestra"  method="post"  id="form" class="d-none">
+					<form action="/examen"  method="POST"  id="form" class="d-none">
 						<h3 class="text-center">Registro de Examen</h3>						
 						<div class="mb-3">
 							<label for="codigo" class="form-label">Codigo</label>
@@ -170,11 +170,20 @@
 							<label for="tiempoDeExamen" class="form-label">Tiempo de Examen</label>
 							<input type="text" class="form-control" id="tiempoDeExamen" name="tiempoDeExamen" placeholder="tiempoDeExamen">
 						</div>
+						<button type="submit" class="mb-3 btn btn-primary" id="guardarExamen">Guardar</button>
+						<button type="button" class="mb-3 btn btn-success" id="actualizarExamen">Actualizar</button>
+						<button type="button" class="mb-3 btn btn-danger" id="borrarExamen">Eliminar</button>
+						
 					</form>
 				</div>
 			</div>
 
-				<div id="table-examen">
+				<div class='col-lg-6 offset-md-3'>
+
+				
+				<div id="table-examen" class="text-center">
+
+				</div>
 
 				</div>
 			</div>
