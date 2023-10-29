@@ -13,7 +13,6 @@ export const getExamen = async (req, res) => {
 
 export const createExamen = async (req, res) => {
     const {
-        nombre,
         codigo,
         descripcion,
         requisitosExamen,
@@ -21,7 +20,6 @@ export const createExamen = async (req, res) => {
     } = req.body;
     try {
         const newExamen = await examen.create({
-            nombre,
             codigo,
             descripcion,
             requisitosExamen,
@@ -38,7 +36,6 @@ export const createExamen = async (req, res) => {
 export const updateExamen = async (req, res) => {
     const  idExamen  = req.params.id;
     const {
-        nombre,
         codigo,
         descripcion,
         requisitosExamen,
@@ -51,10 +48,10 @@ export const updateExamen = async (req, res) => {
                 message: 'Examen no encontrado',
             });
         }
-        examenActualizado.nombre = nombre;
         examenActualizado.codigo = codigo;
         examenActualizado.descripcion = descripcion;
         examenActualizado.requisitosExamen = requisitosExamen;
+        examenActualizado.tiempoDeExamen = tiempoDeExamen;
 
         await examenActualizado.save();
         res.jeson(examenActualizado);

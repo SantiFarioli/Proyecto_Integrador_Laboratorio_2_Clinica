@@ -3,6 +3,7 @@ const viewsPaciente = document.getElementById('viewsPaciente');
 const $tablaExamen = document.getElementById('table-examen');
 const $adminExamen = document.getElementById('adminExamen');
 const $formExamen = document.getElementById('form');
+const $guardarExamen = document.getElementById('guardarExamen');
 let pacientesDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -216,13 +217,11 @@ async function refreshPacientesTable() {
 
 function renderExamenesTable(examenes) {
 	const table = `
-		<table class="table table-bordered table-striped" id='myTable'>
+		<table class="tablita table table-bordered table-striped mx-auto" id='myTable'>
 		<thead>
 			<tr>
 				<th scope="col" class="text-center">Codigo</th>
 				<th scope="col" class="text-center">Descripcion</th>
-				<th scope="col" class="text-center">Requisitos</th>
-				<th scope="col" class="text-center">Tiempo de examen</th>
 				<th scope="col" class="text-center">Action</th>
 			</tr>
 		</thead>
@@ -230,9 +229,7 @@ function renderExamenesTable(examenes) {
 			${examenes.map((examen) => `
 				<tr>
 					<td>${examen.codigo}</td>
-					<td>${examen.descripcion}</td>
-					<td>${examen.requisitos}</td>
-					<td>${examen.tiempoDeExamen}</td>
+					<td>${examen.descripcion}</td>				
 					<td class="text-center ">
 					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
 					</td>
@@ -266,4 +263,41 @@ $adminExamen.addEventListener('click',  async (e) => {
 	}
 });
 
+
+$guardarExamen.addEventListener('click', async (e) => {
+	e.preventDefault();
+	const examen = {
+		codigo: document.getElementById('codigo').value,
+		descripcion: document.getElementById('descripcion').value,
+		requisitosExamen: document.getElementById('requisitosExamen').value,
+		tiempoDeExamen: document.getElementById('tiempoDeExamen').value,
+	};
+	try {
+		const response = await fetch('/examen', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(examen),
+		});
+		if (response.ok) {
+			Swal.fire({
+				icon: 'success',
+				title: 'Bioquimica Doña ADN',
+				text: 'Examen guardado con exito',
+			}).then(() => {
+				window.location.href = 'http://localhost:3000/';
+				window.location.href = 'http://localhost:3000/admin';
+			});
+		} else {
+			Swal.fire({
+				icon: 'error',
+				title: 'Error al guardar el examen',
+				text: 'Error al guardar el examen',
+			});
+		}
+	} catch (error) {
+		console.log('Error al guardar el examen:', error);
+	}
+});
 
