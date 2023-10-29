@@ -499,3 +499,31 @@ document.addEventListener('click', async function (event) {
 		console.log(pacienteData);
 	}
 });
+
+document.addEventListener('click', function (event) {
+	const target = event.target;
+	if (target && target.classList.contains('fa-plus')) {
+		// Obtener el ID del examen desde el icono
+		const examenId = target.id.replace('checkboxExam', '');
+		// Obtener la fila del examen
+		const examenRow = target.closest('tr');
+		// Clonar la fila del examen para agregarla a la primera tabla
+		const clonedRow = examenRow.cloneNode(true);
+
+		// Cambiar el icono de "Agregar" por el icono de "Quitar"
+		const plusIcon = clonedRow.querySelector('.fa-plus');
+		plusIcon.classList.remove('fa-plus');
+		plusIcon.classList.add('fa-xmark');
+		plusIcon.addEventListener('click', function () {
+			// Paso 3: Agregar manejador de eventos a los iconos de "Quitar" en la primera tabla
+			// Eliminar la fila de la primera tabla al hacer clic en el icono "Quitar"
+			clonedRow.remove();
+		});
+
+		// Agregar la fila clonada a la primera tabla
+		const primeraTabla = document
+			.getElementById('tablaExamenesAgregados')
+			.getElementsByTagName('tbody')[0];
+		primeraTabla.appendChild(clonedRow);
+	}
+});
