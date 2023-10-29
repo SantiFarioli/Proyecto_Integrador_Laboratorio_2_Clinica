@@ -14,12 +14,18 @@ export const getExamen = async (req, res) => {
 export const createExamen = async (req, res) => {
     const {
         nombre,
+        codigo,
         descripcion,
+        requisitosExamen,
+        tiempoDeExamen
     } = req.body;
     try {
         const newExamen = await examen.create({
             nombre,
+            codigo,
             descripcion,
+            requisitosExamen,
+            tiempoDeExamen
         });
         res.json(newExamen);
     } catch (error) {
@@ -33,7 +39,10 @@ export const updateExamen = async (req, res) => {
     const  idExamen  = req.params.id;
     const {
         nombre,
+        codigo,
         descripcion,
+        requisitosExamen,
+        tiempoDeExamen
     } = req.body;
     try {
         const examenActualizado = await examen.findByPk(idExamen);
@@ -43,7 +52,9 @@ export const updateExamen = async (req, res) => {
             });
         }
         examenActualizado.nombre = nombre;
+        examenActualizado.codigo = codigo;
         examenActualizado.descripcion = descripcion;
+        examenActualizado.requisitosExamen = requisitosExamen;
 
         await examenActualizado.save();
         res.jeson(examenActualizado);
