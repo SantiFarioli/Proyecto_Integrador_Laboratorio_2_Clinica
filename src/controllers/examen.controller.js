@@ -54,7 +54,7 @@ export const updateExamen = async (req, res) => {
         examenActualizado.tiempoDeExamen = tiempoDeExamen;
 
         await examenActualizado.save();
-        res.jeson(examenActualizado);
+        res.json(examenActualizado);
     } catch (error) {
         return res.status(500).json({
             message: error.message,

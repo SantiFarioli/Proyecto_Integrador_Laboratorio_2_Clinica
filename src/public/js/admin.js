@@ -4,6 +4,8 @@ const $tablaExamen = document.getElementById('table-examen');
 const $adminExamen = document.getElementById('adminExamen');
 const $formExamen = document.getElementById('form');
 const $guardarExamen = document.getElementById('guardarExamen');
+const $actualizarExamene = document.getElementById('actualizarExamen');
+const $borrarExamen = document.getElementById('borrarExamen');
 let pacientesDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -220,16 +222,22 @@ function renderExamenesTable(examenes) {
 		<table class="tablita table table-bordered table-striped mx-auto" id='myTable'>
 		<thead>
 			<tr>
+				<th scope="col" class="text-center">idExamen</th>
 				<th scope="col" class="text-center">Codigo</th>
 				<th scope="col" class="text-center">Descripcion</th>
+				<th scope="col" class="text-center">requisitosExamen</th>
+				<th scope="col" class="text-center">tiempoDeExamen</th>
 				<th scope="col" class="text-center">Action</th>
 			</tr>
 		</thead>
 		<tbody class="text-center">
 			${examenes.map((examen) => `
 				<tr>
+					<td>${examen.idExamen}</td>
 					<td>${examen.codigo}</td>
-					<td>${examen.descripcion}</td>				
+					<td>${examen.descripcion}</td>
+					<td>${examen.requisitosExamen}</td>
+					<td>${examen.tiempoDeExamen}</td>				
 					<td class="text-center ">
 					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
 					</td>
@@ -244,17 +252,69 @@ function renderExamenesTable(examenes) {
 		$('#myTable').DataTable();
 	});
 
-	
-};
+	document.querySelectorAll('#actualizarIcon').forEach((actualizarBtn, index) => {
+		actualizarBtn.addEventListener('click', () => {
+			$actualizarExamene.disabled = false;
+			$borrarExamen.disabled = true;
+			$guardarExamen.disabled = true;
+			$formExamen.querySelector('#idExamen').value = examenes[index].idExamen;
+			$formExamen.querySelector('#codigo').value = examenes[index].codigo;
+			$formExamen.querySelector('#descripcion').value = examenes[index].descripcion;
+			$formExamen.querySelector('#requisitosExamen').value = examenes[index].requisitosExamen;
+			$formExamen.querySelector('#tiempoDeExamen').value = examenes[index].tiempoDeExamen;
 
+			$actualizarExamene.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const idExamen = document.getElementById('idExamen').value;
+				const examen = {
+					
+					codigo: document.getElementById('codigo').value,
+					descripcion: document.getElementById('descripcion').value,
+					requisitosExamen: document.getElementById('requisitosExamen').value,
+					tiempoDeExamen: document.getElementById('tiempoDeExamen').value,
+				};
+				try {
+					const response = await fetch(`http://localhost:3000/examen/${idExamen}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(examen),
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Examen Actualizado',
+					}).then(() => {
+						window.location.href = 'http://localhost:3000/';
+						window.location.href = 'http://localhost:3000/admin';
+					});
+					} else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error al actualizar el examen',
+							text: 'Error al actualizar el examen',
+						});
+					}
+				} catch (error) {
+					console.error('Error al actualizar el examen:', error);
+				}
+			});
+		})	
+	});
+}
 
+document.addEventListener('DOMContentLoaded', function () {
 $adminExamen.addEventListener('click',  async (e) => {	
-	try {
-		$formExamen.classList.remove('d-none');
+	try {	
 		const response = await fetch('/examen');
 		if (response.ok) {
 			const examenes = await response.json();
 			renderExamenesTable(examenes);		
+			$formExamen.classList.remove('d-none');
+			$actualizarExamene.disabled = true;
+			$borrarExamen.disabled = true;
 		} else {
 			console.error('Error al obtener los examenes.');
 		}
@@ -262,7 +322,7 @@ $adminExamen.addEventListener('click',  async (e) => {
 		console.log('Error al obtener los examenes:', error);
 	}
 });
-
+});
 
 $guardarExamen.addEventListener('click', async (e) => {
 	e.preventDefault();
@@ -300,4 +360,6 @@ $guardarExamen.addEventListener('click', async (e) => {
 		console.log('Error al guardar el examen:', error);
 	}
 });
+
+
 
