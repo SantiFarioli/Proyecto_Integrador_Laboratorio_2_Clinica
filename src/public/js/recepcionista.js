@@ -257,20 +257,6 @@ async function refreshPacientesTable() {
 	}
 }
 
-function habilitarEmbarazoPorSexo(sexoSelect, embarazoSi, embarazoNo) {
-	if (sexoSelect) {
-		sexoSelect.addEventListener('change', function () {
-			if (sexoSelect.value === 'Masculino') {
-				embarazoSi.disabled = true;
-				embarazoNo.disabled = true;
-				embarazoNo.checked = true; // Establecer en "No"
-			} else {
-				embarazoSi.disabled = false;
-				embarazoNo.disabled = false;
-			}
-		});
-	}
-}
 document.addEventListener('DOMContentLoaded', function () {
 	formularioRegistroPaciente2.addEventListener('submit', async function (e) {
 		e.preventDefault();
@@ -286,13 +272,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		const telefonoInput = document.getElementById('telefono');
 		const obraSocialInput = document.getElementById('obra_social');
 		const numAfiliadoInput = document.getElementById('num_afiliado');
-		const sexoInput = document.getElementById('sexo'); // Obtén el valor del campo de sexo
-		const embarazoSi = document.getElementById('embarazo-si');
-		const embarazoNo = document.getElementById('embarazo-no');
+		habilitarEmbarazoPorSexo(sexoSelect, embarazoSi, embarazoNo);
 
 		const embarazoInput = embarazoSi.checked ? true : false;
-
-		habilitarEmbarazoPorSexo(sexoSelect, embarazoSi, embarazoNo);
 
 		// Realiza el registro del paciente y obtén la respuesta del servidor
 		const datosPaciente = {
@@ -306,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			telefono: telefonoInput.value,
 			obra_social: obraSocialInput.value,
 			num_afiliado: numAfiliadoInput.value,
-			sexo: sexoInput.value,
+			sexo: sexoSelect.value,
 			embarazo: embarazoInput,
 		};
 
@@ -340,6 +322,33 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 });
+
+// Agrega un evento 'change' al elemento de selección de sexo
+sexoSelect.addEventListener('change', function () {
+	if (sexoSelect.value === 'masculino') {
+		// Si se selecciona 'Masculino', deshabilita y desmarca las opciones de embarazo
+		embarazoSi.disabled = true;
+		embarazoNo.disabled = true;
+		embarazoSi.checked = false;
+		embarazoNo.checked = true;
+	} else if (sexoSelect.value === 'femenino') {
+		// Si se selecciona 'Femenino', habilita las opciones de embarazo
+		embarazoSi.disabled = false;
+		embarazoNo.disabled = false;
+	}
+});
+
+// Por si el valor inicial del select es 'Masculino' o 'Femenino'
+if (sexoSelect.value === 'masculino') {
+	embarazoSi.disabled = true;
+	embarazoNo.disabled = true;
+	embarazoSi.checked = false;
+	embarazoNo.checked = false;
+} else if (sexoSelect.value === 'femenino') {
+	embarazoSi.disabled = false;
+	embarazoNo.disabled = false;
+}
+
 /*********************************************
  *     Generar Orden de Trabajo
  *********************************************/
@@ -428,7 +437,7 @@ function renderexamenTable(examen) {
 		const newRow = tableBody2.insertRow();
 		newRow.innerHTML = `
 			<td>${examenes.idExamen}</td>
-			<td>${examenes.codiigo}</td>
+			<td>${examenes.codigo}</td>
 			<td>${examenes.descripcion}</td>
 			<td>${examenes.requisitosExamen}</td>
 			<td>${examenes.tiempoDeExamen}</td>
