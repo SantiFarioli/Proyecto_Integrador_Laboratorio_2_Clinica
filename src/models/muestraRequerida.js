@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/database.js';
 
-
 export const muestraRequerida = sequelize.define('muestrasRequeridas', {
 	idMuestraRequerida: {
 		type: DataTypes.INTEGER,
@@ -21,5 +20,3 @@ export const muestraRequerida = sequelize.define('muestrasRequeridas', {
 		allowNull: false,
 	},
 });
-
-

@@ -272,7 +272,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		const telefonoInput = document.getElementById('telefono');
 		const obraSocialInput = document.getElementById('obra_social');
 		const numAfiliadoInput = document.getElementById('num_afiliado');
-		habilitarEmbarazoPorSexo(sexoSelect, embarazoSi, embarazoNo);
 
 		const embarazoInput = embarazoSi.checked ? true : false;
 

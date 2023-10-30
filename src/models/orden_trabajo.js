@@ -2,8 +2,6 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../database/database.js';
 import { muestraRequerida } from './muestraRequerida.js';
 
-
-
 export const orden_trabajo = sequelize.define('ordenes_trabajo', {
 	idOrdenTrabajo: {
 		type: DataTypes.INTEGER,
@@ -22,6 +20,10 @@ export const orden_trabajo = sequelize.define('ordenes_trabajo', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	cancelada: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+	},
 });
 
 orden_trabajo.hasMany(muestraRequerida, {
@@ -33,8 +35,3 @@ muestraRequerida.belongsTo(orden_trabajo, {
 	foreignKey: 'idOrdenTrabajo',
 	targetKey: 'idOrdenTrabajo',
 });
-
-
-
-
-
