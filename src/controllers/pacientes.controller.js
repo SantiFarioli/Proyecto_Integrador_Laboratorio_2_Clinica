@@ -137,4 +137,19 @@ export const updatePaciente = async (req, res) => {
 	}
 };
 
-export const deletePaciente = async (req, res) => {};
+export const deletePaciente = async (req, res) => {
+	const idPaciente = req.params.id;
+	try {
+		const result = await idPaciente.destroy({
+			where: {
+				id: idPaciente,
+			}
+		});
+		console.log(result);
+		return res.sendStatus(204);
+	} catch (error) {
+		return res.status(500).json({
+			message: error.message,
+		})
+	}
+};

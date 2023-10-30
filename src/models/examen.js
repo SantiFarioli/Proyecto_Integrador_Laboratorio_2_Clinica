@@ -3,9 +3,7 @@ import { sequelize } from '../database/database.js';
 import { determinacion } from './determinacion.js';
 import { muestra } from './muestra.js';
 
-export const examen = sequelize.define(
-	'examenes',
-	{
+export const examen = sequelize.define('examenes', {
 		idExamen: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,

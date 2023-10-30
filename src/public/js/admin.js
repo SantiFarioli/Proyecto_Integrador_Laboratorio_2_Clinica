@@ -55,9 +55,9 @@ function renderPacientesTable(pacientes) {
 			<td >${paciente.obra_social}</td>
 			<td >${paciente.num_afiliado}</td>
 			<td>
-			<i class='fa-regular fa-file-lines'id="iconoOrden${paciente.idPaciente}"></i>
-            <i class="fa-solid fa-pen" id="iconoPen${paciente.idPaciente}"></i>
-
+			<a href="#" type="button" class="btn btn-light btn-md"><i class='fa-regular fa-file-lines'id="iconoOrden${paciente.idPaciente}"></i> </a>
+            <a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-pen" id="iconoPen${paciente.idPaciente}"></i> </a>
+			<a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-trash" id="borrarPersona${paciente.idPaciente}"></i> </a>
 			</td>
 		`;
 		tableBody.appendChild(newRow);

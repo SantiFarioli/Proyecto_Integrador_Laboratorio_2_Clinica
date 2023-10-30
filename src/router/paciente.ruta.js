@@ -12,6 +12,6 @@ router.get('/paciente', searchPacientes);
 router.post('/pacientes', createPaciente);
 router.put('/pacientes/actualizar/:id', updatePaciente);
 router.delete('/pacientes/:id', deletePaciente);
-router.get('/pacientes/:id');
+
 
 export default router;
