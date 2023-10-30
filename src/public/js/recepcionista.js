@@ -493,9 +493,37 @@ document.addEventListener('click', async function (event) {
 		});
 
 		// Rellenar el campo pacienteId en el formulario de registro con nombre y apellido
-		const pacienteIdInput = document.getElementById('pacienteIdInput');
-		pacienteIdInput.value = `${pacienteData[1]} ${pacienteData[2]},Dni:${pacienteData[3]}, Obra Social:${pacienteData[11]}`;
-		console.log(pacienteData);
+		// Los datos en el array
+		const idPaciente = pacienteData[0];
+		const nombre = pacienteData[1];
+		const apellido = pacienteData[2];
+		const dni = pacienteData[3];
+		const localidad = pacienteData[4];
+		const provincia = pacienteData[5];
+		const sexo = pacienteData[6];
+		const embarazo = pacienteData[7];
+		const fechaNacimiento = pacienteData[8];
+		const correoElectronico = pacienteData[9];
+		const telefono = pacienteData[10];
+		const obraSocial = pacienteData[11];
+		const numAfiliado = pacienteData[12];
+
+		// Calcular la edad a partir de la fecha de nacimiento
+		const fechaNacimientoDate = new Date(fechaNacimiento);
+		const fechaActual = new Date();
+		const edadEnMilisegundos = fechaActual - fechaNacimientoDate;
+		const edadEnAnios = Math.floor(
+			edadEnMilisegundos / (365 * 24 * 60 * 60 * 1000)
+		);
+
+		// Llenar la tabla con los datos, incluyendo la edad
+		document.getElementById('nombreOrden').textContent = nombre;
+		document.getElementById('apellidoOrden').textContent = apellido;
+		document.getElementById('dniOrden').textContent = dni;
+		document.getElementById('edadOrden').textContent = edadEnAnios; // Mostrar la edad calculada
+		document.getElementById('sexoOrden').textContent = sexo;
+		document.getElementById('embarazoOrden').textContent = embarazo;
+		document.getElementById('obra_socialOrden').textContent = obraSocial;
 	}
 });
 
