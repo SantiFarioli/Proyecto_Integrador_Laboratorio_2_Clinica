@@ -1,6 +1,8 @@
 body {
 	font-family: 'Poppins', sans-serif !important;
-	background-image: url('/img/fondoLaboratorio.png');
+	background-image: url('/img/fondoLaboratorio.png'), -o-repeating-linear-gradient( 135deg, #007bff, #007bff 10px, #fff 10px, #fff 20px );
+	background-image: url('/img/fondoLaboratorio.png'), repeating-linear-gradient( 135deg, #007bff, #007bff 10px, #fff 10px, #fff 20px );
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
