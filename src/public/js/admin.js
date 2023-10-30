@@ -239,7 +239,8 @@ function renderExamenesTable(examenes) {
 					<td>${examen.requisitosExamen}</td>
 					<td>${examen.tiempoDeExamen}</td>				
 					<td class="text-center ">
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-trash" id="borrarIcon"></i></a>
 					</td>
 				</tr>
 			`).join('')}
@@ -263,6 +264,7 @@ function renderExamenesTable(examenes) {
 			$formExamen.querySelector('#requisitosExamen').value = examenes[index].requisitosExamen;
 			$formExamen.querySelector('#tiempoDeExamen').value = examenes[index].tiempoDeExamen;
 
+			// Obtener los datos del examen seleccionado
 			$actualizarExamene.addEventListener('click', async (e) => {
 				e.preventDefault();
 				const idExamen = document.getElementById('idExamen').value;
@@ -305,6 +307,7 @@ function renderExamenesTable(examenes) {
 	});
 }
 
+// Obtener los examenes
 document.addEventListener('DOMContentLoaded', function () {
 $adminExamen.addEventListener('click',  async (e) => {	
 	try {	
@@ -315,15 +318,68 @@ $adminExamen.addEventListener('click',  async (e) => {
 			$formExamen.classList.remove('d-none');
 			$actualizarExamene.disabled = true;
 			$borrarExamen.disabled = true;
+
+			document.querySelectorAll('#borrarIcon').forEach((borrarIcon, index) => {
+				borrarIcon.addEventListener('click', () => {
+					const examen = examenes[index];
+			
+					$formExamen.querySelector('#idExamen').value = examen.idExamen;
+					$formExamen.querySelector('#codigo').value = examen.codigo;
+					$formExamen.querySelector('#descripcion').value = examen.descripcion;
+					$formExamen.querySelector('#requisitosExamen').value = examen.requisitosExamen;
+					$formExamen.querySelector('#tiempoDeExamen').value = examen.tiempoDeExamen;
+					
+					$actualizarExamene.disabled = true;
+					$borrarExamen.disabled = false;
+					$guardarExamen.disabled = true;
+			
+			
+			// Eliminar examen
+			$borrarExamen.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const idExamen = document.getElementById('idExamen').value;
+			
+				try {
+					const response = await fetch(`http://localhost:3000/examen/${idExamen}`, {
+						method: 'DELETE',
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Examen eliminado',
+						}).then(() => {
+							window.location.href = 'http://localhost:3000/';
+							window.location.href = 'http://localhost:3000/admin';
+						});
+					} else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error al eliminar el examen',
+							text: 'Error al eliminar el examen',
+						});
+					}
+				} catch (error) {
+					console.error('Error al eliminar el examen:', error);
+				}
+			});
+		});
+	});
+
 		} else {
 			console.error('Error al obtener los examenes.');
 		}
 	} catch (error) {
 		console.log('Error al obtener los examenes:', error);
 	}
-});
+  });
 });
 
+
+
+
+
+// Guardar examen
 $guardarExamen.addEventListener('click', async (e) => {
 	e.preventDefault();
 	const examen = {
