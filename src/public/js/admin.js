@@ -55,9 +55,8 @@ function renderPacientesTable(pacientes) {
 			<td >${paciente.obra_social}</td>
 			<td >${paciente.num_afiliado}</td>
 			<td>
-			<a href="#" type="button" class="btn btn-light btn-md"><i class='fa-regular fa-file-lines'id="iconoOrden${paciente.idPaciente}"></i> </a>
             <a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-pen" id="iconoPen${paciente.idPaciente}"></i> </a>
-			<a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-trash" id="borrarPersona${paciente.idPaciente}"></i> </a>
+			<a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-trash" id="borrarPaciente${paciente.idPaciente}"></i> </a>
 			</td>
 		`;
 		tableBody.appendChild(newRow);
@@ -307,7 +306,7 @@ function renderExamenesTable(examenes) {
 	});
 }
 
-// Obtener los examenes
+// Obtener los examenes y Borrar
 document.addEventListener('DOMContentLoaded', function () {
 $adminExamen.addEventListener('click',  async (e) => {	
 	try {	
@@ -376,8 +375,38 @@ $adminExamen.addEventListener('click',  async (e) => {
 });
 
 
+//Borrar paciente
+document.addEventListener('click', (e) => {
+	const target = e.target;
+	if ( target && target.id.startsWith('borrarPaciente')) {
+		const idPaciente = target.id.replace('borrarPaciente', '');
+		console.log(idPaciente);
 
-
+		fetch(`http://localhost:3000/pacientes/${idPaciente}`, {
+			method: 'DELETE',
+		})
+		.then((response) => {
+			if (response.status === 204) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Paciente eliminado',
+					text: 'Paciente eliminado',
+				}).then(() => {
+					refreshPacientesTable();
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error al eliminar el paciente',
+					text: 'Error al eliminar el paciente',
+				});
+			}
+		})
+		.catch((error) => {
+			console.error('Error al eliminar el paciente:', error);
+		});
+	}
+});
 
 // Guardar examen
 $guardarExamen.addEventListener('click', async (e) => {
