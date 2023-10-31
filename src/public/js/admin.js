@@ -2,6 +2,8 @@ const adminPaciente = document.getElementById('adminPaciente');
 const viewsPaciente = document.getElementById('viewsPaciente');
 const $tablaExamen = document.getElementById('table-examen');
 const $adminExamen = document.getElementById('adminExamen');
+const $adminMuestra = document.getElementById('adminMuestra');
+const $formularioMuestra = document.getElementById('formMuestra');
 const $formExamen = document.getElementById('form');
 const $guardarExamen = document.getElementById('guardarExamen');
 const $actualizarExamene = document.getElementById('actualizarExamen');
@@ -231,7 +233,7 @@ function renderExamenesTable(examenes) {
 		</thead>
 		<tbody class="text-center">
 			${examenes.map((examen) => `
-				<tr>
+				<tr>	
 					<td>${examen.idExamen}</td>
 					<td>${examen.codigo}</td>
 					<td>${examen.descripcion}</td>
@@ -249,7 +251,29 @@ function renderExamenesTable(examenes) {
 	$tablaExamen.innerHTML = table;
 
 	$(document).ready(function () {
-		$('#myTable').DataTable();
+		$('#myTable').DataTable( {
+			"language": {
+				"decimal": "",
+				"emptyTable": "No hay datos disponibles",
+				"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+				"infoEmpty": "Mostrando 0 a 0 de 0 registros",
+				"infoFiltered": "(filtrado de _MAX_ total de registros)",
+				"infoPostFix": "",
+				"thousands": ",",
+				"lengthMenu": "Mostrar _MENU_ registros",
+				"loadingRecords": "Cargando...",
+				"processing": "Procesando...",
+				"search": "Buscar:",
+				"zeroRecords": "No se encontraron resultados",
+				"paginate": {
+					"first": "Primero",
+					"last": "Ultimo",
+					"next": "Siguiente",
+					"previous": "Anterior",
+				},
+			},
+			select: true,
+		});
 	});
 
 	document.querySelectorAll('#actualizarIcon').forEach((actualizarBtn, index) => {
@@ -445,6 +469,24 @@ $guardarExamen.addEventListener('click', async (e) => {
 		console.log('Error al guardar el examen:', error);
 	}
 });
+
+//formulario Muestras y tabla de  examenes
+document.addEventListener('DOMContentLoaded', function () {
+$adminMuestra.addEventListener('click', async (e) => {	
+	try {		
+		const response = await fetch('/examen');
+		if (response.ok) {
+			const examen = await response.json();
+			renderExamenesTable(examen);
+			$formularioMuestra.classList.remove('d-none');
+			
+		}
+	} catch (error) {
+		console.log('Error al obtener los examenes:', error);
+	}
+});
+})
+
 
 
 

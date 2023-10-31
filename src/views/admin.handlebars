@@ -33,21 +33,21 @@
 				</li>
 
 				<li class='sidebar-item'>
-					<a href='#' class='sidebar-link collapsed' id='adminExamen'>
+					<a href='#' class='sidebar-link collapsed' id='adminMuestra'>
 						<i class='fa-regular fa-file-lines pe-2'></i>
 						Administrar Muestras
 					</a>
 				</li>
 
 				<li class='sidebar-item'>
-					<a href='#' class='sidebar-link collapsed' id='adminExamen'>
+					<a href='#' class='sidebar-link collapsed' id='adminDeterminacion'>
 						<i class='fa-regular fa-file-lines pe-2'></i>
 						Administrar Determinaciones
 					</a>
 				</li>
 
 				<li class='sidebar-item'>
-					<a href='#' class='sidebar-link collapsed' id='adminExamen'>
+					<a href='#' class='sidebar-link collapsed' id='adminValorReferencia'>
 						<i class='fa-regular fa-file-lines pe-2'></i>
 						Administrar Valores de Referencia
 					</a>
@@ -202,14 +202,48 @@
 				</div>
 			</div>
 
-				<div class='col-lg-6 offset-md-3'>
 
-				
+			<div id="row">
+				<div class='col-lg-6 offset-md-3'>
+					<form action="/muestra"  method="POST"  id="formMuestra" class="d-none">
+						<h3 class="text-center">Registro de Muestras</h3>	
+						<div class="mb-3">
+							<label for="idMuestra" class="form-label">ID de Muestra </label>
+							<input type="number" class="form-control" id="idMuestra" name="idMuestra" readonly>
+						</div>		
+						<div class="mb-3">
+							<label for="descripcion" class="form-label">Descripcion</label>
+							<select type="select" class="form-control" id="descripcion" name="Muestra">
+								<option value="">Seleccionar Muestra</option>
+								<option value="Sangre">Sangre</option>
+								<option value="Orina">Orina</option>
+								<option value="Saliva">Saliva</option>
+								<option value="Tejidos">Tejidos</option>
+								<option value="Heces">Heces</option>
+								<option value="Sudor">Sudor</option>
+							</select>
+						</div>			
+						<div class="mb-3">
+							<label for="idExamen" class="form-label">ID de Examen</label>
+							<input type="number" class="form-control" id="idExamen" name="idExamen" placeholder="idExamen">
+						</div>
+						
+						
+						<button type="submit" class="mb-3 btn btn-primary" id="guardarMuestra">Guardar</button>
+						<button type="button" class="mb-3 btn btn-success" id="actualizarActualizar">Actualizar</button>
+						<button type="button" class="mb-3 btn btn-danger" id="borrarMuestra">Eliminar</button>
+						
+					</form>
+				</div>
+			</div>
+
+
+			<div class='col-lg-6 offset-md-3'>
 				<div id="table-examen" class="text-center">
 
 				</div>
+			</div>
 
-				</div>
 			</div>
 		</main>
 	</div>
