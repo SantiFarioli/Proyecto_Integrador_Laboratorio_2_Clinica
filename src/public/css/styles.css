@@ -9,7 +9,12 @@
 body {
 	font-family: 'Poppins', sans-serif !important;
 	margin: 0;
-	background-image: url('/img/fondoLaboratorio.png');
+	background-image: linear-gradient(
+		0deg,
+		rgba(128, 100, 100, 0.6),
+		rgba(128, 99, 99, 0.6)
+	)
+	, url('/img/fondoLaboratorio.png');
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-size: cover;

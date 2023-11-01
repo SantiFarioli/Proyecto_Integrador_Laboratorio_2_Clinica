@@ -228,7 +228,7 @@ function renderExamenesTable(examenes) {
 				<th scope="col" class="text-center">Descripcion</th>
 				<th scope="col" class="text-center">requisitosExamen</th>
 				<th scope="col" class="text-center">tiempoDeExamen</th>
-				<th scope="col" class="text-center">Action</th>
+				<th scope="col" class="text-center">Solicitudes</th>
 			</tr>
 		</thead>
 		<tbody class="text-center">
@@ -239,9 +239,10 @@ function renderExamenesTable(examenes) {
 					<td>${examen.descripcion}</td>
 					<td>${examen.requisitosExamen}</td>
 					<td>${examen.tiempoDeExamen}</td>				
-					<td class="text-center ">
-					<a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
-					<a href="#" type="button" class="btn btn-light btn-md"><i class="fa-solid fa-trash" id="borrarIcon"></i></a>
+					<td class="text-center">
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarIcon"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fas fa-flask" id="borrarIcon"></i></a>
 					</td>
 				</tr>
 			`).join('')}
@@ -398,7 +399,7 @@ $adminExamen.addEventListener('click',  async (e) => {
   });
 });
 
-
+/*
 //Borrar paciente
 document.addEventListener('click', (e) => {
 	const target = e.target;
@@ -431,6 +432,7 @@ document.addEventListener('click', (e) => {
 		});
 	}
 });
+*/
 
 // Guardar examen
 $guardarExamen.addEventListener('click', async (e) => {
@@ -471,21 +473,7 @@ $guardarExamen.addEventListener('click', async (e) => {
 });
 
 //formulario Muestras y tabla de  examenes
-document.addEventListener('DOMContentLoaded', function () {
-$adminMuestra.addEventListener('click', async (e) => {	
-	try {		
-		const response = await fetch('/examen');
-		if (response.ok) {
-			const examen = await response.json();
-			renderExamenesTable(examen);
-			$formularioMuestra.classList.remove('d-none');
-			
-		}
-	} catch (error) {
-		console.log('Error al obtener los examenes:', error);
-	}
-});
-})
+
 
 
 
