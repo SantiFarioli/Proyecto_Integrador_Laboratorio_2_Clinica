@@ -26,7 +26,10 @@ export const createMedico = async (req, res) => {
 			direccion,
 		});
 
-		res.status(201).json(nuevoMedico);
+		// El ID del médico creado se encuentra en nuevoMedico.id
+		const medicoId = nuevoMedico.id;
+
+		res.status(201).json({ id: medicoId });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: 'Error al crear el médico' });

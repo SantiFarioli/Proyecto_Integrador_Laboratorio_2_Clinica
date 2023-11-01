@@ -356,6 +356,7 @@ const formularioOrdenTrabajo = document.getElementById(
 );
 const generarOrdenButton = document.getElementById('navbarOrdenTrabjo');
 const btnAgergarExamen = document.getElementById('agregarExamenes');
+let medicoId = null;
 
 document.addEventListener('DOMContentLoaded', function () {
 	document
@@ -388,11 +389,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (result.isConfirmed) {
 					// Aquí puedes enviar los datos del médico al servidor o hacer lo que necesites con ellos
 					const medicoData = result.value;
-					Swal.fire({
-						icon: 'info',
-						title: 'Guardando Datos...',
-						showConfirmButton: false,
-					});
 
 					// Enviar los datos del médico al servidor
 					fetch('/medico', {
@@ -402,8 +398,10 @@ document.addEventListener('DOMContentLoaded', function () {
 						},
 						body: JSON.stringify(medicoData),
 					})
-						.then((response) => {
-							if (response.status === 201) {
+						.then((response) => response.json())
+						.then((data) => {
+							if (data.id) {
+								medicoId = data.id;
 								Swal.fire({
 									icon: 'success',
 									title: 'Médico guardado con éxito',
