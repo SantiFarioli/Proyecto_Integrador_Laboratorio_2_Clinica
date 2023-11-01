@@ -7,13 +7,13 @@ export const muestraRequerida = sequelize.define('muestrasRequeridas', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
-	tipo: {
-		type: DataTypes.STRING,
-		allowNull: false,
-	},
 	fechaRecepcion: {
 		type: DataTypes.DATE,
 		defaultValue: sequelize.NOW,
+	},
+	entregada: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
 	},
 	etiqueta: {
 		type: DataTypes.STRING,

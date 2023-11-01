@@ -8,6 +8,10 @@ export const muestra = sequelize.define('muestras', {
 		primaryKey: true,
 		autoIncrement: true,
 	},
+	tipo: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
 	descripcion: {
 		type: DataTypes.STRING,
 		allowNull: false,
