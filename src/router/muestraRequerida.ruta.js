@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import { getMuestras,
-        createMuestra, 
-        updateMuestra, 
-        deleteMuestra,
-     } from '../controllers/muestraRequerida.controller.js';
+import {
+	getMuestras,
+	createMuestra,
+	updateMuestra,
+	deleteMuestra,
+} from '../controllers/muestraRequerida.controller.js';
 
 const router = Router();
 
 router.get('/muestraRequerida', getMuestras);
 router.post('/muestraRequerida', createMuestra);
-router.get('/muestraRequerida');
 router.put('/muestraRequerida/:id', updateMuestra);
 router.delete('/muestraRequerida/:id', deleteMuestra);
 

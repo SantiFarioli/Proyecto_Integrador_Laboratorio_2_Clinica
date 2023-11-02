@@ -115,7 +115,6 @@ document.addEventListener('click', function (event) {
 	const target = event.target;
 	if (target && target.id.startsWith('iconoPen')) {
 		const pacienteId = target.id.replace('iconoPen', '');
-		console.log(pacienteId);
 
 		const iconoPen = target;
 		const tableRow = iconoPen.closest('tr');
@@ -248,7 +247,6 @@ async function refreshPacientesTable() {
 			const pacientes = await response.json();
 
 			renderPacientesTable(pacientes);
-			console.log('saludo del refresh');
 		} else {
 			console.error('Error al obtener los pacientes.');
 		}
@@ -260,7 +258,7 @@ async function refreshPacientesTable() {
 document.addEventListener('DOMContentLoaded', function () {
 	formularioRegistroPaciente2.addEventListener('submit', async function (e) {
 		e.preventDefault();
-		console.log('mensaje de despues del prevent');
+
 		const nombreInput = document.getElementById('nombre');
 		const apellidoInput = document.getElementById('apellido');
 		const dniInput = document.getElementById('dni');
@@ -299,7 +297,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			body: JSON.stringify(datosPaciente),
 		});
 		if (response.ok) {
-			console.log('mensaje de despues del if');
 			// Mostrar un mensaje de éxito con Swal.fire
 			Swal.fire({
 				icon: 'success',
@@ -311,7 +308,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				window.location.href = 'http://localhost:3000/recepcionista';
 			});
 		} else {
-			console.log('mensaje de despues del else');
 			// Manejar errores (por ejemplo, mostrar un mensaje de error)
 			Swal.fire({
 				icon: 'error',
@@ -401,7 +397,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					})
 						.then((response) => response.json())
 						.then((data) => {
-							console.log(data);
 							if (data.idMedico) {
 								medicoId = data.idMedico;
 								Swal.fire({
@@ -564,13 +559,12 @@ document.addEventListener('click', function (event) {
 		primeraTabla.appendChild(clonedRow);
 	}
 });
-
+let OrdenTrabajoId;
 // Definir una función para enviar la orden de trabajo al servidor
 async function guardarOrdenTrabajo() {
 	// Obtener los datos del formulario de orden de trabajo
 	const fechaCreacion = document.getElementById('fecha_ord').value;
 	const diagnostico = document.getElementById('diagnostico').value;
-	let OrdenTrabajoId;
 
 	// Verificar que se haya seleccionado al menos un examen
 	const examenesAgregados = document.querySelectorAll(
@@ -584,7 +578,7 @@ async function guardarOrdenTrabajo() {
 		});
 		return;
 	}
-	console.log(pacienteId2, medicoId);
+
 	const idPaciente = pacienteId2;
 	const idMedico = medicoId;
 	// Crear un objeto con los datos de la orden de trabajo
@@ -596,7 +590,7 @@ async function guardarOrdenTrabajo() {
 		idPaciente, // Obtener el ID del paciente desde donde lo tengas almacenado
 		idMedico, // Obtener el ID del médico seleccionado
 	};
-	console.log(ordenTrabajoData);
+
 	// Enviar los datos de la orden de trabajo al servidor y obtener el ID generado
 
 	fetch('/orden-trabajo', {
@@ -608,10 +602,9 @@ async function guardarOrdenTrabajo() {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data);
 			if (data.idOrdenTrabajo) {
 				OrdenTrabajoId = data.idOrdenTrabajo;
-				console.log(OrdenTrabajoId);
+
 				Swal.fire({
 					icon: 'success',
 					title: 'Orden guardado con éxito',
@@ -628,7 +621,7 @@ async function guardarOrdenTrabajo() {
 					const idExamen = idExamenCell.textContent;
 					idsDeExamenes.push(idExamen);
 				});
-				console.log(OrdenTrabajoId);
+
 				asociarExamenesAOrden(OrdenTrabajoId, idsDeExamenes);
 			} else {
 				Swal.fire({
@@ -650,8 +643,6 @@ async function asociarExamenesAOrden(ordenTrabajoId, examenesIds) {
 				idExamen: examenId, // Usar la variable examenId
 			};
 
-			console.log(ordenTrabajoExamen);
-
 			const response = await fetch('/examenes-y-ordenes', {
 				method: 'POST',
 				headers: {
@@ -671,4 +662,153 @@ async function asociarExamenesAOrden(ordenTrabajoId, examenesIds) {
 	}
 }
 
-// Llama a la función para asociar exámenes a la orden de trabajo
+// Variable para llevar un contador de formularios
+// Definir un conjunto para realizar un seguimiento de los tipos de muestra agregados
+const tiposDeMuestraAgregados = new Set();
+
+document.addEventListener('click', async function (event) {
+	const target = event.target;
+	if (target && target.classList.contains('fa-plus')) {
+		// Obtener el ID del examen desde el icono
+		const examenId = target.id.replace('checkboxExam', '');
+		// Verificar si ya existe un formulario con el mismo ID del examen
+		const formularioExistente = document.getElementById(
+			`muestraRequeridaForm${examenId}`
+		);
+
+		if (!formularioExistente) {
+			// Realizar una solicitud para obtener el tipo de muestra desde la base de datos
+			try {
+				const response = await fetch(`/muestra/tipo?idExamen=${examenId}`);
+				if (response.ok) {
+					const muestraData = await response.json();
+					console.log(muestraData);
+					// Obtener el tipo de muestra de la respuesta
+					const tipoMuestra = muestraData.tipo;
+
+					// Verificar si el tipo de muestra ya ha sido agregado
+					if (!tiposDeMuestraAgregados.has(tipoMuestra)) {
+						tiposDeMuestraAgregados.add(tipoMuestra);
+
+						// Crear un nuevo formulario solo si el tipo de muestra no ha sido agregado
+						const nuevoFormulario = document.createElement('form');
+						nuevoFormulario.classList.add('muestraRequeridaForm');
+
+						// Asignar el ID del examen al formulario
+						nuevoFormulario.id = `muestraRequeridaForm${examenId}`;
+
+						// Acceder a los datos del paciente
+						const nombre = document.getElementById('nombreOrden').textContent;
+						const apellido =
+							document.getElementById('apellidoOrden').textContent;
+						const dni = document.getElementById('dniOrden').textContent;
+
+						nuevoFormulario.innerHTML = `
+                            <div class='form-row d-flex justify-content-center'>
+                                <div class='col-md-3'>
+                                    <label for='fechaRecepcion${examenId}'>Fecha de Recepción:</label>
+                                    <input type='datetime-local' class='form-control' id='fechaRecepcion${examenId}' />
+                                </div>
+                                <div class='col-md-3'>
+                                    <label for='entregada${examenId}'>Entregada:</label>
+                                    <select class='form-control' id='entregada${examenId}' name='entregada${examenId}' required>
+                                        <option value='no'>No</option>
+                                        <option value='si'>Si</option>
+                                    </select>
+                                </div>
+                                <div class='col-md-3'>
+                                    <label for='etiqueta${examenId}'>Etiqueta:</label>
+                                    <input type='text' class='form-control' id='etiqueta${examenId}' value='${nombre} ${apellido} (DNI: ${dni})' readonly />
+                                </div>
+                                <div class='col-md-3'>
+                                    <label for='tipoMuestra${examenId}'>Tipo Muestra:</label>
+                                    <input type='text' class='form-control' id='tipoMuestra${examenId}' value='${tipoMuestra}' readonly />
+                                </div>
+                            </div>
+                        `;
+
+						// Agregar el nuevo formulario al contenedor
+						const formulariosContainer = document.getElementById(
+							'formulariosContainer'
+						);
+						formulariosContainer.appendChild(nuevoFormulario);
+					}
+				} else {
+					console.error('Error al obtener el tipo de muestra.');
+				}
+			} catch (error) {
+				console.error('Error al obtener el tipo de muestra:', error);
+			}
+		}
+	}
+});
+
+// Ejemplo de cómo eliminar un formulario cuando se quita un examen de la tabla
+document.addEventListener('click', async function (event) {
+	const target = event.target;
+	if (target && target.classList.contains('fa-xmark')) {
+		// Obtener el ID del examen desde el icono
+		const examenId = target.id.replace('checkboxExam', '');
+
+		// Eliminar el formulario correspondiente al examen
+		const formularioAEliminar = document.getElementById(
+			`muestraRequeridaForm${examenId}`
+		);
+		if (formularioAEliminar) {
+			formularioAEliminar.remove();
+		}
+
+		// También elimina el tipo de muestra asociado de la variable tiposDeMuestraAgregados
+		try {
+			const response = await fetch(`/muestra/tipo?idExamen=${examenId}`);
+			if (response.ok) {
+				const muestraData = await response.json();
+				const tipoMuestra = muestraData.tipo;
+				tiposDeMuestraAgregados.delete(tipoMuestra);
+			}
+		} catch (error) {
+			console.error('Error al eliminar el tipo de muestra:', error);
+		}
+	}
+});
+
+async function guardarFormularios() {
+	const formularios = document.querySelectorAll('.muestraRequeridaForm');
+	const dataToSave = [];
+
+	formularios.forEach((formulario) => {
+		const examenId = formulario.id.replace('muestraRequeridaForm', '');
+		const fechaRecepcion = formulario.querySelector(
+			`#fechaRecepcion${examenId}`
+		).value;
+		const entregada = formulario.querySelector(`#entregada${examenId}`).value;
+		const etiqueta = formulario.querySelector(`#etiqueta${examenId}`).value;
+
+		// Agregar los datos a un objeto o array para enviarlos al servidor
+		dataToSave.push({
+			fechaRecepcion,
+			entregada,
+			etiqueta,
+			idOrdenTrabajo: OrdenTrabajoId,
+			idMuesta,
+		});
+	});
+
+	try {
+		const response = await fetch('/ruta-para-guardar-datos', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(dataToSave),
+		});
+
+		if (response.ok) {
+			console.log('Datos guardados exitosamente');
+		} else {
+			console.error('Error al guardar los datos en el servidor');
+		}
+	} catch (error) {
+		console.error('Error al enviar los datos al servidor:', error);
+	}
+}
