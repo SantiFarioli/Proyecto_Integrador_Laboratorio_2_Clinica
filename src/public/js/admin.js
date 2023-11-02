@@ -8,6 +8,7 @@ const $formularioMuestra = document.getElementById('formMuestra');
 const $formExamen = document.getElementById('form');
 const $guardarExamen = document.getElementById('guardarExamen');
 const $guardarMuestra = document.getElementById('guardarMuestra');
+const $actualizarMuestra = document.getElementById('actualizarMuestra');
 const $actualizarExamene = document.getElementById('actualizarExamen');
 const $borrarExamen = document.getElementById('borrarExamen');
 let pacientesDataTable;
@@ -591,6 +592,43 @@ function renderMuestras(muestras) {
 		   
 			$formularioMuestra.classList.remove('d-none');
 			$tablaMuestra.classList.add('d-none');
+
+			$actualizarMuestra.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const idMuestra = document.getElementById('idMuestra').value;
+				const muestra ={
+					tipo: document.getElementById('tipo').value,
+					descripcion: document.getElementById('descripcion1').value,
+					idExamen: document.getElementById('idExamen1').value
+				};		
+				try {
+					const response = await fetch(`/muestra/${idMuestra}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(muestra),
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Muestra actualizada con exito',
+						}).then(() => {
+							window.location.href = 'http://localhost:3000/';
+							window.location.href = 'http://localhost:3000/admin';
+						});
+					}else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error al actualizar la muestra',
+							text: 'Error al actualizar la muestra',
+						});
+					}
+				} catch (error) {
+					console.error('Error al actualizar la muestra:', error);
+				}
+			});
 		});
 	});
 }
