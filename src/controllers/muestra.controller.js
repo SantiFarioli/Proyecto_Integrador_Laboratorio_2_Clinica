@@ -13,18 +13,21 @@ export const getMuestras = async (req, res) =>{
 
 export const createMuestra = async (req, res) => {
     const {
+        tipo,
         descripcion,
         idExamen
     } = req.body;
 
     try {
         const muestraNueva = await muestra.create({
-            descripcion,
+            tipo,
+          descripcion,
             idExamen
         });
 
         res.json(muestraNueva);
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: error.message
         });        
@@ -34,6 +37,7 @@ export const createMuestra = async (req, res) => {
 export const updateMuestra = async (req, res) => {
     const  idMuestra  = req.params.id;
     const {
+        tipo,
         descripcion,
         idExamen
     } = req.body;
@@ -45,7 +49,7 @@ export const updateMuestra = async (req, res) => {
                 message: 'Muestra no encontrada',
             });
         }
-
+        actualizarMuestra.tipo = tipo;
         actualizarMuestra.descripcion = descripcion;
         actualizarMuestra.idExamen = idExamen;
 

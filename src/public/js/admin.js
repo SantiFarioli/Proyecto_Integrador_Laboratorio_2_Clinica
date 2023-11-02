@@ -6,6 +6,7 @@ const $adminMuestra = document.getElementById('adminMuestra');
 const $formularioMuestra = document.getElementById('formMuestra');
 const $formExamen = document.getElementById('form');
 const $guardarExamen = document.getElementById('guardarExamen');
+const $guardarMuestra = document.getElementById('guardarMuestra');
 const $actualizarExamene = document.getElementById('actualizarExamen');
 const $borrarExamen = document.getElementById('borrarExamen');
 let pacientesDataTable;
@@ -242,7 +243,7 @@ function renderExamenesTable(examenes) {
 					<td class="text-center">
 					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
 					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarIcon"></i></a>
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fas fa-flask" id="borrarIcon"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm muestraIcon" data-id-examen="${examen.idExamen}"><i class="fas fa-flask"></i></a>
 					</td>
 				</tr>
 			`).join('')}
@@ -273,7 +274,6 @@ function renderExamenesTable(examenes) {
 					"previous": "Anterior",
 				},
 			},
-			select: true,
 		});
 	});
 
@@ -329,19 +329,33 @@ function renderExamenesTable(examenes) {
 			});
 		})	
 	});
+
+	//Muestra examen
+	document.querySelectorAll('.muestraIcon').forEach((muestraIcon) => {
+		muestraIcon.addEventListener('click', (e) => {
+			e.preventDefault();
+			const idExamen = muestraIcon.getAttribute('data-id-examen');
+			$formularioMuestra.querySelector('#idExamen1').value = idExamen;
+	
+			$formExamen.classList.add('d-none');
+			$tablaExamen.classList.add('d-none');
+			$formularioMuestra.classList.remove('d-none');
+			
+		});
+	})
 }
 
 // Obtener los examenes y Borrar
 document.addEventListener('DOMContentLoaded', function () {
-$adminExamen.addEventListener('click',  async (e) => {	
-	try {	
-		const response = await fetch('/examen');
-		if (response.ok) {
-			const examenes = await response.json();
-			renderExamenesTable(examenes);		
-			$formExamen.classList.remove('d-none');
-			$actualizarExamene.disabled = true;
-			$borrarExamen.disabled = true;
+	$adminExamen.addEventListener('click',  async (e) => {	
+		try {	
+			const response = await fetch('/examen');
+			if (response.ok) {
+				const examenes = await response.json();
+				renderExamenesTable(examenes);		
+				$formExamen.classList.remove('d-none');
+				$actualizarExamene.disabled = true;
+				$borrarExamen.disabled = true;
 
 			document.querySelectorAll('#borrarIcon').forEach((borrarIcon, index) => {
 				borrarIcon.addEventListener('click', () => {
@@ -398,6 +412,8 @@ $adminExamen.addEventListener('click',  async (e) => {
 	}
   });
 });
+
+
 
 /*
 //Borrar paciente
@@ -472,7 +488,49 @@ $guardarExamen.addEventListener('click', async (e) => {
 	}
 });
 
-//formulario Muestras y tabla de  examenes
+//Guardar Muestra de Examen
+
+$guardarMuestra.addEventListener('click', async (e) => {
+	e.preventDefault();
+	const muestra = {
+		tipo: document.getElementById('tipo').value,
+		descripcion: document.getElementById('descripcion1').value,
+		idExamen: document.getElementById('idExamen1').value		
+	};
+
+	console.log(muestra);
+	try {
+		const response = await fetch('/muestra', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(muestra),
+		});
+		if (response.ok) {
+			Swal.fire({
+				icon: 'success',
+				title: 'Bioquimica Doña ADN',
+				text: 'Muestra guardada con exito',
+			}).then(() => {
+				window.location.href = 'http://localhost:3000/';
+				window.location.href = 'http://localhost:3000/admin';
+			});
+		} else {
+			Swal.fire({
+				icon: 'error',
+				title: 'Error al guardar la muestra',
+				text: 'Error al espaço la muestra',
+			});
+		}
+		
+	} catch (error) {
+			console.log('Error al guardar la muestra:', error);
+	}
+});
+
+
+
 
 
 

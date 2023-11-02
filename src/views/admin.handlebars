@@ -194,10 +194,11 @@
 							<label for="tiempoDeExamen" class="form-label">Tiempo de Examen</label>
 							<input type="text" class="form-control" id="tiempoDeExamen" name="tiempoDeExamen" placeholder="tiempoDeExamen">
 						</div>
+						<div class="mb-3">
 						<button type="submit" class="mb-3 btn btn-primary" id="guardarExamen">Guardar</button>
 						<button type="button" class="mb-3 btn btn-success" id="actualizarExamen">Actualizar</button>
 						<button type="button" class="mb-3 btn btn-danger" id="borrarExamen">Eliminar</button>
-						
+						</div>
 					</form>
 				</div>
 			</div>
@@ -212,8 +213,8 @@
 							<input type="number" class="form-control" id="idMuestra" name="idMuestra" readonly>
 						</div>		
 						<div class="mb-3">
-							<label for="descripcion" class="form-label">Descripcion</label>
-							<select type="select" class="form-control" id="descripcion" name="Muestra">
+							<label for="tipo" class="form-label">Tipo</label>
+							<select type="text" class="form-control" id="tipo" name="tipo">
 								<option value="">Seleccionar Muestra</option>
 								<option value="Sangre">Sangre</option>
 								<option value="Orina">Orina</option>
@@ -224,25 +225,29 @@
 							</select>
 						</div>			
 						<div class="mb-3">
-							<label for="idExamen" class="form-label">ID de Examen</label>
-							<input type="number" class="form-control" id="idExamen" name="idExamen" placeholder="idExamen">
+							<label for="descripcion" class="form-label">Descripcion</label>
+							<input type="text" class="form-control" id="descripcion1" name="descripcion" placeholder="descripcion">
 						</div>
-						
-						
+						<div class="mb-3">
+							<label for="idExamen" class="form-label">ID de Examen</label>
+							<input type="number" class="form-control" id="idExamen1" name="idExamen" placeholder="idExamen" readonly> 
+						</div>
+						<div class="mb-3">
 						<button type="submit" class="mb-3 btn btn-primary" id="guardarMuestra">Guardar</button>
 						<button type="button" class="mb-3 btn btn-success" id="actualizarActualizar">Actualizar</button>
 						<button type="button" class="mb-3 btn btn-danger" id="borrarMuestra">Eliminar</button>
-						
+						</div>
 					</form>
 				</div>
 			</div>
 
-
-			<div class='col-lg-6 offset-md-3'>
+		<div id="row">
+			<div class='col-lg-6 offset-md-2'>
 				<div id="table-examen" class="text-center">
 
 				</div>
 			</div>
+		</div>
 
 			</div>
 		</main>

@@ -7,10 +7,10 @@ import { getMuestras,
 
 const router = Router();
 
-router.get('/muestra', getMuestras);
-router.post('/muestra', createMuestra);
-router.get('/muestra');
-router.put('/muestra/:id', updateMuestra);
-router.delete('/muestra/:id', deleteMuestra);
+router.get('/muestraRequerida', getMuestras);
+router.post('/muestraRequerida', createMuestra);
+router.get('/muestraRequerida');
+router.put('/muestraRequerida/:id', updateMuestra);
+router.delete('/muestraRequerida/:id', deleteMuestra);
 
 export default router;
