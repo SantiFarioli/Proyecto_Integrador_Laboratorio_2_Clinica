@@ -13,21 +13,12 @@ export const getExamenesYOrdenes = async (req, res) => {
 
 export const createExamenYOrden = async (req, res) => {
 	try {
-		const { ordenTrabajoId, examenId } = req.body;
-
-		// Verificar si la asociación ya existe en la base de datos
-		const asociacionExistente = await examenes_y_ordenes.findOne({
-			where: { ordenTrabajoId, examenId },
-		});
-
-		if (asociacionExistente) {
-			return res.status(400).json({ message: 'La asociación ya existe.' });
-		}
+		const { idOrdenTrabajo, idExamen } = req.body;
 
 		// Crear una nueva asociación entre orden de trabajo y examen
 		const nuevaAsociacion = await examenes_y_ordenes.create({
-			ordenTrabajoId,
-			examenId,
+			idOrdenTrabajo,
+			idExamen,
 		});
 
 		res.status(201).json(nuevaAsociacion);

@@ -356,7 +356,8 @@ const formularioOrdenTrabajo = document.getElementById(
 );
 const generarOrdenButton = document.getElementById('navbarOrdenTrabjo');
 const btnAgergarExamen = document.getElementById('agregarExamenes');
-let medicoId = null;
+let medicoId;
+let pacienteId2;
 
 document.addEventListener('DOMContentLoaded', function () {
 	document
@@ -400,8 +401,9 @@ document.addEventListener('DOMContentLoaded', function () {
 					})
 						.then((response) => response.json())
 						.then((data) => {
-							if (data.id) {
-								medicoId = data.id;
+							console.log(data);
+							if (data.idMedico) {
+								medicoId = data.idMedico;
 								Swal.fire({
 									icon: 'success',
 									title: 'Médico guardado con éxito',
@@ -450,7 +452,7 @@ function renderexamenTable(examen) {
 		$('#tablaExamenes').DataTable({
 			paging: false,
 			scrollCollapse: true,
-			scrollY: '150px',
+			scrollY: '300px',
 		});
 	});
 }
@@ -468,6 +470,12 @@ document.addEventListener('click', async function (event) {
 		document
 			.getElementById('formulario-orden-trabajo')
 			.classList.remove('d-none');
+		const fechaOrdInput = document.getElementById('fecha_ord');
+		const now = new Date();
+		const offset = now.getTimezoneOffset();
+		now.setMinutes(now.getMinutes() - offset);
+		const formattedDate = now.toISOString().slice(0, 16);
+		fechaOrdInput.value = formattedDate;
 
 		try {
 			const response = await fetch('/examen');
@@ -505,6 +513,7 @@ document.addEventListener('click', async function (event) {
 		const telefono = pacienteData[10];
 		const obraSocial = pacienteData[11];
 		const numAfiliado = pacienteData[12];
+		pacienteId2 = parseInt(pacienteData[0], 10);
 
 		// Calcular la edad a partir de la fecha de nacimiento
 		const fechaNacimientoDate = new Date(fechaNacimiento);
@@ -522,6 +531,9 @@ document.addEventListener('click', async function (event) {
 		document.getElementById('sexoOrden').textContent = sexo;
 		document.getElementById('embarazoOrden').textContent = embarazo;
 		document.getElementById('obra_socialOrden').textContent = obraSocial;
+		document
+			.getElementById('crearOrdenTrabajo')
+			.addEventListener('click', guardarOrdenTrabajo);
 	}
 });
 
@@ -552,3 +564,111 @@ document.addEventListener('click', function (event) {
 		primeraTabla.appendChild(clonedRow);
 	}
 });
+
+// Definir una función para enviar la orden de trabajo al servidor
+async function guardarOrdenTrabajo() {
+	// Obtener los datos del formulario de orden de trabajo
+	const fechaCreacion = document.getElementById('fecha_ord').value;
+	const diagnostico = document.getElementById('diagnostico').value;
+	let OrdenTrabajoId;
+
+	// Verificar que se haya seleccionado al menos un examen
+	const examenesAgregados = document.querySelectorAll(
+		'#tablaExamenesAgregados tbody tr'
+	);
+	if (examenesAgregados.length === 0) {
+		Swal.fire({
+			icon: 'error',
+			title: 'Error',
+			text: 'Debes agregar al menos un examen a la orden de trabajo',
+		});
+		return;
+	}
+	console.log(pacienteId2, medicoId);
+	const idPaciente = pacienteId2;
+	const idMedico = medicoId;
+	// Crear un objeto con los datos de la orden de trabajo
+	const ordenTrabajoData = {
+		fechaCreacion,
+		estado: 'iniciada', // Estado por defecto
+		diagnostico,
+		cancelada: false, // Valor por defecto
+		idPaciente, // Obtener el ID del paciente desde donde lo tengas almacenado
+		idMedico, // Obtener el ID del médico seleccionado
+	};
+	console.log(ordenTrabajoData);
+	// Enviar los datos de la orden de trabajo al servidor y obtener el ID generado
+
+	fetch('/orden-trabajo', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(ordenTrabajoData),
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			if (data.idOrdenTrabajo) {
+				OrdenTrabajoId = data.idOrdenTrabajo;
+				console.log(OrdenTrabajoId);
+				Swal.fire({
+					icon: 'success',
+					title: 'Orden guardado con éxito',
+				});
+				const examenesAgregadosTable = document.getElementById(
+					'tablaExamenesAgregados'
+				);
+				const examenesAgregadosRows =
+					examenesAgregadosTable.querySelectorAll('tbody tr');
+				const idsDeExamenes = [];
+
+				examenesAgregadosRows.forEach((row) => {
+					const idExamenCell = row.querySelector('td:first-child');
+					const idExamen = idExamenCell.textContent;
+					idsDeExamenes.push(idExamen);
+				});
+				console.log(OrdenTrabajoId);
+				asociarExamenesAOrden(OrdenTrabajoId, idsDeExamenes);
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error al guardar la Orden',
+				});
+			}
+		});
+}
+
+// Función para asociar múltiples exámenes a una orden de trabajo en la tabla examenes_y_ordenes
+async function asociarExamenesAOrden(ordenTrabajoId, examenesIds) {
+	try {
+		const examenesIdsInt = examenesIds.map((id) => parseInt(id, 10));
+
+		for (const examenId of examenesIdsInt) {
+			const ordenTrabajoExamen = {
+				idOrdenTrabajo: ordenTrabajoId, // Usar la variable ordenTrabajoId
+				idExamen: examenId, // Usar la variable examenId
+			};
+
+			console.log(ordenTrabajoExamen);
+
+			const response = await fetch('/examenes-y-ordenes', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(ordenTrabajoExamen),
+			});
+
+			if (!response.ok) {
+				console.error(
+					`Error al asociar examen ${examenId} a la orden de trabajo ${ordenTrabajoId}`
+				);
+			}
+		}
+	} catch (error) {
+		console.error('Error al asociar exámenes a la orden de trabajo:', error);
+	}
+}
+
+// Llama a la función para asociar exámenes a la orden de trabajo
