@@ -603,7 +603,8 @@ function renderMuestras(muestras) {
 					tipo: document.getElementById('tipo').value,
 					descripcion: document.getElementById('descripcion1').value,
 					idExamen: document.getElementById('idExamen1').value
-				};		
+				};
+				console.log(muestra);		
 				try {
 					const response = await fetch(`/muestra/${idMuestra}`, {
 						method: 'PUT',

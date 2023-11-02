@@ -45,6 +45,8 @@ export const updateMuestra = async (req, res) => {
 		actualizarMuestra.descripcion = descripcion;
 		actualizarMuestra.idExamen = idExamen;
 
+		await actualizarMuestra.save();
+
 		await res.json(actualizarMuestra);
 	} catch (error) {
 		return res.status(500).json({
