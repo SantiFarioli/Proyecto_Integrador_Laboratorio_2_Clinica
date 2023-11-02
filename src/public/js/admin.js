@@ -1,14 +1,17 @@
 const adminPaciente = document.getElementById('adminPaciente');
 const viewsPaciente = document.getElementById('viewsPaciente');
 const $tablaExamen = document.getElementById('table-examen');
+const $tablaMuestra = document.getElementById('table-muestras');
 const $adminExamen = document.getElementById('adminExamen');
 const $adminMuestra = document.getElementById('adminMuestra');
 const $formularioMuestra = document.getElementById('formMuestra');
 const $formExamen = document.getElementById('form');
 const $guardarExamen = document.getElementById('guardarExamen');
 const $guardarMuestra = document.getElementById('guardarMuestra');
+const $actualizarMuestra = document.getElementById('actualizarMuestra');
 const $actualizarExamene = document.getElementById('actualizarExamen');
 const $borrarExamen = document.getElementById('borrarExamen');
+const $agregarDeterminacion = document.getElementById('agregarDeterminacion');
 let pacientesDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -356,6 +359,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				$formExamen.classList.remove('d-none');
 				$actualizarExamene.disabled = true;
 				$borrarExamen.disabled = true;
+				$agregarDeterminacion.classList.remove('d-none');
+				
 
 			document.querySelectorAll('#borrarIcon').forEach((borrarIcon, index) => {
 				borrarIcon.addEventListener('click', () => {
@@ -412,7 +417,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
   });
 });
-
 
 
 /*
@@ -488,6 +492,7 @@ $guardarExamen.addEventListener('click', async (e) => {
 	}
 });
 
+
 //Guardar Muestra de Examen
 
 $guardarMuestra.addEventListener('click', async (e) => {
@@ -529,6 +534,123 @@ $guardarMuestra.addEventListener('click', async (e) => {
 	}
 });
 
+// Tabla de Muestras de Examen
+function renderMuestras(muestras) {
+	const table = `
+		<table class="table table-bordered table-striped tablaMuestra" id='myTable'>
+		<thead>
+			<tr>
+				<th scope="col">ID Muestra</th>
+				<th scope="col">Tipo</th>
+				<th scope="col">Descripcion</th>
+				<th scope="col">ID Examen</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			${muestras.map((muestra) => `
+				<tr>
+					<th scope="row">${muestra.idMuestra}</th>
+					<td>${muestra.tipo}</td>
+					<td>${muestra.descripcion}</td>
+					<td>${muestra.idExamen}</td>
+					<td>
+    					<a href="#" type="button" class="btn btn-light btn-sm" id="actualizarIconMuesta"><i class="fa-solid fa-pen"></i></a>
+    					<a href="#" type="button" class="btn btn-light btn-sm" id="borrarIconMuestra"><i class="fa-solid fa-trash"></i></a>
+					</td>
+				</tr>
+			`).join('')}
+		</tbody>
+		</table>
+	`;
+
+	$tablaMuestra.innerHTML = table;
+
+	$(document).ready(function () {
+		$('#myTable').DataTable({
+			
+		});
+	});
+
+	document.querySelectorAll('#actualizarIconMuesta').forEach((icono) => {
+		icono.addEventListener('click', (e) => {
+			e.preventDefault();
+			const row = e.target.closest('tr');
+			const idMuestra = row.querySelector('th').textContent;
+			const tipo = row.querySelector('td:nth-child(2)').textContent;
+			const descripcion = row.querySelector('td:nth-child(3)').textContent;
+			const idExamen = row.querySelector('td:nth-child(4)').textContent;
+	
+			
+			document.getElementById('idMuestra').value = idMuestra;
+			document.getElementById('tipo').value = tipo;
+			document.getElementById('descripcion1').value = descripcion;
+			document.getElementById('idExamen1').value = idExamen;
+	
+		   
+			document.getElementById('guardarMuestra').disabled = true;
+			document.getElementById('actualizarMuestra').disabled = false;
+			document.getElementById('borrarMuestra').disabled = true;
+	
+		   
+			$formularioMuestra.classList.remove('d-none');
+			$tablaMuestra.classList.add('d-none');
+
+			$actualizarMuestra.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const idMuestra = document.getElementById('idMuestra').value;
+				const muestra ={
+					tipo: document.getElementById('tipo').value,
+					descripcion: document.getElementById('descripcion1').value,
+					idExamen: document.getElementById('idExamen1').value
+				};		
+				try {
+					const response = await fetch(`/muestra/${idMuestra}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(muestra),
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Muestra actualizada con exito',
+						}).then(() => {
+							window.location.href = 'http://localhost:3000/';
+							window.location.href = 'http://localhost:3000/admin';
+						});
+					}else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error al actualizar la muestra',
+							text: 'Error al actualizar la muestra',
+						});
+					}
+				} catch (error) {
+					console.error('Error al actualizar la muestra:', error);
+				}
+			});
+		});
+	});
+}
+
+
+$adminMuestra.addEventListener('click', async (e) => {
+	e.preventDefault();
+	try {
+		const response = await fetch('/muestra');
+		if (response.ok) {
+			const muestras = await response.json();
+			renderMuestras(muestras);
+		} else {
+			console.error('Error al obtener las muestras');
+		}
+	} catch (error) {
+		console.error('Error al obtener las muestras:', error);
+	}
+});
 
 
 
