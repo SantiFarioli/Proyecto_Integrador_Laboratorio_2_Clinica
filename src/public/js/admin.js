@@ -11,6 +11,7 @@ const $guardarMuestra = document.getElementById('guardarMuestra');
 const $actualizarMuestra = document.getElementById('actualizarMuestra');
 const $actualizarExamene = document.getElementById('actualizarExamen');
 const $borrarExamen = document.getElementById('borrarExamen');
+const $agregarDeterminacion = document.getElementById('agregarDeterminacion');
 let pacientesDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -358,6 +359,8 @@ document.addEventListener('DOMContentLoaded', function () {
 				$formExamen.classList.remove('d-none');
 				$actualizarExamene.disabled = true;
 				$borrarExamen.disabled = true;
+				$agregarDeterminacion.classList.remove('d-none');
+				
 
 			document.querySelectorAll('#borrarIcon').forEach((borrarIcon, index) => {
 				borrarIcon.addEventListener('click', () => {
@@ -648,6 +651,8 @@ $adminMuestra.addEventListener('click', async (e) => {
 		console.error('Error al obtener las muestras:', error);
 	}
 });
+
+
 
 
 

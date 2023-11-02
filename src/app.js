@@ -10,6 +10,8 @@ import medicoRouter from './router/medico.ruta.js';
 import ordenTrabajoRouter from './router/ordenTrabajo.ruta.js';
 import examenRouter from './router/examen.ruta.js';
 import examenesYOrdenesRoutes from './router/examenes_y_ordenes.ruta.js';
+import determinacionRoutes from './router/determinacion.ruta.js';
+
 const app = express();
 
 app.engine('handlebars', engine());
@@ -55,5 +57,7 @@ app.use(ordenTrabajoRouter);
 app.use(medicoRouter);
 app.use(examenRouter);
 app.use(examenesYOrdenesRoutes);
+app.use(determinacionRoutes);
+
 export default app;
 main();
