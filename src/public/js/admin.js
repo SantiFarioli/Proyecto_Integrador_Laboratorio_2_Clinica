@@ -4,12 +4,18 @@ const $tablaExamen = document.getElementById('table-examen');
 const $tablaMuestra = document.getElementById('table-muestras');
 const $adminExamen = document.getElementById('adminExamen');
 const $adminMuestra = document.getElementById('adminMuestra');
+const $adminDeterminacion = document.getElementById('adminDeterminacion');
 const $formularioMuestra = document.getElementById('formMuestra');
 const $formExamen = document.getElementById('form');
+const $formDeterminacion = document.getElementById('formDeterminacion');
 const $guardarExamen = document.getElementById('guardarExamen');
 const $guardarMuestra = document.getElementById('guardarMuestra');
+const $guardarDeterminacion = document.getElementById('guardarDeterminacion');
+const $actualizarDeterminacion = document.getElementById('actualizarDeterminacion');
 const $actualizarMuestra = document.getElementById('actualizarMuestra');
 const $actualizarExamene = document.getElementById('actualizarExamen');
+const $borrarMuestra = document.getElementById('borrarMuestra');
+const $borrarDeterminacion = document.getElementById('borrarDeterminacion');
 const $borrarExamen = document.getElementById('borrarExamen');
 const $agregarDeterminacion = document.getElementById('agregarDeterminacion');
 let pacientesDataTable;
@@ -359,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				$formExamen.classList.remove('d-none');
 				$actualizarExamene.disabled = true;
 				$borrarExamen.disabled = true;
-				$agregarDeterminacion.classList.remove('d-none');
+				
 				
 
 			document.querySelectorAll('#borrarIcon').forEach((borrarIcon, index) => {
@@ -654,8 +660,81 @@ $adminMuestra.addEventListener('click', async (e) => {
 });
 
 
+function renderDeterminacionExamen(examenes) {
+	const table = `
+		<table class="tablita table table-bordered table-striped mx-auto" id='myTable'>
+		<thead>
+			<tr>
+				<th scope="col" class="text-center">idExamen</th>
+				<th scope="col" class="text-center">Codigo</th>
+				<th scope="col" class="text-center">Descripcion</th>
+				<th scope="col" class="text-center">requisitosExamen</th>
+				<th scope="col" class="text-center">tiempoDeExamen</th>
+				<th scope="col" class="text-center">Solicitudes</th>
+			</tr>
+		</thead>
+		<tbody class="text-center">
+			${examenes.map((examen) => `
+				<tr>	
+					<td>${examen.idExamen}</td>
+					<td>${examen.codigo}</td>
+					<td>${examen.descripcion}</td>
+					<td>${examen.requisitosExamen}</td>
+					<td>${examen.tiempoDeExamen}</td>				
+					<td class="text-center">
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarIcon"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm muestraIcon" data-id-examen="${examen.idExamen}"><i class="fas fa-flask"></i></a>
+					</td>
+				</tr>
+			`).join('')}
+		</tbody>
+		</table>
+	`;
+	$tablaExamen.innerHTML = table;
+
+	$(document).ready(function () {
+		$('#myTable').DataTable( {
+			"language": {
+				"decimal": "",
+				"emptyTable": "No hay datos disponibles",
+				"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+				"infoEmpty": "Mostrando 0 a 0 de 0 registros",
+				"infoFiltered": "(filtrado de _MAX_ total de registros)",
+				"infoPostFix": "",
+				"thousands": ",",
+				"lengthMenu": "Mostrar _MENU_ registros",
+				"loadingRecords": "Cargando...",
+				"processing": "Procesando...",
+				"search": "Buscar:",
+				"zeroRecords": "No se encontraron resultados",
+				"paginate": {
+					"first": "Primero",
+					"last": "Ultimo",
+					"next": "Siguiente",
+					"previous": "Anterior",
+				},
+			},
+		});
+	});
+}
 
 
-
-
-
+document.addEventListener('DOMContentLoaded', function () {
+	$adminDeterminacion.addEventListener('click',  async (e) => {	
+		try {	
+			const response = await fetch('/examen');
+			if (response.ok) {
+				const examenes = await response.json();
+				renderDeterminacionExamen(examenes);		
+				$formDeterminacion.classList.remove('d-none');
+				$actualizarDeterminacion.disabled = true;
+				$borrarDeterminacion.disabled = true;
+			} else {
+				console.error('Error al obtener los examenes');
+			}
+		} catch (error) {
+			console.error('Error al obtener los examenes:', error);
+		}
+	});
+});
