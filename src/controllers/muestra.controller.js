@@ -80,7 +80,7 @@ export const getTipoMuestraPorIdExamen = async (req, res) => {
 
 		if (muestraData) {
 			// Si se encuentra el tipo de muestra, devuélvelo como respuesta
-			res.json({ tipo: muestraData.tipo });
+			res.json({ tipo: muestraData.tipo, idMuestra: muestraData.idMuestra });
 		} else {
 			// Si no se encuentra, devuelve un mensaje de error o un valor predeterminado
 			res.status(404).json({ message: 'Tipo de muestra no encontrado' });

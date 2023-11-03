@@ -8,7 +8,7 @@ import {
 
 const router = Router();
 
-router.get('/muestraRequerida', getMuestras);
+router.get('/muestraRequeridas', getMuestras);
 router.post('/muestraRequerida', createMuestra);
 router.put('/muestraRequerida/:id', updateMuestra);
 router.delete('/muestraRequerida/:id', deleteMuestra);

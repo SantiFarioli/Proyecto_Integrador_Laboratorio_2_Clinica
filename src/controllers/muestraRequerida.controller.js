@@ -12,7 +12,7 @@ export const getMuestras = async (req, res) => {
 };
 
 export const createMuestra = async (req, res) => {
-	const { fechaRecepcion, entregada, etiqueta, idOrdenTrabajo, idMuesta } =
+	const { fechaRecepcion, entregada, etiqueta, idOrdenTrabajo, idMuestra } =
 		req.body;
 
 	try {
@@ -21,8 +21,10 @@ export const createMuestra = async (req, res) => {
 			entregada,
 			etiqueta,
 			idOrdenTrabajo,
-			idMuesta,
+			idMuestra,
 		});
+
+		console.log('Muestra creada:', newMuestra);
 
 		res.json(newMuestra);
 	} catch (error) {

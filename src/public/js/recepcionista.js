@@ -590,7 +590,7 @@ async function guardarOrdenTrabajo() {
 		idPaciente, // Obtener el ID del paciente desde donde lo tengas almacenado
 		idMedico, // Obtener el ID del médico seleccionado
 	};
-
+	console.log(ordenTrabajoData);
 	// Enviar los datos de la orden de trabajo al servidor y obtener el ID generado
 
 	fetch('/orden-trabajo', {
@@ -623,6 +623,7 @@ async function guardarOrdenTrabajo() {
 				});
 
 				asociarExamenesAOrden(OrdenTrabajoId, idsDeExamenes);
+				guardarFormularios();
 			} else {
 				Swal.fire({
 					icon: 'error',
@@ -642,7 +643,7 @@ async function asociarExamenesAOrden(ordenTrabajoId, examenesIds) {
 				idOrdenTrabajo: ordenTrabajoId, // Usar la variable ordenTrabajoId
 				idExamen: examenId, // Usar la variable examenId
 			};
-
+			console.log(ordenTrabajoExamen);
 			const response = await fetch('/examenes-y-ordenes', {
 				method: 'POST',
 				headers: {
@@ -685,6 +686,7 @@ document.addEventListener('click', async function (event) {
 					console.log(muestraData);
 					// Obtener el tipo de muestra de la respuesta
 					const tipoMuestra = muestraData.tipo;
+					const idMuestra = muestraData.idMuestra;
 
 					// Verificar si el tipo de muestra ya ha sido agregado
 					if (!tiposDeMuestraAgregados.has(tipoMuestra)) {
@@ -724,6 +726,7 @@ document.addEventListener('click', async function (event) {
                                     <label for='tipoMuestra${examenId}'>Tipo Muestra:</label>
                                     <input type='text' class='form-control' id='tipoMuestra${examenId}' value='${tipoMuestra}' readonly />
                                 </div>
+								<input type='hidden' id='idMuestra${examenId}' name='idMuestra${examenId}' value='${idMuestra}' />
                             </div>
                         `;
 
@@ -773,42 +776,54 @@ document.addEventListener('click', async function (event) {
 });
 
 async function guardarFormularios() {
-	const formularios = document.querySelectorAll('.muestraRequeridaForm');
-	const dataToSave = [];
-
-	formularios.forEach((formulario) => {
-		const examenId = formulario.id.replace('muestraRequeridaForm', '');
-		const fechaRecepcion = formulario.querySelector(
-			`#fechaRecepcion${examenId}`
-		).value;
-		const entregada = formulario.querySelector(`#entregada${examenId}`).value;
-		const etiqueta = formulario.querySelector(`#etiqueta${examenId}`).value;
-
-		// Agregar los datos a un objeto o array para enviarlos al servidor
-		dataToSave.push({
-			fechaRecepcion,
-			entregada,
-			etiqueta,
-			idOrdenTrabajo: OrdenTrabajoId,
-			idMuesta,
-		});
-	});
-
 	try {
-		const response = await fetch('/ruta-para-guardar-datos', {
+		const formularios = document.querySelectorAll('.muestraRequeridaForm');
+		const dataToSave = [];
+
+		formularios.forEach((formulario) => {
+			const examenId = parseInt(
+				formulario.id.replace('muestraRequeridaForm', ''),
+				10
+			);
+			const fechaRecepcion = formulario.querySelector(
+				`#fechaRecepcion${examenId}`
+			).value;
+
+			// Validar la fecha antes de guardarla
+
+			const entregada =
+				formulario.querySelector(`#entregada${examenId}`).value === 'si'; // Convertir 'si' a true, 'no' a false
+			const etiqueta = formulario.querySelector(`#etiqueta${examenId}`).value;
+			const muestraId = parseInt(
+				formulario.querySelector(`#idMuestra${examenId}`).value,
+				10
+			);
+
+			// Agregar los datos a un objeto o array para enviarlos al servidor
+			dataToSave.push({
+				fechaRecepcion,
+				entregada,
+				etiqueta,
+				idOrdenTrabajo: OrdenTrabajoId,
+				idMuestra: muestraId,
+			});
+		});
+		console.log(dataToSave);
+
+		const response = await fetch('/muestraRequerida', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(dataToSave),
 		});
-
+		console.log(response);
 		if (response.ok) {
 			console.log('Datos guardados exitosamente');
 		} else {
 			console.error('Error al guardar los datos en el servidor');
 		}
 	} catch (error) {
-		console.error('Error al enviar los datos al servidor:', error);
+		console.error('Error inesperado:', error);
 	}
 }
