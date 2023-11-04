@@ -1,3 +1,6 @@
+<!--
+    Nav Bar Recepcionista
+-->
 <div class='wrapper'>
 	<aside id='sidebar'>
 		<div class='h-100'>
@@ -30,7 +33,7 @@
 								href='#'
 								class='sidebar-link'
 								id='formulario-busqueda'
-							>Registrar Paciente</a>
+							>Registrar Busqueda e Inicio de Ordenes de Paciente</a>
 						</li>
 					</ul>
 				</li>
@@ -52,7 +55,11 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link'>Consultar Orden de Trabajo</a>
+							<a
+								href='#'
+								class='sidebar-link'
+								id='consultaOrdeDeTrabajo'
+							>Consulta y cancelacion de Orden de Trabajo</a>
 						</li>
 					</ul>
 				</li>
@@ -117,11 +124,16 @@
 			</ul>
 		</div>
 	</aside>
-	<!-- Main Component -->
+	<!--
+    Crear y Administrar Paciente
+-->
 	<div class='main'>
 
 		<main class='content px-3 py-2'>
 			<div class='container'>
+				<!--
+    Administracion inicio de Ordenes de trabajo para pacientes
+-->
 				<div class='row mb-3'>
 					<h3>Bienvenido al Sistema</h3>
 					<div
@@ -133,7 +145,6 @@
 							<div class='col-12 mt-4'>
 								<h1>Tabla de Pacientes</h1>
 								<div class=''>
-									<!-- Agregamos estilos en línea para controlar la altura y el desplazamiento -->
 									<table
 										class='table table-striped display compact text-center'
 										style='width:100%'
@@ -165,13 +176,16 @@
 							</div>
 						</div>
 						<div class='text-center'>
+
 							<button
 								id='mostrar-formulario-busqueda'
 								class='btn btn-primary'
 							>Registrar Nuevo Paciente</button>
 						</div>
 					</div>
-
+					<!--
+    Registro de Usario
+-->
 					<div class='container mt-5 d-none' id='formulario-paciente2'>
 						<div class='row'>
 							<div class='col-md-6 offset-md-3 text-light'>
@@ -218,18 +232,257 @@
 											class='form-control'
 											id='provincia'
 											name='provincia'
-											required
+											value='San Luis'
+											readonly
 										/>
 									</div>
 									<div class='form-group'>
 										<label for='localidad'>Localidad:</label>
-										<input
-											type='text'
+										<select
 											class='form-control'
 											id='localidad'
 											name='localidad'
 											required
-										/>
+										>
+											<option value='Algarrobo Grande'>Algarrobo Grande</option>
+											<option value='Alsa'>Alsa</option>
+											<option value='Alto Lindo'>Alto Lindo</option>
+											<option value='Alto Pelado'>Alto Pelado</option>
+											<option value='Alto Pencoso'>Alto Pencoso</option>
+											<option value='Anchorena'>Anchorena</option>
+											<option value='Árbol Solo'>Árbol Solo</option>
+											<option value='Arizona'>Arizona</option>
+											<option value='Bagual'>Bagual</option>
+											<option value='Bajos Hondos'>Bajos Hondos</option>
+											<option value='Bajada Nueva'>Bajada Nueva</option>
+											<option value='Balcarce'>Balcarce</option>
+											<option value='Balde'>Balde</option>
+											<option value='Balde de Escudero'>Balde de Escudero</option>
+											<option value='Balde de Escurria'>Balde de Escurria</option>
+											<option value='Balde de las Torres'>Balde de las Torres</option>
+											<option value='Balde de Puertas'>Balde de Puertas</option>
+											<option value='Balde Viejo'>Balde Viejo</option>
+											<option value='Barranca Colorada'>Barranca Colorada</option>
+											<option value='Batavia'>Batavia</option>
+											<option value='Beazley'>Beazley</option>
+											<option value='Bella Vista'>Bella Vista</option>
+											<option value='Buena Esperanza'>Buena Esperanza</option>
+											<option value='Buena Vista'>Buena Vista</option>
+											<option value='Cabeza de Novillo'>Cabeza de Novillo</option>
+											<option value='Caldenadas'>Caldenadas</option>
+											<option value='Candelaria'>Candelaria</option>
+											<option value='Canteras'>Canteras</option>
+											<option value='Cañada Honda'>Cañada Honda</option>
+											<option value='Carpintería'>Carpintería</option>
+											<option value='Cazador'>Cazador</option>
+											<option value='Cerro de Oro'>Cerro de Oro</option>
+											<option value='Chalanta'>Chalanta</option>
+											<option value='Chimborazo'>Chimborazo</option>
+											<option value='Chipiscú'>Chipiscú</option>
+											<option value='Chischaquita'>Chischaquita</option>
+											<option value='Chosmes'>Chosmes</option>
+											<option value='Cochequingán'>Cochequingán</option>
+											<option value='Colonia Calzada'>Colonia Calzada</option>
+											<option value='Colonia Santa Virginia'>Colonia Santa
+												Virginia</option>
+											<option value='Colonia Urdániz'>Colonia Urdániz</option>
+											<option value='Comandante Granville'>Comandante Granville</option>
+											<option value='Concarán'>Concarán</option>
+											<option value='Conlara'>Conlara</option>
+											<option value='Coronel Alzogaray'>Coronel Alzogaray</option>
+											<option value='Coronel Segovia'>Coronel Segovia</option>
+											<option value='Cortaderas'>Cortaderas</option>
+											<option value='Crámer'>Crámer</option>
+											<option value='Cruz de Caña'>Cruz de Caña</option>
+											<option value='Daniel Dónovan'>Daniel Dónovan</option>
+											<option value='Donado'>Donado</option>
+											<option value='El Águila'>El Águila</option>
+											<option value='El Baldecito'>El Baldecito</option>
+											<option value='El Cadillo'>El Cadillo</option>
+											<option value='El Carmen'>El Carmen</option>
+											<option value='El Chañar'>El Chañar</option>
+											<option value='El Chorrillo'>El Chorrillo</option>
+											<option value='El Hormiguero'>El Hormiguero</option>
+											<option value='El Manantial Escondido'>El Manantial
+												Escondido</option>
+											<option value='El Martillo'>El Martillo</option>
+											<option value='El Milagro'>El Milagro</option>
+											<option value='El Mollar'>El Mollar</option>
+											<option value='El Pantanillo'>El Pantanillo</option>
+											<option value='El Pastal'>El Pastal</option>
+											<option value='El Portezuelo'>El Portezuelo</option>
+											<option value='El Porvenir'>El Porvenir</option>
+											<option value='El Puesto'>El Puesto</option>
+											<option value='El Recuerdo'>El Recuerdo</option>
+											<option value='El Retamo'>El Retamo</option>
+											<option value='El Rodeo'>El Rodeo</option>
+											<option value='El Sauce'>El Sauce</option>
+											<option value='El Tala'>El Tala</option>
+											<option value='El Volcán'>El Volcán</option>
+											<option value='Eleodoro Lobos'>Eleodoro Lobos</option>
+											<option value='Estancia Grande'>Estancia Grande</option>
+											<option value='Fortín El Patria'>Fortín El Patria</option>
+											<option value='Fortuna'>Fortuna</option>
+											<option value='Fraga'>Fraga</option>
+											<option value='Frisia'>Frisia</option>
+											<option value='Gorgonta'>Gorgonta</option>
+											<option value='Guanaco Pampa'>Guanaco Pampa</option>
+											<option value='Huejeda'>Huejeda</option>
+											<option value='Jarilla'>Jarilla</option>
+											<option value='Juan Jorba'>Juan Jorba</option>
+											<option value='Juan Llerena'>Juan Llerena</option>
+											<option value='Juan W. Gez'>Juan W. Gez</option>
+											<option value='Juana Koslay'>Juana Koslay</option>
+											<option value='Justo Daract'>Justo Daract</option>
+											<option value='La Angelina'>La Angelina</option>
+											<option value='La Bajada'>La Bajada</option>
+											<option value='La Botija'>La Botija</option>
+											<option value='La Brea'>La Brea</option>
+											<option value='La Calera'>La Calera</option>
+											<option value='La Carolina'>La Carolina</option>
+											<option value='La Cocha'>La Cocha</option>
+											<option value='La Costa'>La Costa</option>
+											<option value='La Esquina'>La Esquina</option>
+											<option value='La Estrella'>La Estrella</option>
+											<option value='La Florida'>La Florida</option>
+											<option value='La Irene'>La Irene</option>
+											<option value='La Majada'>La Majada</option>
+											<option value='La Maroma'>La Maroma</option>
+											<option value='La Melina'>La Melina</option>
+											<option value='La Nélida'>La Nélida</option>
+											<option value='La Pampa Grande'>La Pampa Grande</option>
+											<option value='La Puerta'>La Puerta</option>
+											<option value='La Punilla'>La Punilla</option>
+											<option value='La Punta'>La Punta</option>
+											<option value='La Sala'>La Sala</option>
+											<option value='La Seña'>La Seña</option>
+											<option value='La Toma'>La Toma</option>
+											<option value='La Totora'>La Totora</option>
+											<option value='La Tranca'>La Tranca</option>
+											<option value='La Verde'>La Verde</option>
+											<option value='La Vertiente'>La Vertiente</option>
+											<option value='Las Aguadas'>Las Aguadas</option>
+											<option value='Las Barrancas'>Las Barrancas</option>
+											<option value='Las Cañadas'>Las Cañadas</option>
+											<option value='Las Chacras'>Las Chacras</option>
+											<option value='Las Chimbas'>Las Chimbas</option>
+											<option value='Las Gamas'>Las Gamas</option>
+											<option value='Las Isletas'>Las Isletas</option>
+											<option value='Las Lagunas'>Las Lagunas</option>
+											<option value='Las Palomas'>Las Palomas</option>
+											<option value='Las Totoras'>Las Totoras</option>
+											<option value='Las Vertientes'>Las Vertientes</option>
+											<option value='Lafinur'>Lafinur</option>
+											<option value='Lagunas Largas'>Lagunas Largas</option>
+											<option value='Lavaisse'>Lavaisse</option>
+											<option value='Leandro N. Alem'>Leandro N. Alem</option>
+											<option value='Libertador General San Martín'>Libertador
+												General San Martín</option>
+											<option value='Liborio Luna'>Liborio Luna</option>
+											<option value='Loma Blanca'>Loma Blanca</option>
+											<option value='Lomas Blancas'>Lomas Blancas</option>
+											<option value='Los Alanices'>Los Alanices</option>
+											<option value='Los Arguelos'>Los Arguelos</option>
+											<option value='Los Cajones'>Los Cajones</option>
+											<option value='Los Cerrillos'>Los Cerrillos</option>
+											<option value='Los Chañares'>Los Chañares</option>
+											<option value='Los Chilcas'>Los Chilcas</option>
+											<option value='Los Coros'>Los Coros</option>
+											<option value='Los Duraznitos'>Los Duraznitos</option>
+											<option value='Los Lobos'>Los Lobos</option>
+											<option value='Los Molles'>Los Molles</option>
+											<option value='Los Ranchos'>Los Ranchos</option>
+											<option value='Luján'>Luján</option>
+											<option value='Manantial Blanco'>Manantial Blanco</option>
+											<option value='Manantiales'>Manantiales</option>
+											<option value='Martín de Loyola'>Martín de Loyola</option>
+											<option value='Merlo'>Merlo</option>
+											<option value='Molino Chico'>Molino Chico</option>
+											<option value='Mosmota'>Mosmota</option>
+											<option value='Nahuel Mapá'>Nahuel Mapá</option>
+											<option value='Naschel'>Naschel</option>
+											<option value='Navia'>Navia</option>
+											<option value='Nogolí'>Nogolí</option>
+											<option value='Nueva Constitución'>Nueva Constitución</option>
+											<option value='Nueva Escocia'>Nueva Escocia</option>
+											<option value='Nueva Galia'>Nueva Galia</option>
+											<option value='Ojo de Agua'>Ojo de Agua</option>
+											<option value='Ojos del Río'>Ojos del Río</option>
+											<option value='Pantanillo'>Pantanillo</option>
+											<option value='Papagayos'>Papagayos</option>
+											<option value='Paso Grande'>Paso Grande</option>
+											<option value='Paso del Rey'>Paso del Rey</option>
+											<option value='Pedernera'>Pedernera</option>
+											<option value='Pescadores'>Pescadores</option>
+											<option value='Piedras Chatas'>Piedras Chatas</option>
+											<option value='Polledo'>Polledo</option>
+											<option value='Potrerillo'>Potrerillo</option>
+											<option value='Potrero de los Funes'>Potrero de los Funes</option>
+											<option value='Pozo del Carril'>Pozo del Carril</option>
+											<option value='Pozo del Tala'>Pozo del Tala</option>
+											<option value='Punta del Agua'>Punta del Agua</option>
+											<option value='Quines'>Quines</option>
+											<option value='Ranquelcó'>Ranquelcó</option>
+											<option value='Renca'>Renca</option>
+											<option value='Rincón del Carmen'>Rincón del Carmen</option>
+											<option value='Riocito'>Riocito</option>
+											<option value='Río Grande'>Río Grande</option>
+											<option value='Río Juan Gómez'>Río Juan Gómez</option>
+											<option value='Río Quinto'>Río Quinto</option>
+											<option value='Rosario'>Rosario</option>
+											<option value='Saladillo'>Saladillo</option>
+											<option value='Salado'>Salado</option>
+											<option value='Salinas del Bebedero'>Salinas del Bebedero</option>
+											<option value='San Eduardo'>San Eduardo</option>
+											<option value='San Antonio'>San Antonio</option>
+											<option value='San Felipe'>San Felipe</option>
+											<option value='San Francisco del Monte de Oro'>San
+												Francisco del Monte de Oro</option>
+											<option value='San Gerónimo'>San Gerónimo</option>
+											<option value='San Ignacio'>San Ignacio</option>
+											<option value='San Isidro'>San Isidro</option>
+											<option value='San José del Morro'>San José del Morro</option>
+											<option value='San Luis'>San Luis</option>
+											<option value='San Martín'>San Martín</option>
+											<option value='San Martín del Alto Negro'>San Martín del
+												Alto Negro</option>
+											<option value='San Miguel'>San Miguel</option>
+											<option value='San Pablo'>San Pablo</option>
+											<option value='San Pedro'>San Pedro</option>
+											<option value='San Roque'>San Roque</option>
+											<option value='San Salvador'>San Salvador</option>
+											<option value='Santa Rosa'>Santa Rosa</option>
+											<option value='Santa Rosa del Conlara'>Santa Rosa del
+												Conlara</option>
+											<option value='Santo Tómas'>Santo Tómas</option>
+											<option value='Socoscora'>Socoscora</option>
+											<option value='Soven'>Soven</option>
+											<option value='Suyuque Nuevo'>Suyuque Nuevo</option>
+											<option value='Suyuque Viejo'>Suyuque Viejo</option>
+											<option value='Tala Verde'>Tala Verde</option>
+											<option value='Talita'>Talita</option>
+											<option value='Talleres'>Talleres</option>
+											<option value='Tilisarao'>Tilisarao</option>
+											<option value='Toro Negro'>Toro Negro</option>
+											<option value='Toscal'>Toscal</option>
+											<option value='Trapiche'>Trapiche</option>
+											<option value='Travesía'>Travesía</option>
+											<option value='Tres Amigos'>Tres Amigos</option>
+											<option value='Unión'>Unión</option>
+											<option value='Usiyal'>Usiyal</option>
+											<option value='Vaca Parada'>Vaca Parada</option>
+											<option value='Valle de Pancanta'>Valle de Pancanta</option>
+											<option value='Varela'>Varela</option>
+											<option value='Villa de la Quebrada'>Villa de la Quebrada</option>
+											<option value='Villa de Praga'>Villa de Praga</option>
+											<option value='Villa del Carmen'>Villa del Carmen</option>
+											<option value='Villa General Roca'>Villa General Roca</option>
+											<option value='Villa Larca'>Villa Larca</option>
+											<option value='Villa Mercedes'>Villa Mercedes</option>
+											<option value='Villa Reynolds'>Villa Reynolds</option>
+											<option value='Villa Salles'>Villa Salles</option>
+											<option value='Zanjitas'>Zanjitas</option>
+										</select>
 									</div>
 
 									<div class='form-group'>
@@ -330,7 +583,9 @@
 					</div>
 				</div>
 			</div>
-
+			<!--
+    Ordenes de trabajo
+-->
 			<div
 				class='container d-none mt-5 text-light text-center d-flex align-items-center justify-content-center'
 				id='formulario-orden-trabajo'
@@ -356,12 +611,56 @@
 
 						<div class='col-md-6 mx-auto'>
 							<label for='diagnostico'>Diagnóstico:</label>
-							<textarea
+							<select
 								class='form-control'
 								id='diagnostico'
 								name='diagnostico'
 								required
-							></textarea>
+							>
+								<option value='A00-B99'>CIERTAS ENFERMEDADES INFECCIOSAS Y
+									PARASITARIAS (A00-B99)</option>
+								<option value='C00-D49'>NEOPLASIAS (C00-D49)</option>
+								<option value='D50-D89'>ENFERMEDADES DE LA SANGRE Y ÓRGANOS
+									HEMATOPOYÉTICOS Y CIERTOS TRASTORNOS QUE AFECTAN AL MECANISMO
+									INMUNOLÓGICO (D50-D89)</option>
+								<option value='E00-E89'>ENFERMEDADES ENDOCRINAS, NUTRICIONALES Y
+									METABÓLICAS (E00-E89)</option>
+								<option value='F01-F99'>TRASTORNOS MENTALES, DEL COMPORTAMIENTO
+									Y DEL DESARROLLO NEUROLÓGICO (F01-F99)</option>
+								<option value='G00-G99'>ENFERMEDADES DEL SISTEMA NERVIOSO
+									(G00-G99)</option>
+								<option value='H00-H59'>ENFERMEDADES DEL OJO Y SUS ANEXOS
+									(H00-H59)</option>
+								<option value='H60-H95'>ENFERMEDADES DEL OÍDO Y DE LA APÓFISIS
+									MASTOIDES (H60-H95)</option>
+								<option value='I00-I99'>ENFERMEDADES DEL APARATO CIRCULATORIO
+									(I00-I99)</option>
+								<option value='J00-J99'>ENFERMEDADES DEL APARATO RESPIRATORIO
+									(J00-J99)</option>
+								<option value='K00-K95'>ENFERMEDADES DEL APARATO DIGESTIVO
+									(K00-K95)</option>
+								<option value='L00-L99'>ENFERMEDADES DE LA PIEL Y DEL TEJIDO
+									SUBCUTÁNEO (L00-L99)</option>
+								<option value='M00-M99'>ENFERMEDADES DEL APARATO
+									MUSCULOESQUELÉTICO Y DEL TEJIDO CONECTIVO (M00-M99)</option>
+								<option value='N00-N99'>ENFERMEDADES DEL APARATO GENITOURINARIO
+									(N00-N99)</option>
+								<option value='O00-O9A'>EMBARAZO, PARTO Y PUERPERIO (O00-O9A)</option>
+								<option value='P00-P96'>CIERTAS AFECCIONES ORIGINADAS EN EL
+									PERÍODO PERINATAL (P00-P96)</option>
+								<option value='Q00-Q99'>MALFORMACIONES CONGÉNITAS, DEFORMIDADES
+									Y ANOMALÍAS CROMOSÓMICAS (Q00-Q99)</option>
+								<option value='R00-R99'>SÍNTOMAS, SIGNOS Y RESULTADOS ANORMALES
+									DE PRUEBAS COMPLEMENTARIAS, NO CLASIFICADOS BAJO OTRO CONCEPTO
+									(R00-R99)</option>
+								<option value='S00-T88'>LESIONES TRAUMÁTICAS, ENVENENAMIENTOS Y
+									OTRAS CONSECUENCIAS DE CAUSAS EXTERNAS (S00-T88)</option>
+								<option value='V00-Y99'>CAUSAS EXTERNAS DE MORBILIDAD (V00-Y99)</option>
+								<option value='Z00-Z99'>FACTORES QUE INFLUYEN EN EL ESTADO DE
+									SALUD Y CONTACTO CON LOS SERVICIOS SANITARIOS (Z00-Z99)</option>
+								<option value='U00-U85'>CÓDIGOS PARA PROPÓSITOS ESPECIALES
+									(U00-U85)</option>
+							</select>
 						</div>
 
 						<div class='col-md-5 mx-auto'>
@@ -437,6 +736,11 @@
 							</div>
 						</div>
 					</div>
+					<button
+						type='submit'
+						class='btn btn-success mt-3'
+						id='crearOrdenTrabajo'
+					>Crear Orden de Trabajo</button>
 					<div class='form-group'>
 						<label for='examenId'>Examenes:</label>
 						<div class='input-group justify-content-center'>
@@ -467,15 +771,56 @@
 						</div>
 					</div>
 					<div class='d-flex justify-content-center'>
-						<button
-							type='submit'
-							class='btn btn-success mt-3'
-							id='crearOrdenTrabajo'
-						>Crear Orden de Trabajo</button>
+
 					</div>
 				</div>
 			</div>
+			<!--
+    Cancelacion y Consultas de ordenes de Trabajo
+-->
 
+			<div class='container d-none' id='tablaConsultaOrdenes'>
+				<h2>Tabla de Órdenes de Trabajo</h2>
+				<table
+					class='table table-bordered table-striped'
+					id='tablaAdministrarOrdenes'
+				>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Fecha de Creación</th>
+							<th>Estado</th>
+							<th>Diagnóstico</th>
+							<th>Apellido Paciente</th>
+							<th>DNI Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+				<h2>Tabla de Órdenes de Trabajo Caceladas</h2>
+				<table
+					class='table table-bordered table-striped'
+					id='tablaAdministrarOrdenes2'
+				>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Fecha de Creación</th>
+							<th>Estado</th>
+							<th>Diagnóstico</th>
+							<th>Apellido Paciente</th>
+							<th>DNI Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
 		</main>
 	</div>
 </div>
