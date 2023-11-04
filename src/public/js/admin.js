@@ -660,31 +660,30 @@ $adminMuestra.addEventListener('click', async (e) => {
 });
 
 
-function renderDeterminacionExamen(examenes) {
+function renderDeterminacionExamenMuestra(muestras) {
 	const table = `
 		<table class="tablita table table-bordered table-striped mx-auto" id='myTable'>
 		<thead>
 			<tr>
-				<th scope="col" class="text-center">idExamen</th>
+				<th scope="col" class="text-center">ID Examen</th>
 				<th scope="col" class="text-center">Codigo</th>
 				<th scope="col" class="text-center">Descripcion</th>
-				<th scope="col" class="text-center">requisitosExamen</th>
-				<th scope="col" class="text-center">tiempoDeExamen</th>
+				<th scope="col" class="text-center">Tipo de Muestra</th>	
 				<th scope="col" class="text-center">Solicitudes</th>
+				
 			</tr>
 		</thead>
 		<tbody class="text-center">
-			${examenes.map((examen) => `
-				<tr>	
-					<td>${examen.idExamen}</td>
-					<td>${examen.codigo}</td>
-					<td>${examen.descripcion}</td>
-					<td>${examen.requisitosExamen}</td>
-					<td>${examen.tiempoDeExamen}</td>				
+			${muestras.map((muestra) => `
+				<tr>
+					<td>${muestra.idExamen}</td>					
+					<td>${muestra.examen.codigo}</td>
+					<td>${muestra.examen.descripcion}</td>
+					<td>${muestra.tipo}</td>		
 					<td class="text-center">
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarIcon"></i></a>
-					<a href="#" type="button" class="btn btn-light btn-sm muestraIcon" data-id-examen="${examen.idExamen}"><i class="fas fa-flask"></i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-plus" id="crearDeterminacionIcon"> Create</i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarDeterminacionIcon"> Update</i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarDeterminacionIcon"> Delete</i></a>
 					</td>
 				</tr>
 			`).join('')}
@@ -717,19 +716,70 @@ function renderDeterminacionExamen(examenes) {
 			},
 		});
 	});
+
+	document.querySelectorAll('#crearDeterminacionIcon').forEach((icono, index) => {
+		icono.addEventListener('click', (e) => {
+			
+			document.querySelector('#guardarDeterminacion').disabled = false;
+			document.querySelector('#actualizarDeterminacion').disabled = true;
+			document.querySelector('#borrarDeterminacion').disabled = true;
+			$formDeterminacion.classList.remove('d-none');
+
+			$formDeterminacion.querySelector('#idExamen2').value = muestras[index].idExamen;
+			
+	
+			$guardarDeterminacion.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const idExamen = document.querySelector('#idExamen2').value;
+				const determinacion = {
+					nombre: document.querySelector('#nombreDeterminacion').value,
+					descripcion: document.querySelector('#descripcion2').value,
+					unidadMedida: document.querySelector('#unidadMedida').value,
+					metodoAnalisis: document.querySelector('#metodoAnalisis').value,
+					idExamen,
+				};
+				console.log(determinacion);
+				try {
+					const response = await fetch('/determinacion', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(determinacion),
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Determinacion creada con exito',
+						}).then(() => {
+							window.location.href = 'http://localhost:3000/';
+							window.location.href = 'http://localhost:3000/admin';		
+					});
+					}else{
+						Swal.fire({
+							icon: 'error',
+							title: 'Error al crear la Determinacion',
+							text: 'Error al crear la Determinacion',
+						});
+					}
+				} catch (error) {
+					console.error('Error al actualizar la muestra:', error);
+				}
+			});
+		});
+	});
 }
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
 	$adminDeterminacion.addEventListener('click',  async (e) => {	
 		try {	
-			const response = await fetch('/examen');
+			const response = await fetch('/muestra');
 			if (response.ok) {
-				const examenes = await response.json();
-				renderDeterminacionExamen(examenes);		
-				$formDeterminacion.classList.remove('d-none');
-				$actualizarDeterminacion.disabled = true;
-				$borrarDeterminacion.disabled = true;
+				const muestras = await response.json();
+				renderDeterminacionExamenMuestra(muestras);		
 			} else {
 				console.error('Error al obtener los examenes');
 			}
@@ -738,3 +788,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 	});
 });
+
+	
+

@@ -45,4 +45,5 @@ determinacion.belongsTo(examen, {
 muestra.belongsTo(examen, {
 	foreignKey: 'idExamen',
 	targetKey: 'idExamen',
+	as: 'examen'
 });

@@ -16,14 +16,16 @@ export const createDeterminacion = async (req, res) => {
         nombre,
         descripcion,
         unidadMedida,
-        metodoAnalisis
+        metodoAnalisis,
+        idExamen
     } = req.body;
     try {
         const newDeterminacion = await determinacion.create({
             nombre,
             descripcion,
-            medida,
-            metodoAnalisis
+            unidadMedida,
+            metodoAnalisis,
+            idExamen
         });
         res.json(newDeterminacion);
     } catch (error) {

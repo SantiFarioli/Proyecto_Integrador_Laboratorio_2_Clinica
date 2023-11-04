@@ -1,8 +1,17 @@
 import { muestra } from '../models/muestra.js';
+import { examen } from '../models/examen.js';
 
 export const getMuestras = async (req, res) => {
 	try {
-		const muestras = await muestra.findAll();
+		const muestras = await muestra.findAll({
+			include: [
+				{
+					model: examen,
+					as: 'examen',
+					attributes: ['codigo', 'descripcion'],
+				},
+			],
+		});
 		res.json(muestras);
 	} catch (error) {
 		return res.status(500).json({
