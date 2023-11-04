@@ -827,3 +827,158 @@ async function guardarFormularios() {
 		console.error('Error inesperado:', error);
 	}
 }
+
+/*********************************************
+ *     Cancelacion y consulta de Ordenes de trabajo
+ *********************************************/
+const consultaOrdeDeTrabajo = document.getElementById('consultaOrdeDeTrabajo');
+const tablaAdministrarOrdenes = document.getElementById(
+	'tablaAdministrarOrdenes'
+);
+document.addEventListener('DOMContentLoaded', function () {
+	consultaOrdeDeTrabajo.addEventListener('click', function (e) {
+		e.preventDefault();
+		if (tablaConsultaOrdenes.classList.contains('d-none')) {
+			tablaConsultaOrdenes.classList.remove('d-none');
+		} else {
+			tablaConsultaOrdenes.classList.add('d-none');
+		}
+
+		renderexamenTableOrdenTrabajo();
+		renderexamenTableOrdenTrabajo2();
+	});
+});
+
+async function renderexamenTableOrdenTrabajo() {
+	const tablaOrden = document
+		.getElementById('tablaAdministrarOrdenes')
+		.querySelector('tbody');
+
+	try {
+		const response = await fetch('/ordenTrabajoFalse');
+		if (response.ok) {
+			// Destruye la DataTable existente
+			if ($.fn.DataTable.isDataTable('#tablaAdministrarOrdenes')) {
+				$('#tablaAdministrarOrdenes').DataTable().destroy();
+			}
+
+			const ordenFalse = await response.json();
+			tablaOrden.innerHTML = ''; // Limpia el contenido anterior
+
+			ordenFalse.forEach((orden) => {
+				const newRow = tablaOrden.insertRow();
+				newRow.innerHTML = `
+                        <td>${orden.idOrdenTrabajo}</td>
+                        <td>${orden.fechaCreacion}</td>
+                        <td>${orden.estado}</td>
+                        <td>${orden.diagnostico}</td>
+                        <td>${orden.paciente.apellido}</td>
+                        <td>${orden.paciente.dni}</td>
+                        <td>
+                            <i class="fa-solid fa-plus" id='checkboxOrden${orden.idOrdenTrabajo}'></i>								
+                        </td>
+                    `;
+				tablaOrden.appendChild(newRow);
+			});
+
+			// Inicializa DataTable nuevamente
+			$(document).ready(function () {
+				$('#tablaAdministrarOrdenes').DataTable({
+					paging: false,
+					scrollCollapse: true,
+				});
+			});
+		} else {
+			console.error('Error al obtener las Órdenes de trabajo.');
+		}
+	} catch (error) {
+		console.error('Error al obtener las Órdenes de trabajo:', error);
+	}
+}
+
+async function renderexamenTableOrdenTrabajo2() {
+	const tablaOrden = document
+		.getElementById('tablaAdministrarOrdenes2')
+		.querySelector('tbody');
+
+	try {
+		const response = await fetch('/ordenTrabajoTrue');
+		if (response.ok) {
+			// Destruye la DataTable existente
+			if ($.fn.DataTable.isDataTable('#tablaAdministrarOrdenes2')) {
+				$('#tablaAdministrarOrdenes2').DataTable().destroy();
+			}
+
+			const ordenTrue = await response.json();
+			tablaOrden.innerHTML = ''; // Limpia el contenido anterior
+
+			ordenTrue.forEach((orden) => {
+				const newRow = tablaOrden.insertRow();
+				newRow.innerHTML = `
+                        <td>${orden.idOrdenTrabajo}</td>
+                        <td>${orden.fechaCreacion}</td>
+                        <td>${orden.estado}</td>
+                        <td>${orden.diagnostico}</td>
+                        <td>${orden.paciente.apellido}</td>
+                        <td>${orden.paciente.dni}</td>
+                        <td>
+                            <i class="fa-solid fa-plus" id='checkboxOrdenCan${orden.idOrdenTrabajo}'></i>								
+                        </td>
+                    `;
+				tablaOrden.appendChild(newRow);
+			});
+
+			// Inicializa DataTable nuevamente
+			$(document).ready(function () {
+				$('#tablaAdministrarOrdenes2').DataTable({
+					paging: false,
+					scrollCollapse: true,
+				});
+			});
+		} else {
+			console.error('Error al obtener los exámenes.');
+		}
+	} catch (error) {
+		console.error('Error al obtener los exámenes:', error);
+	}
+}
+
+// Agrega un manejador de eventos a los íconos de "Agregar" en la tablaAdministrarOrdenes
+tablaAdministrarOrdenes.addEventListener('click', function (event) {
+	const target = event.target;
+	if (target && target.classList.contains('fa-plus')) {
+		// Obtener el ID de la fila desde el icono
+		const ordenId = target.id.replace('checkboxOrden', '');
+
+		// Mostrar un cuadro de diálogo Swal para confirmar la acción
+		Swal.fire({
+			title: '¿Estás seguro?',
+			text: '¿Quieres cancelar esta Orden de Trabajo?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Sí, cancelar',
+			cancelButtonText: 'No, mantener',
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				// Si el usuario confirma la acción, actualiza la columna cancelada en la base de datos
+				const response = await fetch(`/orden-trabajo-cacelar/${ordenId}`, {
+					method: 'PUT',
+					body: JSON.stringify({ cancelada: true }), // Puedes ajustar según tu API
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+
+				if (response.ok) {
+					// Actualización exitosa
+					Swal.fire('Orden de Trabajo cancelada con éxito', '', 'success');
+					renderexamenTableOrdenTrabajo();
+					renderexamenTableOrdenTrabajo2();
+				} else {
+					// Error en la actualización
+					Swal.fire('Error al cancelar la Orden de Trabajo', '', 'error');
+				}
+			}
+		});
+	}
+});

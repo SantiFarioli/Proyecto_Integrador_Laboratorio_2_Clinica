@@ -9,7 +9,78 @@ export const getOrdenesTrabajo = async (req, res) => {
 				{
 					model: paciente,
 					as: 'paciente',
+					attributes: ['apellido'],
+				},
+				{
+					model: paciente,
+					as: 'paciente',
+					attributes: ['dni'],
+				},
+				{
+					model: medico,
+					as: 'medico',
 					attributes: ['nombre'],
+				},
+			],
+		});
+
+		res.json(ordenesTrabajo);
+	} catch (error) {
+		return res.status(500).json({
+			message: error.message,
+		});
+	}
+};
+
+export const getOrdenesTrabajoTrue = async (req, res) => {
+	try {
+		const ordenesTrabajo = await orden_trabajo.findAll({
+			where: {
+				cancelada: true,
+			},
+			include: [
+				{
+					model: paciente,
+					as: 'paciente',
+					attributes: ['apellido'],
+				},
+				{
+					model: paciente,
+					as: 'paciente',
+					attributes: ['dni'],
+				},
+				{
+					model: medico,
+					as: 'medico',
+					attributes: ['nombre'],
+				},
+			],
+		});
+
+		res.json(ordenesTrabajo);
+	} catch (error) {
+		return res.status(500).json({
+			message: error.message,
+		});
+	}
+};
+
+export const getOrdenesTrabajoFalse = async (req, res) => {
+	try {
+		const ordenesTrabajo = await orden_trabajo.findAll({
+			where: {
+				cancelada: false,
+			},
+			include: [
+				{
+					model: paciente,
+					as: 'paciente',
+					attributes: ['apellido'],
+				},
+				{
+					model: paciente,
+					as: 'paciente',
+					attributes: ['dni'],
 				},
 				{
 					model: medico,
@@ -80,6 +151,30 @@ export const updateOrdenesTrabajo = async (req, res) => {
 		ordenTrabajo.cancelada = cancelada;
 		ordenTrabajo.pacienteId = pacienteId;
 		ordenTrabajo.medicoId = medicoId;
+
+		await ordenTrabajo.save();
+
+		res.json({ message: 'Orden de trabajo actualizada con éxito' });
+	} catch (error) {
+		console.error(error);
+		res
+			.status(500)
+			.json({ message: 'Error al actualizar la orden de trabajo' });
+	}
+};
+
+export const cacelarOrdenesTrabajo = async (req, res) => {
+	const { id } = req.params;
+	const { cancelada } = req.body;
+
+	try {
+		const ordenTrabajo = await orden_trabajo.findByPk(id);
+		if (!ordenTrabajo) {
+			return res
+				.status(404)
+				.json({ message: 'Orden de trabajo no encontrada' });
+		}
+		ordenTrabajo.cancelada = cancelada;
 
 		await ordenTrabajo.save();
 

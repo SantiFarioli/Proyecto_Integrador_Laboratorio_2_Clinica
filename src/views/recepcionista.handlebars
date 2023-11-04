@@ -1,3 +1,6 @@
+<!--
+    Nav Bar Recepcionista
+-->
 <div class='wrapper'>
 	<aside id='sidebar'>
 		<div class='h-100'>
@@ -30,7 +33,7 @@
 								href='#'
 								class='sidebar-link'
 								id='formulario-busqueda'
-							>Registrar Paciente</a>
+							>Registrar Busqueda e Inicio de Ordenes de Paciente</a>
 						</li>
 					</ul>
 				</li>
@@ -52,7 +55,11 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a href='#' class='sidebar-link'>Consultar Orden de Trabajo</a>
+							<a
+								href='#'
+								class='sidebar-link'
+								id='consultaOrdeDeTrabajo'
+							>Consulta y cancelacion de Orden de Trabajo</a>
 						</li>
 					</ul>
 				</li>
@@ -117,11 +124,16 @@
 			</ul>
 		</div>
 	</aside>
-	<!-- Main Component -->
+	<!--
+    Crear y Administrar Paciente
+-->
 	<div class='main'>
 
 		<main class='content px-3 py-2'>
 			<div class='container'>
+				<!--
+    Administracion inicio de Ordenes de trabajo para pacientes
+-->
 				<div class='row mb-3'>
 					<h3>Bienvenido al Sistema</h3>
 					<div
@@ -133,7 +145,6 @@
 							<div class='col-12 mt-4'>
 								<h1>Tabla de Pacientes</h1>
 								<div class=''>
-									<!-- Agregamos estilos en línea para controlar la altura y el desplazamiento -->
 									<table
 										class='table table-striped display compact text-center'
 										style='width:100%'
@@ -165,13 +176,16 @@
 							</div>
 						</div>
 						<div class='text-center'>
+
 							<button
 								id='mostrar-formulario-busqueda'
 								class='btn btn-primary'
 							>Registrar Nuevo Paciente</button>
 						</div>
 					</div>
-
+					<!--
+    Registro de Usario
+-->
 					<div class='container mt-5 d-none' id='formulario-paciente2'>
 						<div class='row'>
 							<div class='col-md-6 offset-md-3 text-light'>
@@ -569,7 +583,9 @@
 					</div>
 				</div>
 			</div>
-
+			<!--
+    Ordenes de trabajo
+-->
 			<div
 				class='container d-none mt-5 text-light text-center d-flex align-items-center justify-content-center'
 				id='formulario-orden-trabajo'
@@ -720,6 +736,11 @@
 							</div>
 						</div>
 					</div>
+					<button
+						type='submit'
+						class='btn btn-success mt-3'
+						id='crearOrdenTrabajo'
+					>Crear Orden de Trabajo</button>
 					<div class='form-group'>
 						<label for='examenId'>Examenes:</label>
 						<div class='input-group justify-content-center'>
@@ -750,15 +771,56 @@
 						</div>
 					</div>
 					<div class='d-flex justify-content-center'>
-						<button
-							type='submit'
-							class='btn btn-success mt-3'
-							id='crearOrdenTrabajo'
-						>Crear Orden de Trabajo</button>
+
 					</div>
 				</div>
 			</div>
+			<!--
+    Cancelacion y Consultas de ordenes de Trabajo
+-->
 
+			<div class='container d-none' id='tablaConsultaOrdenes'>
+				<h2>Tabla de Órdenes de Trabajo</h2>
+				<table
+					class='table table-bordered table-striped'
+					id='tablaAdministrarOrdenes'
+				>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Fecha de Creación</th>
+							<th>Estado</th>
+							<th>Diagnóstico</th>
+							<th>Apellido Paciente</th>
+							<th>DNI Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+				<h2>Tabla de Órdenes de Trabajo Caceladas</h2>
+				<table
+					class='table table-bordered table-striped'
+					id='tablaAdministrarOrdenes2'
+				>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Fecha de Creación</th>
+							<th>Estado</th>
+							<th>Diagnóstico</th>
+							<th>Apellido Paciente</th>
+							<th>DNI Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
 		</main>
 	</div>
 </div>
