@@ -1,7 +1,9 @@
+
 const adminPaciente = document.getElementById('adminPaciente');
 const viewsPaciente = document.getElementById('viewsPaciente');
 const $tablaExamen = document.getElementById('table-examen');
 const $tablaMuestra = document.getElementById('table-muestras');
+const $tablaDeterminacion = document.getElementById('table-determinacion');
 const $adminExamen = document.getElementById('adminExamen');
 const $adminMuestra = document.getElementById('adminMuestra');
 const $adminDeterminacion = document.getElementById('adminDeterminacion');
@@ -681,9 +683,7 @@ function renderDeterminacionExamenMuestra(muestras) {
 					<td>${muestra.examen.descripcion}</td>
 					<td>${muestra.tipo}</td>		
 					<td class="text-center">
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-plus" id="crearDeterminacionIcon"> Create</i></a>
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarDeterminacionIcon"> Update</i></a>
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarDeterminacionIcon"> Delete</i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-plus" id="crearDeterminacionIcon"> Create Determinacion</i></a>
 					</td>
 				</tr>
 			`).join('')}
@@ -719,7 +719,7 @@ function renderDeterminacionExamenMuestra(muestras) {
 
 	document.querySelectorAll('#crearDeterminacionIcon').forEach((icono, index) => {
 		icono.addEventListener('click', (e) => {
-			
+			$tablaExamen.classList.add('d-none');
 			document.querySelector('#guardarDeterminacion').disabled = false;
 			document.querySelector('#actualizarDeterminacion').disabled = true;
 			document.querySelector('#borrarDeterminacion').disabled = true;
@@ -753,8 +753,8 @@ function renderDeterminacionExamenMuestra(muestras) {
 							title: 'Bioquimica Doña ADN',
 							text: 'Determinacion creada con exito',
 						}).then(() => {
-							window.location.href = 'http://localhost:3000/';
-							window.location.href = 'http://localhost:3000/admin';		
+							refreshDeterminaciones();
+							$formDeterminacion.classList.add('d-none');
 					});
 					}else{
 						Swal.fire({
@@ -773,13 +773,14 @@ function renderDeterminacionExamenMuestra(muestras) {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
+
 	$adminDeterminacion.addEventListener('click',  async (e) => {	
 		try {	
 			const response = await fetch('/muestra');
 			if (response.ok) {
 				const muestras = await response.json();
-				renderDeterminacionExamenMuestra(muestras);		
+				renderDeterminacionExamenMuestra(muestras);
+	
 			} else {
 				console.error('Error al obtener los examenes');
 			}
@@ -787,7 +788,129 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.error('Error al obtener los examenes:', error);
 		}
 	});
-});
 
-	
+
+function renderDeterminaciones(deteminaciones) {
+	const table = `
+		<table class="tablita table table-bordered table-striped mx-auto" id='tablaDeterminacion'>
+		<thead>
+			<tr>
+				<th scope="col" class="text-center">Id Determinacion</th>
+				<th scope="col" class="text-center">Nombre</th>
+				<th scope="col" class="text-center">Descripcion</th>
+				<th scope="col" class="text-center">Unidad Medida</th>	
+				<th scope="col" class="text-center">Metodo Analisis</th>
+				<th scope="col" class="text-center">Id Examen</th>
+				<th scope="col" class="text-center">Acciones</th>
+			</tr>
+		</thead>
+		<tbody class="text-center">
+			${deteminaciones.map((determinacion) => `
+				<tr>		
+					<td>${determinacion.idDeterminacion}</td>
+					<td>${determinacion.nombre}</td>
+					<td>${determinacion.descripcion}</td>
+					<td>${determinacion.unidadMedida}</td>
+					<td>${determinacion.metodoAnalisis}</td>
+					<td>${determinacion.idExamen}</td>
+					<td class="text-center">
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarDeterminacionIcon"> Update</i></a>
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarDeterminacionIcon"> Delete</i></a>
+					</td>
+				</tr>
+			`).join('')}
+		</tbody>
+		</table>
+	`;
+	$tablaDeterminacion.innerHTML = table;
+
+	$(document).ready(function () {
+		$('#tablaDeterminacion').DataTable( {
+			
+		})
+	});
+
+	document.querySelectorAll('#actualizarDeterminacionIcon').forEach((icono, index) => {
+		icono.addEventListener('click', (e) => {
+			e.preventDefault();
+			const fila = document.querySelectorAll('#tablaDeterminacion tbody tr')[index];
+			const idDeterminacion = fila.querySelector('td:nth-child(1)').textContent;
+			const nombre = fila.querySelector('td:nth-child(2)').textContent;
+			const descripcion = fila.querySelector('td:nth-child(3)').textContent;
+			const unidadMedida = fila.querySelector('td:nth-child(4)').textContent;
+			const metodoAnalisis = fila.querySelector('td:nth-child(5)').textContent;
+			const idExamen = fila.querySelector('td:nth-child(6)').textContent;
+
+			$formDeterminacion.querySelector('#idDeterminacion').value = idDeterminacion;
+			$formDeterminacion.querySelector('#nombreDeterminacion').value = nombre;
+			$formDeterminacion.querySelector('#descripcion2').value = descripcion;
+			$formDeterminacion.querySelector('#unidadMedida').value = unidadMedida;
+			$formDeterminacion.querySelector('#metodoAnalisis').value = metodoAnalisis;
+			$formDeterminacion.querySelector('#idExamen2').value = idExamen;
+
+		
+			$tablaDeterminacion.classList.add('d-none');
+			$formDeterminacion.classList.remove('d-none');
+
+			document.querySelector('#guardarDeterminacion').disabled = true;
+			document.querySelector('#actualizarDeterminacion').disabled = false;
+			document.querySelector('#borrarDeterminacion').disabled = false;
+
+			$actualizarDeterminacion.addEventListener('click', async (e) => {
+				e.preventDefault();
+				const idDeterminacion = document.querySelector('#idDeterminacion').value;
+				const determinacion = {
+					idDeterminacion: idDeterminacion,
+					nombre: document.querySelector('#nombreDeterminacion').value,
+					descripcion: document.querySelector('#descripcion2').value,
+					unidadMedida: document.querySelector('#unidadMedida').value,
+					metodoAnalisis: document.querySelector('#metodoAnalisis').value,
+					idExamen: document.querySelector('#idExamen2').value
+				}
+				try {
+					const response = await fetch(`http://localhost:3000/determinacion/${idDeterminacion}`, {
+						method: 'PUT',  
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(determinacion),
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Determinacion Actualizado',
+					}).then(() => {
+						refreshDeterminaciones();
+						$formDeterminacion.classList.add('d-none');
+					});
+					} else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error al actualizar el determinacion',
+							text: 'Error al actualizar el determinacion',
+						});
+					}
+				} catch (error) {
+					console.error('Error al actualizar el determinacion:', error);
+				}
+			});
+		})	
+	});
+}
+
+	async function refreshDeterminaciones() {
+		try {
+			const response = await fetch('/determinacion');
+			if (response.ok) {
+				const determinaciones = await response.json();
+				renderDeterminaciones(determinaciones);
+			}else {
+				console.error('Error al obtener los examenes');
+			}
+		} catch (error) {
+			console.error('Error al obtener los examenes:', error);
+		}
+	}
+
 

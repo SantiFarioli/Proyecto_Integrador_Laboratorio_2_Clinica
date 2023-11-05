@@ -41,8 +41,9 @@ export const updateDeterminacion = async (req, res) => {
     const {
         nombre,
         descripcion,
-        medida,
-        metodoAnalisis
+        unidadMedida,
+        metodoAnalisis,
+        idExamen
     } = req.body;
 
     try {
@@ -54,8 +55,9 @@ export const updateDeterminacion = async (req, res) => {
         }
         actualizarDeterminacion.nombre = nombre;
         actualizarDeterminacion.descripcion = descripcion;
-        actualizarDeterminacion.medida = medida;
+        actualizarDeterminacion.unidadMedida = unidadMedida;
         actualizarDeterminacion.metodoAnalisis = metodoAnalisis;
+        actualizarDeterminacion.idExamen = idExamen;
 
         await actualizarDeterminacion.save();
 
