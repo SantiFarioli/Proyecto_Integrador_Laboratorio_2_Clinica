@@ -52,6 +52,11 @@ export const updateValorReferencia = async (req, res) => {
           } = req.body;
     try {
         const valorReferencia = await valor_referencia.findByPk(idValorReferencia);
+        if(!valorReferencia) {
+            return res.status(404).json({
+                message: 'Valor Referencia no encontrado'
+            });
+        }
         valorReferencia.sexo = sexo;
         valorReferencia.edadMinima = edadMinima;
         valorReferencia.edadMaxima = edadMaxima;
