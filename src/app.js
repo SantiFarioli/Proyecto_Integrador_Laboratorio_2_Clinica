@@ -11,6 +11,8 @@ import ordenTrabajoRouter from './router/ordenTrabajo.ruta.js';
 import examenRouter from './router/examen.ruta.js';
 import examenesYOrdenesRoutes from './router/examenes_y_ordenes.ruta.js';
 import determinacionRoutes from './router/determinacion.ruta.js';
+import valorReferenciaRouter from './router/valor_referencia.ruta.js';
+import recepcionistaRouter from './router/recepcionista.ruta.js';
 
 const app = express();
 
@@ -58,6 +60,8 @@ app.use(medicoRouter);
 app.use(examenRouter);
 app.use(examenesYOrdenesRoutes);
 app.use(determinacionRoutes);
+app.use(valorReferenciaRouter);
+app.use(recepcionistaRouter);
 
 export default app;
 main();
