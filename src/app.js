@@ -13,6 +13,7 @@ import examenesYOrdenesRoutes from './router/examenes_y_ordenes.ruta.js';
 import determinacionRoutes from './router/determinacion.ruta.js';
 import valorReferenciaRouter from './router/valor_referencia.ruta.js';
 import recepcionistaRouter from './router/recepcionista.ruta.js';
+import bioquimicoRouter from './router/bioquimico.ruta.js';
 
 const app = express();
 
@@ -62,6 +63,7 @@ app.use(examenesYOrdenesRoutes);
 app.use(determinacionRoutes);
 app.use(valorReferenciaRouter);
 app.use(recepcionistaRouter);
+app.use(bioquimicoRouter);
 
 export default app;
 main();
