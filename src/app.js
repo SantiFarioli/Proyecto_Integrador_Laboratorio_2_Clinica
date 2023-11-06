@@ -14,6 +14,7 @@ import determinacionRoutes from './router/determinacion.ruta.js';
 import valorReferenciaRouter from './router/valor_referencia.ruta.js';
 import recepcionistaRouter from './router/recepcionista.ruta.js';
 import bioquimicoRouter from './router/bioquimico.ruta.js';
+import tecnicoBioquimicoRouter from './router/tecnicoBioquimico.ruta.js';
 
 const app = express();
 
@@ -64,6 +65,7 @@ app.use(determinacionRoutes);
 app.use(valorReferenciaRouter);
 app.use(recepcionistaRouter);
 app.use(bioquimicoRouter);
+app.use(tecnicoBioquimicoRouter);
 
 export default app;
 main();
