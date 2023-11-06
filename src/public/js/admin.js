@@ -1,4 +1,3 @@
-
 const adminPaciente = document.getElementById('adminPaciente');
 const viewsPaciente = document.getElementById('viewsPaciente');
 const $tablaExamen = document.getElementById('table-examen');
@@ -7,9 +6,11 @@ const $tablaDeterminacion = document.getElementById('table-determinacion');
 const $adminExamen = document.getElementById('adminExamen');
 const $adminMuestra = document.getElementById('adminMuestra');
 const $adminDeterminacion = document.getElementById('adminDeterminacion');
+const $adminValorReferencia = document.getElementById('adminValorReferencia');
 const $formularioMuestra = document.getElementById('formMuestra');
 const $formExamen = document.getElementById('form');
 const $formDeterminacion = document.getElementById('formDeterminacion');
+const $formValorReferencia = document.getElementById('formValorReferencia');
 const $guardarExamen = document.getElementById('guardarExamen');
 const $guardarMuestra = document.getElementById('guardarMuestra');
 const $guardarDeterminacion = document.getElementById('guardarDeterminacion');
@@ -916,3 +917,17 @@ function renderDeterminaciones(deteminaciones) {
 	}
 
 
+
+	$adminValorReferencia.addEventListener('click',  async (e) => {	
+		e.preventDefault();
+		try {
+			const response = await fetch('/determinacion');
+			if (response.ok) {
+				const determinaciones = await response.json();
+				$formValorReferencia.classList.remove('d-none');
+				renderDeterminaciones(determinaciones);
+			}
+		} catch (error) {
+			console.log(error);
+		}				
+	});
