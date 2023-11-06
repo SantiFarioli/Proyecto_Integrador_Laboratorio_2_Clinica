@@ -1,11 +1,17 @@
 const adminRecepcionLink = document.getElementById('adminRecepcion');
+const userRecepcionista = document.getElementById('userRecepcionista');
 let recepcionistasDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
 	// Agrega un evento al enlace 'Administrar Recepción'
 
 	adminRecepcionLink.addEventListener('click', async function (e) {
-		e.preventDefault(); // Previene la navegación a una nueva página (por el href='#' del enlace)
+		e.preventDefault();
+		if (userRecepcionista.classList.contains('d-none')) {
+			userRecepcionista.classList.remove('d-none');
+		} else {
+			userRecepcionista.classList.add('d-none');
+		}
 
 		try {
 			const response = await fetch('/recepcionistas');
