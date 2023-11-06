@@ -875,15 +875,17 @@ function renderDeterminaciones(deteminaciones) {
 						},
 						body: JSON.stringify(determinacion),
 					});
+					console.log(response);
 					if (response.ok) {
 						Swal.fire({
 							icon: 'success',
 							title: 'Bioquimica Doña ADN',
-							text: 'Determinacion Actualizado',
+							text: 'Determinacion Actualizado',						
 					}).then(() => {
 						refreshDeterminaciones();
 						$formDeterminacion.classList.add('d-none');
-					});
+						$tablaDeterminacion.classList.remove('d-none');				
+					})					
 					} else {
 						Swal.fire({
 							icon: 'error',

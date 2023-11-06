@@ -48,6 +48,7 @@ export const updateDeterminacion = async (req, res) => {
 
     try {
         const actualizarDeterminacion = await determinacion.findByPk(idDeterminacion);
+
         if (!actualizarDeterminacion) {
             return res.status(404).json({
                 message: 'Determinacion no encontrada',
@@ -60,6 +61,7 @@ export const updateDeterminacion = async (req, res) => {
         actualizarDeterminacion.idExamen = idExamen;
 
         await actualizarDeterminacion.save();
+        res.json(actualizarDeterminacion);
 
     } catch (error) {
         return res.status(500).json({
