@@ -115,10 +115,17 @@ function renderPacientesTable(pacientes) {
 			<td >${paciente.obra_social}</td>
 			<td >${paciente.num_afiliado}</td>
 			<td>
-			<i class='fa-regular fa-file-lines'id="iconoOrden${paciente.idPaciente}"></i>
-            <i class="fa-solid fa-pen" id="iconoPen${paciente.idPaciente}"></i>
-
-			</td>
+  <div class="icon-container" id="iconoOrdenContainer${paciente.idPaciente}">
+    <i class='fa-regular fa-file-lines' id="iconoOrden${
+			paciente.idPaciente
+		}"></i>
+    <span class="tooltip">Generar orden de trabajo</span>
+  </div>
+  <div class="icon-container" id="iconoPenContainer${paciente.idPaciente}">
+    <i class="fa-solid fa-pen" id="iconoPen${paciente.idPaciente}"></i>
+    <span class="tooltip">Actualizar paciente</span>
+  </div>
+</td>
 		`;
 		tableBody.appendChild(newRow);
 	});

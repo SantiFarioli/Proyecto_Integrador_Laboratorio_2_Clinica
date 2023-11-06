@@ -43,11 +43,6 @@
 			{{#if isAdmin}}
 				<link rel='stylesheet' href='/css/admin.css' />
 				<script src='/js/admin.js' type='module'></script>
-			{{/if}}
-
-			{{#if isTecnico}}
-				<link rel='stylesheet' href='/css/tecnico.css' />
-				<script src='/js/tecnico.js' type='module'></script>
 				<script
 					src='/js/UsuariosAdmin/userRecepcionista.js'
 					type='module'
@@ -61,6 +56,12 @@
 					type='module'
 				></script>
 				<script src='/js/UsuariosAdmin/userAdmin.js' type='module'></script>
+			{{/if}}
+
+			{{#if isTecnico}}
+				<link rel='stylesheet' href='/css/tecnico.css' />
+				<script src='/js/tecnico.js' type='module'></script>
+
 			{{/if}}
 
 			{{#if isRecepcionista}}
