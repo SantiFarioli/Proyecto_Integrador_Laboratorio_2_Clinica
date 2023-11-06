@@ -797,9 +797,8 @@ document.addEventListener('click', async function (event) {
 async function guardarFormularios() {
 	try {
 		const formularios = document.querySelectorAll('.muestraRequeridaForm');
-		const dataToSave = [];
 
-		formularios.forEach((formulario) => {
+		for (const formulario of formularios) {
 			const examenId = parseInt(
 				formulario.id.replace('muestraRequeridaForm', ''),
 				10
@@ -818,29 +817,32 @@ async function guardarFormularios() {
 				10
 			);
 
-			// Agregar los datos a un objeto o array para enviarlos al servidor
-			dataToSave.push({
+			// Crear un objeto con los datos del formulario
+			const dataToSave = {
 				fechaRecepcion,
 				entregada,
 				etiqueta,
 				idOrdenTrabajo: OrdenTrabajoId,
 				idMuestra: muestraId,
-			});
-		});
-		console.log(dataToSave);
+			};
 
-		const response = await fetch('/muestraRequerida', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(dataToSave),
-		});
-		console.log(response);
-		if (response.ok) {
-			console.log('Datos guardados exitosamente');
-		} else {
-			console.error('Error al guardar los datos en el servidor');
+			console.log(dataToSave);
+
+			const response = await fetch('/muestraRequerida', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(dataToSave),
+			});
+
+			console.log(response);
+
+			if (response.ok) {
+				console.log('Datos guardados exitosamente');
+			} else {
+				console.error('Error al guardar los datos en el servidor');
+			}
 		}
 	} catch (error) {
 		console.error('Error inesperado:', error);

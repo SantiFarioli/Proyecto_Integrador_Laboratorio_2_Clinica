@@ -14,6 +14,7 @@ export const getMuestras = async (req, res) => {
 export const createMuestra = async (req, res) => {
 	const { fechaRecepcion, entregada, etiqueta, idOrdenTrabajo, idMuestra } =
 		req.body;
+	console.log('Muestra creada:', req.body.fechaRecepcion);
 
 	try {
 		const newMuestra = await muestraRequerida.create({
