@@ -12,7 +12,7 @@ export const getValorReferencia = async (req, res) => {
 };
 
 export const createValorReferencia = async (req, res) => {
-    const {idValorReferencia,
+    const {
           sexo,
           edadMinima,
           edadMaxima,
@@ -23,7 +23,7 @@ export const createValorReferencia = async (req, res) => {
     try {
         
         const newValorReferencia = await valor_referencia.create({
-            idValorReferencia,
+            
             sexo,
             edadMinima,
             edadMaxima,
@@ -42,8 +42,9 @@ export const createValorReferencia = async (req, res) => {
 };
 
 export const updateValorReferencia = async (req, res) => {
-    const { idValorReferencia } = req.params.id;
-    const { sexo,
+    const  idValorReferencia  = req.params.id;
+    const {
+          sexo,
           edadMinima,
           edadMaxima,
           valorMinimo,
