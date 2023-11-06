@@ -16,23 +16,44 @@ const resultados = document.getElementById('resultados');
 const formularioRegistroPaciente = document.getElementById(
 	'formulario-actualizar'
 );
-const formularioRegistroPaciente2 = document.getElementById(
-	'formulario-paciente2'
-);
+
 const sexoSelect = document.getElementById('sexo');
 const embarazoSi = document.getElementById('embarazo-si');
 const embarazoNo = document.getElementById('embarazo-no');
 
-function habilitarBotonSegunTabla() {
-	const filas = tablaPacientes.querySelectorAll('tbody tr');
-	mostrarFormularioBusqueda.disabled = filas.length > 0;
-}
+document.addEventListener('DOMContentLoaded', function () {
+	// Obtén una referencia a la tabla
+	const tablaPacientes = document.getElementById('tablaDePacientes');
 
-// Observador para detectar cambios en la tabla
-const observer = new MutationObserver(habilitarBotonSegunTabla);
+	// Obtén una referencia al botón
+	const mostrarFormularioBusqueda = document.getElementById(
+		'mostrar-formulario-busqueda'
+	);
 
-// Configura el observador para observar cambios en el contenido de la tabla
-const config = { childList: true, subtree: true };
+	// Define una función que se activará cuando la tabla cambie
+	const habilitarBotonRegistro = () => {
+		// Verifica si la tabla contiene la fila con el texto "No matching records found"
+		const filaVacia = tablaPacientes.querySelector('td.dataTables_empty');
+		console.log(filaVacia);
+		console.log(
+			'La tabla tiene filas: ',
+			tablaPacientes.querySelector('tbody tr')
+		);
+
+		if (filaVacia) {
+			// Ejecuta la acción del if
+			console.log('La tabla contiene la fila "No matching records found"');
+			mostrarFormularioBusqueda.disabled = false;
+		} else {
+			// No se encuentra la fila, deshabilita el botón de registro
+			mostrarFormularioBusqueda.disabled = true;
+		}
+	};
+
+	// Observa los cambios en la tabla
+	const observer = new MutationObserver(habilitarBotonRegistro);
+	observer.observe(tablaPacientes.querySelector('tbody'), { childList: true });
+});
 
 let pacientesDataTable;
 
@@ -59,8 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
 			if (response.ok) {
 				const pacientes = await response.json();
 				renderPacientesTable(pacientes);
-
-				// Obtener las filas después de renderizar la tabla
 			} else {
 				console.error('Error al obtener los pacientes.');
 			}
@@ -169,7 +188,7 @@ document.addEventListener('click', function (event) {
 					  <label class='form-check-label' for='embarazo-no'>No</label>
 					</div>
 				 </div>` +
-					`<input id="fechaNacimientoPaciente" class="swal2-input" placeholder="Fecha de Nacimiento" value="${rowData.fecha_nac}">` +
+					`<input id="fechaNacimientoPaciente" class="swal2-input" type='date' placeholder="Fecha de Nacimiento" value="${rowData.fecha_nac}">` +
 					`<input id="correoPaciente" class="swal2-input" placeholder="Correo Electrónico" value="${rowData.correo_electronico}">` +
 					`<input id="telefonoPaciente" class="swal2-input" placeholder="Teléfono" value="${rowData.telefono}">` +
 					`<input id="obraSocialPaciente" class="swal2-input" placeholder="Obra Social" value="${rowData.obra_social}">` +
@@ -255,7 +274,7 @@ async function refreshPacientesTable() {
 	}
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
 	formularioRegistroPaciente2.addEventListener('submit', async function (e) {
 		e.preventDefault();
 
@@ -316,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 		}
 	});
-});
+});*/
 
 // Agrega un evento 'change' al elemento de selección de sexo
 sexoSelect.addEventListener('change', function () {
@@ -977,6 +996,45 @@ tablaAdministrarOrdenes.addEventListener('click', function (event) {
 				} else {
 					// Error en la actualización
 					Swal.fire('Error al cancelar la Orden de Trabajo', '', 'error');
+				}
+			}
+		});
+	}
+});
+
+tablaAdministrarOrdenes2.addEventListener('click', function (event) {
+	const target = event.target;
+	if (target && target.classList.contains('fa-plus')) {
+		// Obtener el ID de la fila desde el icono
+		const ordenId = target.id.replace('checkboxOrdenCan', '');
+
+		// Mostrar un cuadro de diálogo Swal para confirmar la acción
+		Swal.fire({
+			title: '¿Estás seguro?',
+			text: '¿Quieres restaurar esta Orden de Trabajo?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Sí, restaurar',
+			cancelButtonText: 'No, cancelar',
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				// Si el usuario confirma la acción, actualiza la columna cancelada en la base de datos
+				const response = await fetch(`/orden-trabajo-cacelar/${ordenId}`, {
+					method: 'PUT',
+					body: JSON.stringify({ cancelada: false }), // Puedes ajustar según tu API
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+
+				if (response.ok) {
+					// Actualización exitosa
+					Swal.fire('Orden de Trabajo restaurada con éxito', '', 'success');
+					renderexamenTableOrdenTrabajo();
+					renderexamenTableOrdenTrabajo2();
+				} else {
+					// Error en la actualización
+					Swal.fire('Error al restaurar la Orden de Trabajo', '', 'error');
 				}
 			}
 		});

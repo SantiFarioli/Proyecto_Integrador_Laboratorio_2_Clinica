@@ -180,6 +180,7 @@
 							<button
 								id='mostrar-formulario-busqueda'
 								class='btn btn-primary'
+								disabled
 							>Registrar Nuevo Paciente</button>
 						</div>
 					</div>
@@ -190,11 +191,7 @@
 						<div class='row'>
 							<div class='col-md-6 offset-md-3 text-light'>
 								<h2>Formulario de Paciente</h2>
-								<form
-									action='/pacientes'
-									method='post'
-									id='formulario-paciente'
-								>
+								<form id='formulario-paciente'>
 									<div class='form-group'>
 										<label for='nombre'>Nombre:</label>
 										<input
