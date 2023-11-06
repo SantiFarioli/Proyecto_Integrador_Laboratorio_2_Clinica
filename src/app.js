@@ -16,6 +16,7 @@ import recepcionistaRouter from './router/recepcionista.ruta.js';
 import bioquimicoRouter from './router/bioquimico.ruta.js';
 import tecnicoBioquimicoRouter from './router/tecnicoBioquimico.ruta.js';
 import adminRouter from './router/admin.ruta.js';
+import usuarioRouter from './router/usuario.ruta.js';
 
 const app = express();
 
@@ -68,6 +69,7 @@ app.use(recepcionistaRouter);
 app.use(bioquimicoRouter);
 app.use(tecnicoBioquimicoRouter);
 app.use(adminRouter);
+app.use(usuarioRouter);
 
 export default app;
 main();
