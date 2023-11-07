@@ -712,7 +712,7 @@ async function guardarOrdenTrabajo() {
 					}).then((result) => {
 						if (result.isConfirmed) {
 							// La acción para imprimir (agrega tu código aquí)
-							window.location.href = 'http://localhost:3000/recepcionista';
+
 							const printWindow = window.open('', '', 'width=600,height=600');
 							printWindow.document.open();
 							printWindow.document.write(
@@ -723,6 +723,7 @@ async function guardarOrdenTrabajo() {
 							printWindow.document.close();
 							printWindow.print();
 							printWindow.close();
+							window.location.href = 'http://localhost:3000/recepcionista';
 						} else if (result.dismiss === Swal.DismissReason.cancel) {
 							// La acción para enviar (agrega tu código aquí)
 							console.log('Enviar');
