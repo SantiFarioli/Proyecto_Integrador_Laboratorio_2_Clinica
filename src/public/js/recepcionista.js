@@ -634,22 +634,93 @@ async function guardarOrdenTrabajo() {
 				Swal.fire({
 					icon: 'success',
 					title: 'Orden guardado con éxito',
-				});
-				const examenesAgregadosTable = document.getElementById(
-					'tablaExamenesAgregados'
-				);
-				const examenesAgregadosRows =
-					examenesAgregadosTable.querySelectorAll('tbody tr');
-				const idsDeExamenes = [];
+				}).then(() => {
+					const examenesAgregadosTable = document.getElementById(
+						'tablaExamenesAgregados'
+					);
+					const examenesAgregadosRows =
+						examenesAgregadosTable.querySelectorAll('tbody tr');
+					const idsDeExamenes = [];
 
-				examenesAgregadosRows.forEach((row) => {
-					const idExamenCell = row.querySelector('td:first-child');
-					const idExamen = idExamenCell.textContent;
-					idsDeExamenes.push(idExamen);
-				});
+					examenesAgregadosRows.forEach((row) => {
+						const idExamenCell = row.querySelector('td:first-child');
+						const idExamen = idExamenCell.textContent;
+						idsDeExamenes.push(idExamen);
+					});
 
-				asociarExamenesAOrden(OrdenTrabajoId, idsDeExamenes);
-				guardarFormularios();
+					asociarExamenesAOrden(OrdenTrabajoId, idsDeExamenes);
+					guardarFormularios();
+					// Obtén la tabla de exámenes
+					const tbody = examenesAgregadosTable.querySelector('tbody');
+					const rows = tbody.getElementsByTagName('tr');
+
+					// Variables para guardar los valores máximos
+					let examenesData = [];
+					const nombreOrden =
+						document.getElementById('nombreOrden').textContent;
+					const apellidoOrden =
+						document.getElementById('apellidoOrden').textContent;
+					const dniOrden = document.getElementById('dniOrden').textContent;
+
+					// Itera a través de las filas de la tabla
+					for (let i = 0; i < rows.length; i++) {
+						const row = rows[i];
+						const tiempoCell = row.cells[4]; // La columna de "Tiempo del Examen"
+						const descripcionCell = row.cells[2]; // La columna de "Descripción"
+						const requisitosCell = row.cells[3]; // La columna de "Requisitos del Examen"
+
+						// Obtén el valor de tiempo
+						const tiempo = parseInt(tiempoCell.textContent.trim());
+						// Obtén el valor de descripción
+						const descripcionExamen = descripcionCell.textContent.trim();
+						// Obtén el valor de requisitos y agrégalo a la lista
+						const requisitosExamen = requisitosCell.textContent.trim();
+
+						// Agrega la descripción y requisitos a la lista de exámenes
+						examenesData.push({
+							descripcion: descripcionExamen,
+							requisitos: requisitosExamen,
+							tiempo: tiempo,
+						});
+					}
+
+					// Ordena la lista de exámenes por tiempo (opcional)
+					examenesData.sort((a, b) => b.tiempo - a.tiempo);
+
+					// Crea el HTML para la etiqueta
+					let etiquetaHTML = `
+						<p>Paciente:${nombreOrden} ${apellidoOrden} DNI:${dniOrden} </p>
+						<p>Entrega de Resultados: ${examenesData[0].tiempo} Horas</p>
+  					`;
+
+					// Itera a través de los exámenes para mostrar la descripción y requisitos juntos
+					examenesData.forEach((examen) => {
+						etiquetaHTML += `
+	  					<p>Descripción: ${examen.descripcion}</p>
+	  					<p>Requisitos del examen: ${examen.requisitos}</p>
+						`;
+					});
+
+					// Muestra la etiqueta con botones
+					Swal.fire({
+						title: 'Detalles de la Orden de Trabajo',
+						html: etiquetaHTML,
+						showCloseButton: true,
+						showCancelButton: true,
+						confirmButtonText: 'Imprimir',
+						cancelButtonText: 'Enviar',
+					}).then((result) => {
+						if (result.isConfirmed) {
+							// La acción para imprimir (agrega tu código aquí)
+							console.log('Imprimir');
+							window.location.href = 'http://localhost:3000/recepcionista';
+						} else if (result.dismiss === Swal.DismissReason.cancel) {
+							// La acción para enviar (agrega tu código aquí)
+							console.log('Enviar');
+							window.location.href = 'http://localhost:3000/recepcionista';
+						}
+					});
+				});
 			} else {
 				Swal.fire({
 					icon: 'error',
