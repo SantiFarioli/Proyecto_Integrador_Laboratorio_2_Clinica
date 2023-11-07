@@ -558,33 +558,52 @@ document.addEventListener('click', async function (event) {
 	}
 });
 
+// Crear un conjunto para almacenar los IDs de los exámenes agregados
+const examenesAgregados = new Set();
+
 document.addEventListener('click', function (event) {
 	const target = event.target;
 	if (target && target.classList.contains('fa-plus')) {
 		// Obtener el ID del examen desde el icono
-		const examenId = target.id.replace('checkboxExam', '');
-		// Obtener la fila del examen
-		const examenRow = target.closest('tr');
-		// Clonar la fila del examen para agregarla a la primera tabla
-		const clonedRow = examenRow.cloneNode(true);
+		const examenId = target.id.replace('checkboxExam');
 
-		// Cambiar el icono de "Agregar" por el icono de "Quitar"
-		const plusIcon = clonedRow.querySelector('.fa-plus');
-		plusIcon.classList.remove('fa-plus');
-		plusIcon.classList.add('fa-xmark');
-		plusIcon.addEventListener('click', function () {
-			// Paso 3: Agregar manejador de eventos a los iconos de "Quitar" en la primera tabla
-			// Eliminar la fila de la primera tabla al hacer clic en el icono "Quitar"
-			clonedRow.remove();
-		});
+		// Comprobar si el examen ya ha sido agregado
+		if (examenesAgregados.has(examenId)) {
+			// Mostrar una alerta o Swal para informar al usuario que el examen ya está agregado
+			Swal.fire({
+				icon: 'error',
+				title: 'Examen ya agregado',
+				text: 'Este examen ya ha sido agregado a la lista.',
+			});
+		} else {
+			// Obtener la fila del examen
+			const examenRow = target.closest('tr');
+			// Clonar la fila del examen para agregarla a la primera tabla
+			const clonedRow = examenRow.cloneNode(true);
 
-		// Agregar la fila clonada a la primera tabla
-		const primeraTabla = document
-			.getElementById('tablaExamenesAgregados')
-			.getElementsByTagName('tbody')[0];
-		primeraTabla.appendChild(clonedRow);
+			// Cambiar el icono de "Agregar" por el icono de "Quitar"
+			const plusIcon = clonedRow.querySelector('.fa-plus');
+			plusIcon.classList.remove('fa-plus');
+			plusIcon.classList.add('fa-xmark');
+			plusIcon.addEventListener('click', function () {
+				// Eliminar la fila de la primera tabla al hacer clic en el icono "Quitar"
+				clonedRow.remove();
+				// También eliminar el ID del examen del conjunto cuando se quita la fila
+				examenesAgregados.delete(examenId);
+			});
+
+			// Agregar el ID del examen al conjunto
+			examenesAgregados.add(examenId);
+
+			// Agregar la fila clonada a la primera tabla
+			const primeraTabla = document
+				.getElementById('tablaExamenesAgregados')
+				.getElementsByTagName('tbody')[0];
+			primeraTabla.appendChild(clonedRow);
+		}
 	}
 });
+
 let OrdenTrabajoId;
 // Definir una función para enviar la orden de trabajo al servidor
 async function guardarOrdenTrabajo() {
