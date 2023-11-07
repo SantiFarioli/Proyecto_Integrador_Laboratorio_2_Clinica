@@ -27,4 +27,8 @@ export const tecnicoBioquimico = sequelize.define('tecnicosBioquimico', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	contrasenia: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	}
 });

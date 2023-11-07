@@ -925,9 +925,51 @@ function renderDeterminaciones(deteminaciones) {
 			if (response.ok) {
 				const determinaciones = await response.json();
 				$formValorReferencia.classList.remove('d-none');
-				renderDeterminaciones(determinaciones);
+				renderDeterminacionesParaValor(determinaciones);
 			}
 		} catch (error) {
 			console.log(error);
 		}				
 	});
+
+	function renderDeterminacionesParaValor(deteminaciones) {
+		const table = `
+			<table class="tablita table table-bordered table-striped mx-auto" id='tablaDeterminacionParaValor'>
+			<thead>
+				<tr>
+					<th scope="col" class="text-center">Id Determinacion</th>
+					<th scope="col" class="text-center">Nombre</th>
+					<th scope="col" class="text-center">Descripcion</th>
+					<th scope="col" class="text-center">Unidad Medida</th>	
+					<th scope="col" class="text-center">Metodo Analisis</th>
+					<th scope="col" class="text-center">Id Examen</th>
+					<th scope="col" class="text-center">Acciones</th>
+				</tr>
+			</thead>
+			<tbody class="text-center">
+				${deteminaciones.map((determinacion) => `
+					<tr>		
+						<td>${determinacion.idDeterminacion}</td>
+						<td>${determinacion.nombre}</td>
+						<td>${determinacion.descripcion}</td>
+						<td>${determinacion.unidadMedida}</td>
+						<td>${determinacion.metodoAnalisis}</td>
+						<td>${determinacion.idExamen}</td>
+						<td class="text-center">
+						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-plus" id="crearValorReferenciaIcon"> Create Determinacion</i></a>
+						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarValorReferenciaIcon"> Update</i></a>
+						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarValorReferenciaIcon"> Delete</i></a>
+						</td>
+					</tr>
+				`).join('')}
+			</tbody>
+			</table>
+		`;
+		$tablaDeterminacion.innerHTML = table;
+	
+		$(document).ready(function () {
+			$('#tablaDeterminacionParaValor').DataTable( {
+				
+			})
+		});
+	}

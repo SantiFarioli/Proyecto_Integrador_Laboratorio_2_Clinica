@@ -32,6 +32,10 @@ export const bioquimico = sequelize.define('bioquimicos', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	contrasenia: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	}
 });
 
 bioquimico.hasMany(resultado, {

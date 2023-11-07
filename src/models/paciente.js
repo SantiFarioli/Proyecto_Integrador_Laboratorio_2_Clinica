@@ -1,6 +1,7 @@
 import { sequelize } from '../database/database.js';
 import { DataTypes } from 'sequelize';
 import { orden_trabajo } from './orden_trabajo.js';
+import { usuarioPaciente } from './usuarioPaciente.js';
 
 export const paciente = sequelize.define('pacientes', {
 	idPaciente: {
@@ -69,3 +70,6 @@ orden_trabajo.belongsTo(paciente, {
 	targetKey: 'idPaciente',
 	as: 'paciente',
 });
+
+paciente.hasOne(usuarioPaciente);
+usuarioPaciente.belongsTo(paciente);

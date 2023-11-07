@@ -27,4 +27,8 @@ export const recepcionista = sequelize.define('recepcionistas', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	contrasenia: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	}
 });

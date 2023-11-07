@@ -18,6 +18,7 @@ import './models/examenes_y_ordenes.js';
 import './models/recepcionista.js';
 import './models/tecnicoBioquimico.js';
 import './models/admin.js';
+import './models/usuarioPaciente.js';
 
 export async function main() {
 	try {

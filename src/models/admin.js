@@ -27,4 +27,8 @@ export const admin = sequelize.define('admins', {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	contrasenia: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	}
 });
