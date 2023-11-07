@@ -66,4 +66,3 @@ function renderRecepcionistasTable(recepcionistas) {
 		editable: true, // Habilitar la edición en línea
 	});
 }
-console.log('hola desde el jsrecepcion');
