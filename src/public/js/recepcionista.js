@@ -712,8 +712,17 @@ async function guardarOrdenTrabajo() {
 					}).then((result) => {
 						if (result.isConfirmed) {
 							// La acción para imprimir (agrega tu código aquí)
-							console.log('Imprimir');
 							window.location.href = 'http://localhost:3000/recepcionista';
+							const printWindow = window.open('', '', 'width=600,height=600');
+							printWindow.document.open();
+							printWindow.document.write(
+								'<html><head><title>Imprimir Orden de Trabajo</title></head><body>'
+							);
+							printWindow.document.write(etiquetaHTML); // Aquí inserta el contenido que deseas imprimir
+							printWindow.document.write('</body></html>');
+							printWindow.document.close();
+							printWindow.print();
+							printWindow.close();
 						} else if (result.dismiss === Swal.DismissReason.cancel) {
 							// La acción para enviar (agrega tu código aquí)
 							console.log('Enviar');

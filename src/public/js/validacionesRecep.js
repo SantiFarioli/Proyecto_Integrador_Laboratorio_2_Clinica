@@ -20,16 +20,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		const embarazoSi = document.getElementById('embarazo-si');
 		const embarazoNo = document.getElementById('embarazo-no');
 
-		const embarazoInput = embarazoSi.checked ? true : false;
+		const nombreValue = nombreInput.value;
+		const apellidoValue = apellidoInput.value;
+		const dniValue = dniInput.value;
+		const localidadValue = localidadInput.value;
+		const provinciaValue = provinciaInput.value;
+		const fechaNacimientoValue = fechaNacimientoInput.value;
+		const correoElectronicoValue = correoElectronicoInput.value;
+		const telefonoValue = telefonoInput.value;
+		const obraSocialValue = obraSocialInput.value;
+		const numAfiliadoValue = numAfiliadoInput.value;
+		const sexoValue = sexoSelect.value;
+		const embarazoInput = embarazoSi.checked;
 
 		if (
-			!nombreInput ||
-			!apellidoInput ||
-			!dniInput ||
-			!localidadInput ||
-			!sexoSelect ||
-			(!embarazoSi && !embarazoNo) ||
-			!correoElectronicoInput
+			!nombreValue ||
+			!apellidoValue ||
+			!dniValue ||
+			!localidadValue ||
+			!sexoValue ||
+			(!embarazoInput && !embarazoNo.checked) ||
+			!correoElectronicoValue
 		) {
 			Swal.fire(
 				'Error',
@@ -41,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Validar que en el campo "nombre" y "apellido" no se admitan números
 		const namePattern = /^[A-Za-z]+$/;
-		if (!namePattern.test(nombreInput) || !namePattern.test(apellidoInput)) {
+		if (!namePattern.test(nombreValue) || !namePattern.test(apellidoValue)) {
 			Swal.fire(
 				'Error',
 				'Los campos "Nombre" y "Apellido" no deben contener números.',
@@ -52,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Validar que en el campo "dni" no se admitan letras
 		const dniPattern = /^[0-9]+$/;
-		if (!dniPattern.test(dniInput)) {
+		if (!dniPattern.test(dniValue)) {
 			Swal.fire(
 				'Error',
 				'El campo "DNI" no debe contener letras ni caracteres especiales.',
@@ -63,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// Validar el formato del correo electrónico
 		const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-		if (!emailPattern.test(correoElectronicoInput)) {
+		if (!emailPattern.test(correoElectronicoValue)) {
 			Swal.fire(
 				'Error',
 				'El formato del correo electrónico no es válido.',
