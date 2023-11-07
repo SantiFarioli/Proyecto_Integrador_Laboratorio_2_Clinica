@@ -497,44 +497,110 @@
 
 				<div id='row'>
 					<div class='col-lg-6 offset-md-3'>
-						<form action='/valorReferencia' method='POST' id='formValorReferencia' class='d-none'>
+						<form
+							action='/valorReferencia'
+							method='POST'
+							id='formValorReferencia'
+							class='d-none'
+						>
 							<h3 class='text-center'>Registro de Valor Referencia</h3>
 							<div class='mb-3'>
-								<label for='idValorReferencia' class='form-label'>ID de Valor Referencia</label>
-								<input type='number' class='form-control' id='idValorReferencia' name='idValorReferencia' readonly>
+								<label for='idValorReferencia' class='form-label'>ID de Valor
+									Referencia</label>
+								<input
+									type='number'
+									class='form-control'
+									id='idValorReferencia'
+									name='idValorReferencia'
+									readonly
+								/>
 							</div>
 							<div class='mb-3'>
 								<label for='sexo' class='form-label'>Sexo</label>
-								<input type='text' class='form-control' id='sexo' name='sexo' placeholder='sexo'>
+								<input
+									type='text'
+									class='form-control'
+									id='sexo'
+									name='sexo'
+									placeholder='sexo'
+								/>
 							</div>
 							<div class='mb-3'>
 								<label for='edadMinima' class='form-label'>Edad Minima</label>
-								<input type='text' class='form-control' id='edadMinima' name='edadMinima' placeholder='edadMinima'>
+								<input
+									type='text'
+									class='form-control'
+									id='edadMinima'
+									name='edadMinima'
+									placeholder='edadMinima'
+								/>
 							</div>
 							<div class='mb-3'>
 								<label for='edadMaxima' class='form-label'>Edad Maxima</label>
-								<input type='text' class='form-control' id='edadMaxima' name='edadMaxima' placeholder='edadMaxima'>
+								<input
+									type='text'
+									class='form-control'
+									id='edadMaxima'
+									name='edadMaxima'
+									placeholder='edadMaxima'
+								/>
 							</div>
 							<div class='mb-3'>
 								<label for='valorMinimo' class='form-label'>Valor Minimo</label>
-								<input type='text' class='form-control' id='valorMinimo' name='valorMinimo' placeholder='valorMinimo'>
+								<input
+									type='text'
+									class='form-control'
+									id='valorMinimo'
+									name='valorMinimo'
+									placeholder='valorMinimo'
+								/>
 							</div>
 							<div class='mb-3'>
 								<label for='valorMaximo' class='form-label'>Valor Maximo</label>
-								<input type='text' class='form-control' id='valorMaximo' name='valorMaximo' placeholder='valorMaximo'>
+								<input
+									type='text'
+									class='form-control'
+									id='valorMaximo'
+									name='valorMaximo'
+									placeholder='valorMaximo'
+								/>
 							</div>
 							<div class='mb-3'>
 								<label for='embarazo' class='form-label'>Embarazo</label>
-								<input type='text' class='form-control' id='embarazo' name='embarazo' placeholder='embarazo'>
+								<input
+									type='text'
+									class='form-control'
+									id='embarazo'
+									name='embarazo'
+									placeholder='embarazo'
+								/>
 							</div>
 							<div class='mb-3'>
 								<label for='idDeterminacion' class='form-label'>Id Determinacion</label>
-								<input type='text' class='form-control' id='idDeterminacion' name='idDeterminacion' placeholder='idDeterminacion'>
+								<input
+									type='text'
+									class='form-control'
+									id='idDeterminacion'
+									name='idDeterminacion'
+									placeholder='idDeterminacion'
+								/>
 							</div>
 							<div class='offset-md-4'>
-								<button type='submit' class='mb-3 btn btn-primary' id='guardarValorReferencia'>Guardar</button>
-								<button type='button' class='mb-3 btn btn-success' id='actualizarValorReferencia'>Actualizar</button>
-								<button type='button' class='mb-3 btn btn-danger' id='borrarValorReferencia'>Borrar</button>
+								<button
+									type='submit'
+									class='mb-3 btn btn-primary'
+									id='guardarValorReferencia'
+								>Guardar</button>
+								<button
+									type='button'
+									class='mb-3 btn btn-success'
+									id='actualizarValorReferencia'
+								>Actualizar</button>
+								<button
+									type='button'
+									class='mb-3 btn btn-danger'
+									id='borrarValorReferencia'
+								>Borrar</button>
 							</div>
 						</form>
 					</div>
@@ -543,6 +609,17 @@
 			</div>
 			<div class='container d-none' id='userRecepcionista'>
 				<h2>Tabla de Recepcionistas</h2>
+				<div class='row d-flex flex-column mb-3 text-center'>
+					<label for='ususarioRecpcion' class='form-label'>Crear Usuario
+						Recepción</label>
+					<div class='col-12 d-flex justify-content-center text-center'>
+						<button
+							type='button'
+							class='btn btn-success btn-lg'
+							id='crearRecepcion'
+						>Crear</button>
+					</div>
+				</div>
 				<table
 					class='table table-striped display compact text-center'
 					id='tableUserRecepion'
@@ -555,6 +632,7 @@
 							<th>DNI</th>
 							<th>Teléfono</th>
 							<th>Correo</th>
+							<th>Contraseña</th>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -562,6 +640,71 @@
 					</tbody>
 				</table>
 			</div>
+			<div class='container d-none col-lg-6 offset-md-3' id='formUserRecep'>
+				<h2>Formulario para Crear Recepcionista</h2>
+				<form action='/recepcionista' method='POST'>
+					<div class='mb-3'>
+						<label for='nombre' class='form-label'>Nombre</label>
+						<input
+							type='text'
+							class='form-control'
+							id='nombre'
+							name='nombre'
+							required
+						/>
+					</div>
+					<div class='mb-3'>
+						<label for='apellido' class='form-label'>Apellido</label>
+						<input
+							type='text'
+							class='form-control'
+							id='apellido'
+							name='apellido'
+							required
+						/>
+					</div>
+					<div class='mb-3'>
+						<label for='dni' class='form-label'>DNI</label>
+						<input
+							type='text'
+							class='form-control'
+							id='dni'
+							name='dni'
+							required
+						/>
+					</div>
+					<div class='mb-3'>
+						<label for='telefono' class='form-label'>Teléfono</label>
+						<input
+							type='text'
+							class='form-control'
+							id='telefono'
+							name='telefono'
+							required
+						/>
+					</div>
+					<div class='mb-3'>
+						<label for='correo' class='form-label'>Correo</label>
+						<input
+							type='email'
+							class='form-control'
+							id='correo'
+							name='correo'
+							required
+						/>
+					</div>
+					<input
+						type='hidden'
+						id='usuarioIdUsuario'
+						name='usuarioIdUsuario'
+						value=''
+					/>
+
+					<button type='submit' class='btn btn-success' id='btnCrearRecep'>Crear
+						Recepcionista</button>
+				</form>
+			</div>
+
 		</main>
 	</div>
 </div>
