@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { recepcionista } from '../models/recepcionista.js';
 
 export const getRecepcionistas = async (req, res) => {
@@ -19,9 +20,14 @@ export const createRecepcionista = async (req, res) => {
 		telefono,
 		correo,
 		usuarioIdUsuario, // Recibes el ID del usuario creado
+		contrasenia, // Recibes la contraseña en texto plano
 	} = req.body;
 
 	try {
+		// Genera un hash seguro de la contraseña
+		const contrasenaHash = await bcrypt.hash(contrasenia, 10);
+
+		// Crea el nuevo recepcionista en la base de datos con la contraseña hasheada
 		const newRecepcionista = await recepcionista.create({
 			nombre,
 			apellido,
@@ -29,6 +35,7 @@ export const createRecepcionista = async (req, res) => {
 			telefono,
 			correo,
 			usuarioIdUsuario,
+			contrasenia: contrasenaHash, // Guarda el hash de la contraseña
 		});
 
 		res.json(newRecepcionista);

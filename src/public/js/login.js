@@ -4,15 +4,35 @@ document.addEventListener('DOMContentLoaded', function () {
 	loginForm.addEventListener('submit', function (e) {
 		e.preventDefault();
 
-		const username = document.getElementById('username').value;
+		const email = document.getElementById('email').value; // Asegúrate de que el ID sea correcto
 		const password = document.getElementById('password').value;
 
-		// Realiza la autenticación aquí, por ejemplo, comparando los valores ingresados con los valores válidos.
-		if (username === 'fermin2049' && password === '123456') {
-			// Autenticación exitosa, redirige a la página de inicio.
-			window.location.href = 'http://localhost:3000/';
-		} else {
-			alert('Credenciales incorrectas. Intentalo de nuevo.');
-		}
+		// Objeto de datos para enviar al servidor
+		const loginData = {
+			email: email,
+			password: password,
+		};
+
+		// Enviar solicitud AJAX al servidor
+		fetch('/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(loginData),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.success) {
+					// Redirige según el rol del usuario
+					window.location.href = data.redirectUrl;
+				} else {
+					// Muestra mensaje de error
+					alert(data.message);
+				}
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
 	});
 });
