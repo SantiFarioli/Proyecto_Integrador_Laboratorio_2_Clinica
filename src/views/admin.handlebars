@@ -372,100 +372,37 @@
 
 				<div id='row'>
 					<div class='col-lg-6 offset-md-3'>
-						<form
-							action='/determinacion'
-							method='POST'
-							id='formDeterminacion'
-							class='d-none'
-						>
+						<form action='/determinacion' method='POST' id='formDeterminacion' class='d-none'>
 							<h3 class='text-center'>Registro Determinacion</h3>
 							<div class='mb-3'>
-								<label for='idDeterminacion' class='form-label'>ID de
-									Determinacion
-								</label>
-								<input
-									type='number'
-									class='form-control'
-									id='idDeterminacion'
-									name='idDeterminacion'
-									readonly
-								/>
-							</div>
+								<label for='idDeterminacion' class='form-label'>ID de Determinacion</label>
+								<input type='number' class='form-control' id='idDeterminacion' name='idDeterminacion' readonly/>
+							</div>							
 							<div class='mb-3'>
 								<label for='nombre' class='form-label'>nombre</label>
-								<input
-									type='text'
-									class='form-control'
-									id='nombreDeterminacion'
-									name='nombre'
-									placeholder='nombre'
-								/>
-
+								<input type='text' class='form-control' id='nombreDeterminacion' name='nombre' placeholder='nombre'/>
 							</div>
 							<div class='mb-3'>
 								<label for='descripcion' class='form-label'>Descripcion</label>
-								<input
-									type='text'
-									class='form-control'
-									id='descripcion2'
-									name='descripcion'
-									placeholder='descripcion'
-								/>
+								<input type='text' class='form-control' id='descripcion2' name='descripcion' placeholder='descripcion'/>
 							</div>
 							<div class='mb-3'>
-								<label
-									for='unidadMedida'
-									class='form-label'
-								>unidadMedida</label>
-								<input
-									type='text'
-									class='form-control'
-									id='unidadMedida'
-									name='unidadMedida'
-									placeholder='unidadMedida'
-								/>
+								<label for='unidadMedida' class='form-label' >unidadMedida</label>
+								<input type='text' class='form-control' id='unidadMedida' name='unidadMedida' placeholder='unidadMedida'/>
 							</div>
 							<div class='mb-3'>
-								<label
-									for='metodoAnalisis'
-									class='form-label'
-								>metodoAnalisis</label>
-								<input
-									type='text'
-									class='form-control'
-									id='metodoAnalisis'
-									name='metodoAnalisis'
-									placeholder='metodoAnalisis'
-								/>
+								<label for='metodoAnalisis' class='form-label'>metodoAnalisis</label>
+								<input type='text' class='form-control' id='metodoAnalisis' name='metodoAnalisis' placeholder='metodoAnalisis'/>
 							</div>
 							<div class='mb-3'>
 								<label for='idExamen' class='form-label'>ID de Examen</label>
-								<input
-									type='number'
-									class='form-control'
-									id='idExamen2'
-									name='idExamen'
-									placeholder='idExamen'
-									readonly
-								/>
+								<input type='number' class='form-control' id='idExamen2' name='idExamen' placeholder='idExamen' readonly/>
 							</div>
 							<div class='row'>
 								<div class='offset-md-3' id='form-examen'>
-									<button
-										type='submit'
-										class='mb-3 btn btn-primary'
-										id='guardarDeterminacion'
-									>Guardar</button>
-									<button
-										type='button'
-										class='mb-3 btn btn-success'
-										id='actualizarDeterminacion'
-									>Actualizar</button>
-									<button
-										type='button'
-										class='mb-3 btn btn-danger'
-										id='borrarDeterminacion'
-									>Eliminar</button>
+									<button type='submit' class='mb-3 btn btn-primary' id='guardarDeterminacion'>Guardar</button>
+									<button type='button' class='mb-3 btn btn-success' id='actualizarDeterminacion'>Actualizar</button>
+									<button type='button' class='mb-3 btn btn-danger' id='borrarDeterminacion'>Eliminar</button>
 								</div>
 							</div>
 						</form>
