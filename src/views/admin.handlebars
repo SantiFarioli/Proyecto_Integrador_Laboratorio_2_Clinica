@@ -215,71 +215,28 @@
 							<h3 class='text-center'>Registro de Examen</h3>
 							<div class='mb-3'>
 								<label for='idExamen' class='form-label'>ID de Examen</label>
-								<input
-									type='number'
-									class='form-control'
-									id='idExamen'
-									name='idExamen'
-									readonly
-								/>
+								<input type='number' class='form-control' id='idExamen' name='idExamen' readonly/>
 							</div>
 							<div class='mb-3'>
 								<label for='codigo' class='form-label'>Codigo</label>
-								<input
-									type='text'
-									class='form-control'
-									id='codigo'
-									name='codigo'
-									placeholder='codigo'
-								/>
+								<input type='text' class='form-control' id='codigo' name='codigo' placeholder='codigo'/>
 							</div>
 							<div class='mb-3'>
 								<label for='descripcion' class='form-label'>Descripcion</label>
-								<input
-									type='text'
-									class='form-control'
-									id='descripcion'
-									name='descripcion'
-									placeholder='descripcion'
-								/>
+								<input type='text' class='form-control' id='descripcion' name='descripcion' placeholder='descripcion'/>
 							</div>
 							<div class='mb-3'>
-								<label for='requisitosExamen' class='form-label'>Requisitos
-									Examen</label>
-								<input
-									type='text'
-									class='form-control'
-									id='requisitosExamen'
-									name='requisitosExamen'
-									placeholder='requisitosExamen'
-								/>
+								<label for='requisitosExamen' class='form-label'>Requisitos Examen</label>
+								<input type='text' class='form-control' id='requisitosExamen' name='requisitosExamen' placeholder='requisitosExamen'/>
 							</div>
 							<div class='mb-3'>
 								<label for='tiempoDeExamen' class='form-label'>Tiempo de Examen</label>
-								<input
-									type='text'
-									class='form-control'
-									id='tiempoDeExamen'
-									name='tiempoDeExamen'
-									placeholder='tiempoDeExamen'
-								/>
+								<input type='text' class='form-control' id='tiempoDeExamen' name='tiempoDeExamen' placeholder='tiempoDeExamen'/>
 							</div>
 							<div class='mb-3'>
-								<button
-									type='submit'
-									class='mb-3 btn btn-primary'
-									id='guardarExamen'
-								>Guardar</button>
-								<button
-									type='button'
-									class='mb-3 btn btn-success'
-									id='actualizarExamen'
-								>Actualizar</button>
-								<button
-									type='button'
-									class='mb-3 btn btn-danger'
-									id='borrarExamen'
-								>Eliminar</button>
+								<button type='submit' class='mb-3 btn btn-primary' id='guardarExamen' >Guardar</button>
+								<button type='button' class='mb-3 btn btn-success' id='actualizarExamen' >Actualizar</button>
+								<button type='button' class='mb-3 btn btn-danger' id='borrarExamen' >Eliminar</button>
 							</div>
 						</form>
 					</div>
@@ -287,32 +244,17 @@
 
 				<div id='row'>
 					<div class='offset-md-5' id='form-examen'>
-						<button
-							type='submit'
-							class='mb-3 btn btn-primary d-none'
-							id='agregarDeterminacion'
-						>Agregar Determinacion</button>
+						<button type='submit' class='mb-3 btn btn-primary d-none' id='agregarDeterminacion'>Agregar Determinacion</button>
 					</div>
 				</div>
 
 				<div id='row'>
 					<div class='col-lg-6 offset-md-3'>
-						<form
-							action='/muestra'
-							method='POST'
-							id='formMuestra'
-							class='d-none'
-						>
+						<form action='/muestra' method='POST' id='formMuestra' class='d-none'>
 							<h3 class='text-center'>Registro de Muestras</h3>
 							<div class='mb-3'>
 								<label for='idMuestra' class='form-label'>ID de Muestra </label>
-								<input
-									type='number'
-									class='form-control'
-									id='idMuestra'
-									name='idMuestra'
-									readonly
-								/>
+								<input type='number' class='form-control' id='idMuestra' name='idMuestra' readonly/>
 							</div>
 							<div class='mb-3'>
 								<label for='tipo' class='form-label'>Tipo</label>
@@ -328,42 +270,17 @@
 							</div>
 							<div class='mb-3'>
 								<label for='descripcion' class='form-label'>Descripcion</label>
-								<input
-									type='text'
-									class='form-control'
-									id='descripcion1'
-									name='descripcion'
-									placeholder='descripcion'
-								/>
+								<input type='text' class='form-control' id='descripcion1' name='descripcion' placeholder='descripcion'/>
 							</div>
 							<div class='mb-3'>
 								<label for='idExamen' class='form-label'>ID de Examen</label>
-								<input
-									type='number'
-									class='form-control'
-									id='idExamen1'
-									name='idExamen'
-									placeholder='idExamen'
-									readonly
-								/>
+								<input type='number' class='form-control' id='idExamen1' name='idExamen' placeholder='idExamen' readonly/>
 							</div>
 							<div class='row'>
 								<div class='offset-md-4' id='form-examen'>
-									<button
-										type='submit'
-										class='mb-3 btn btn-primary'
-										id='guardarMuestra'
-									>Guardar</button>
-									<button
-										type='button'
-										class='mb-3 btn btn-success'
-										id='actualizarMuestra'
-									>Actualizar</button>
-									<button
-										type='button'
-										class='mb-3 btn btn-danger'
-										id='borrarMuestra'
-									>Eliminar</button>
+									<button type='submit' class='mb-3 btn btn-primary' id='guardarMuestra'>Guardar</button>
+									<button type='button' class='mb-3 btn btn-success' id='actualizarMuestra'>Actualizar</button>
+									<button type='button' class='mb-3 btn btn-danger' id='borrarMuestra'>Eliminar</button>
 								</div>
 							</div>
 						</form>
