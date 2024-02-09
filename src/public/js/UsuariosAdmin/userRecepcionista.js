@@ -126,12 +126,23 @@ document.addEventListener('DOMContentLoaded', function () {
 			});
 
 			console.log(recepcionista);
-			if (!response.ok) {
-				throw new Error('Error al crear el recepcionista');
+			if (response.ok) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Bioquimica Doña ADN',
+					text: 'Recepcionista creado con exito',
+				}).then(() => {
+					window.location.href = 'http://localhost:3000/';
+					window.location.href = 'http://localhost:3000/admin';
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error al crear el recepcionista',
+					text: 'Error al crear el recepcionista',
+				});
 			}
 
-			console.log('Recepcionista creado exitosamente');
-			console.log(recepcionista);
 		} catch (error) {
 			console.error('Hubo un error al procesar la solicitud:', error);
 		}

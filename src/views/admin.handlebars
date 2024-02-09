@@ -305,7 +305,14 @@
 							</div>
 							<div class='mb-3'>
 								<label for='unidadMedida' class='form-label' >unidadMedida</label>
-								<input type='text' class='form-control' id='unidadMedida' name='unidadMedida' placeholder='unidadMedida'/>
+								<select class='form-select' id='unidadMedida' name='unidadMedida'>
+        							<option value=''>Seleccionar unidad de medida</option>
+        							<option value='mg'>miligramos (mg)</option>
+        							<option value='µg'>microgramos (µg)</option>
+        							<option value='kg'>kilogramos (kg)</option>
+        							<option value='mL'>mililitros (mL)</option>
+        							<option value='mg/dL'>miligramos por decilitro (mg/dL)</option> 
+    							</select>
 							</div>
 							<div class='mb-3'>
 								<label for='metodoAnalisis' class='form-label'>metodoAnalisis</label>
@@ -438,70 +445,29 @@
 						</div>
 					<div class='mb-3'>
 						<label for='nombre' class='form-label'>Nombre</label>
-						<input
-							type='text'
-							class='form-control'
-							id='nombre'
-							name='nombre'
-							required
-						/>
+						<inputtype='text'class='form-control'id='nombre'name='nombre' required/>
 					</div>
 					<div class='mb-3'>
 						<label for='apellido' class='form-label'>Apellido</label>
-						<input
-							type='text'
-							class='form-control'
-							id='apellido'
-							name='apellido'
-							required
-						/>
+						<inputtype='text'class='form-control'id='apellido'name='apellido' required/>
 					</div>
 					<div class='mb-3'>
 						<label for='dni' class='form-label'>DNI</label>
-						<input
-							type='number'
-							class='form-control'
-							id='dni'
-							name='dni'
-							required
-						/>
+						<inputtype='number'class='form-control'id='dni'name='dni' required/>
 					</div>
 					<div class='mb-3'>
 						<label for='telefono' class='form-label'>Teléfono</label>
-						<input
-							type='number'
-							class='form-control'
-							id='telefono'
-							name='telefono'
-							required
-						/>
+						<inputtype='number'class='form-control'id='telefono'name='telefono' required/>
 					</div>
 					<div class='mb-3'>
 						<label for='correo' class='form-label'>Correo</label>
-						<input
-							type='email'
-							class='form-control'
-							id='correo'
-							name='correo'
-							required
-						/>
+						<inputtype='email'class='form-control'id='correo'name='correo' required/>
 					</div>
 					<div class='mb-3'>
 						<label for='contrasenia' class='form-label'>Contraseña</label>
-						<input
-							type='text'
-							class='form-control'
-							id='contrasenia'
-							name='contrasenia'
-							required
-						/>
+						<inputtype='text'class='form-control'id='contrasenia'name='contrasenia' required/>
 					</div>
-					<input
-						type='hidden'
-						id='idUsuario'
-						name='idUsuario'
-						value=''
-					/>
+					<inputtype='hidden'id='idUsuario'name='idUsuario'value=''/>
 
 					<button type='submit' class='btn btn-success' id='btnCrearRecep'>Crear
 						Recepcionista</button>

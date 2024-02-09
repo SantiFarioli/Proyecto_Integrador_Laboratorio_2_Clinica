@@ -253,9 +253,18 @@ function renderExamenesTable(examenes) {
 					<td>${examen.requisitosExamen}</td>
 					<td>${examen.tiempoDeExamen}</td>				
 					<td class="text-center">
+					<div class="icon-container">
 					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarIcon"></i></a>
+					<span class="tooltip">Actualizar Examen</span>
+					</div>					
+					<div class="icon-container">
 					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarIcon"></i></a>
+					<span class="tooltip">Borrar Examen</span>
+					</div>				
+					<div class="icon-container">
 					<a href="#" type="button" class="btn btn-light btn-sm muestraIcon" data-id-examen="${examen.idExamen}"><i class="fas fa-flask"></i></a>
+					<span class="tooltip">Crear Muestra</span>
+					</div>				
 					</td>
 				</tr>
 			`).join('')}
@@ -564,8 +573,14 @@ function renderMuestras(muestras) {
 					<td>${muestra.descripcion}</td>
 					<td>${muestra.idExamen}</td>
 					<td>
-    					<a href="#" type="button" class="btn btn-light btn-sm" id="actualizarIconMuesta"><i class="fa-solid fa-pen"></i></a>
-    					<a href="#" type="button" class="btn btn-light btn-sm" id="borrarIconMuestra"><i class="fa-solid fa-trash"></i></a>
+					<div class="icon-container">
+					<a href="#" type="button" class="btn btn-light btn-sm" id="actualizarIconMuesta"><i class="fa-solid fa-pen"></i></a>
+					<span class="tooltip">Actualizar Muestra</span>
+					</div>
+					<div class="icon-container">
+					<a href="#" type="button" class="btn btn-light btn-sm" id="borrarIconMuestra"><i class="fa-solid fa-trash"></i></a>
+					<span class="tooltip">Borrar Muestra</span>
+					</div>					
 					</td>
 				</tr>
 			`).join('')}
@@ -684,7 +699,10 @@ function renderDeterminacionExamenMuestra(muestras) {
 					<td>${muestra.examen.descripcion}</td>
 					<td>${muestra.tipo}</td>		
 					<td class="text-center">
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-plus" id="crearDeterminacionIcon"> Create Determinacion</i></a>
+					<div class="icon-container">
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-plus" id="crearDeterminacionIcon"></i></a>
+					<span class="tooltip">Create Determinacion</span>
+					</div>
 					</td>
 				</tr>
 			`).join('')}
@@ -815,8 +833,14 @@ function renderDeterminaciones(deteminaciones) {
 					<td>${determinacion.metodoAnalisis}</td>
 					<td>${determinacion.idExamen}</td>
 					<td class="text-center">
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarDeterminacionIcon"> Update</i></a>
-					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarDeterminacionIcon"> Delete</i></a>
+					<div class="icon-container">
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarDeterminacionIcon"></i></a>
+					<span class="tooltip">Actualizar Determinacion</span>
+					</div>
+					<div class="icon-container">
+					<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarDeterminacionIcon"></i></a>
+					<span class="tooltip">Eliminar Determinacion</span>
+					</div>
 					</td>
 				</tr>
 			`).join('')}
@@ -956,10 +980,20 @@ function renderDeterminaciones(deteminaciones) {
 						<td>${determinacion.metodoAnalisis}</td>
 						<td>${determinacion.idExamen}</td>
 						<td class="text-center">
-						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-plus" id="crearValorReferenciaIcon"> Create Determinacion</i></a>
-						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarValorReferenciaIcon"> Update</i></a>
-						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarValorReferenciaIcon"> Delete</i></a>
+						<div class="icon-container">
+						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-regular fa-file-lines" id="crearValorReferenciaIcon"></i></a>
+						<span class="tooltip">Crear Valores Referencia</span>
+						</div>
+						<div class="icon-container">
+						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-pen" id="actualizarValorReferenciaIcon"> </i></a>
+						<span class="tooltip">Actualizar Valores Referencia</span>
+						</div>
+						<div class="icon-container">
+						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-solid fa-trash" id="borrarValorReferenciaIcon"> </i></a>
+						<span class="tooltip">Eliminar Valores Referencia</span>
+						</div>
 						</td>
+						
 					</tr>
 				`).join('')}
 			</tbody>
