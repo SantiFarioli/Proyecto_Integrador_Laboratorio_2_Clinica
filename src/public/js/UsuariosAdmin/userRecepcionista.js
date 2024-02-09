@@ -86,12 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	// En el evento click del botón btnCrearRecep
 	btnCrearRecep.addEventListener('click', async function (e) {
 		e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
-	
+
 		// Recolectar los valores del formulario
-		
-	
+
 		try {
-			
 			const recepcionista = {
 				nombre: document.getElementById('nombre').value,
 				apellido: document.getElementById('apellido').value,
@@ -108,40 +106,34 @@ document.addEventListener('DOMContentLoaded', function () {
 				headers: { 'Content-Type': 'application/json' },
 			});
 
-			
-		
 			if (!responseUsuario.ok) {
 				throw new Error('Error al crear el usuario');
 			}
-				// Obtener el ID del usuario creado desde la respuesta
+			// Obtener el ID del usuario creado desde la respuesta
 			const { idUsuario } = await responseUsuario.json();
 			recepcionista.idUsuario = idUsuario;
-		
-			
+
 			const usuarioIdField = document.getElementById('idUsuario');
 			usuarioIdField.value = idUsuario;
 
-			console.log(usuarioIdField.value);	
-							
-		       console.log(idUsuario)
-			const response = await fetch('/recepcionista', {
+			console.log(usuarioIdField.value);
+
+			console.log(idUsuario);
+			const response = await fetch('/newrecepcionista', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(recepcionista),
 			});
-		
-		console.log(recepcionista)
+
+			console.log(recepcionista);
 			if (!response.ok) {
 				throw new Error('Error al crear el recepcionista');
 			}
-		
+
 			console.log('Recepcionista creado exitosamente');
 			console.log(recepcionista);
 		} catch (error) {
 			console.error('Hubo un error al procesar la solicitud:', error);
 		}
-		
 	});
-	
-
 });

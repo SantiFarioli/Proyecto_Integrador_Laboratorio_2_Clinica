@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.get('/recepcionistas', getRecepcionistas);
-router.post('/recepcionista', createRecepcionista);
+router.post('/newrecepcionista', createRecepcionista);
 router.put('/recepcionista/:id', updateRecepcionista);
 router.delete('/recepcionista/:id', deleteRecepcionista);
 
