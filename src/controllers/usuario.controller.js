@@ -39,6 +39,7 @@ export const createUsuario = async (req, res) => {
 	}
 };
 
+
 export const updateUsuario = async (req, res) => {
 	const idUsuario = req.params;
 	const { rol } = req.body;

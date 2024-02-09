@@ -19,8 +19,8 @@ export const createRecepcionista = async (req, res) => {
 		dni,
 		telefono,
 		correo,
-		usuarioIdUsuario, // Recibes el ID del usuario creado
-		contrasenia, // Recibes la contraseña en texto plano
+		contrasenia, 
+		idUsuario, 
 	} = req.body;
 
 	try {
@@ -34,8 +34,8 @@ export const createRecepcionista = async (req, res) => {
 			dni,
 			telefono,
 			correo,
-			usuarioIdUsuario,
 			contrasenia: contrasenaHash, // Guarda el hash de la contraseña
+			idUsuario,
 		});
 
 		res.json(newRecepcionista);

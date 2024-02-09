@@ -432,6 +432,10 @@
 			<div class='container d-none col-lg-6 offset-md-3' id='formUserRecep'>
 				<h2>Formulario para Crear Recepcionista</h2>
 				<form action='/recepcionista' method='POST'>
+						<div class='mb-3'>
+							<label for='idRecepcionista' class='form-label'>ID recepcionista</label>
+							<input type='number' class='form-control' id='idRecepcionista' name='idRecepcionista' readonly>
+						</div>
 					<div class='mb-3'>
 						<label for='nombre' class='form-label'>Nombre</label>
 						<input
@@ -455,7 +459,7 @@
 					<div class='mb-3'>
 						<label for='dni' class='form-label'>DNI</label>
 						<input
-							type='text'
+							type='number'
 							class='form-control'
 							id='dni'
 							name='dni'
@@ -465,7 +469,7 @@
 					<div class='mb-3'>
 						<label for='telefono' class='form-label'>Teléfono</label>
 						<input
-							type='text'
+							type='number'
 							class='form-control'
 							id='telefono'
 							name='telefono'
@@ -494,8 +498,8 @@
 					</div>
 					<input
 						type='hidden'
-						id='usuarioIdUsuario'
-						name='usuarioIdUsuario'
+						id='idUsuario'
+						name='idUsuario'
 						value=''
 					/>
 

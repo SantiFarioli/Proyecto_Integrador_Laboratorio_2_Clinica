@@ -29,17 +29,32 @@ auditoria.belongsTo(usuario, {
 	targetKey: 'idUsuario',
 });
 
-usuario.hasOne(recepcionista);
-recepcionista.belongsTo(usuario);
+usuario.hasMany(recepcionista, {
+	foreignKey: 'idUsuario',
+	targetKey: 'idUsuario',
+});
 
-usuario.hasOne(tecnicoBioquimico);
-tecnicoBioquimico.belongsTo(usuario);
 
-usuario.hasOne(admin);
-admin.belongsTo(usuario);
+usuario.hasMany(tecnicoBioquimico, {
+	foreignKey: 'idUsuario',
+	targetKey: 'idUsuario',
+});
 
-usuario.hasOne(bioquimico);
-bioquimico.belongsTo(usuario);
 
-usuario.hasOne(usuarioPaciente);
-usuarioPaciente.belongsTo(usuario);
+usuario.hasMany(admin, {
+	foreignKey: 'idUsuario',
+	targetKey: 'idUsuario',
+});
+
+
+usuario.hasMany(bioquimico, {
+	foreignKey: 'idUsuario',
+	targetKey: 'idUsuario',
+});
+
+
+usuario.hasMany(usuarioPaciente, {
+	foreignKey: 'idUsuario',
+	targetKey: 'idUsuario',
+});
+

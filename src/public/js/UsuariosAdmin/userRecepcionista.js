@@ -73,7 +73,7 @@ const userRecepcionistaContainer = document.getElementById('userRecepcionista');
 const formUserRecepContainer = document.getElementById('formUserRecep');
 const btnCrearRecep = document.getElementById('btnCrearRecep');
 
-const usuarioIdField = document.getElementById('usuarioIdUsuario'); // Campo oculto para el ID de usuario
+//const usuarioIdField = document.getElementById('usuarioIdUsuario'); // Campo oculto para el ID de usuario
 const crearRecepcion = document.getElementById('crearRecepcion');
 document.addEventListener('DOMContentLoaded', function () {
 	crearRecepcion.addEventListener('click', async function () {
@@ -82,65 +82,66 @@ document.addEventListener('DOMContentLoaded', function () {
 		userRecepcionistaContainer.classList.add('d-none');
 		formUserRecepContainer.classList.remove('d-none');
 	});
+
+	// En el evento click del botón btnCrearRecep
 	btnCrearRecep.addEventListener('click', async function (e) {
-		e.preventDefault();
+		e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+	
+		// Recolectar los valores del formulario
+		
+	
 		try {
+			
+			const recepcionista = {
+				nombre: document.getElementById('nombre').value,
+				apellido: document.getElementById('apellido').value,
+				dni: document.getElementById('dni').value,
+				telefono: document.getElementById('telefono').value,
+				correo: document.getElementById('correo').value,
+				contrasenia: document.getElementById('contrasenia').value,
+				idUsuario: document.getElementById('idUsuario').value,
+			};
+
 			const responseUsuario = await fetch('/usuario', {
 				method: 'POST',
 				body: JSON.stringify({ rol: 'Recepcionista' }),
 				headers: { 'Content-Type': 'application/json' },
 			});
 
-			if (responseUsuario.status === 200) {
-				const data = await responseUsuario.json();
-				usuarioIdField.value = data.idUsuario; // Asignar el ID del usuario al campo oculto
-				console.log(data);
-			} else {
-				Swal.fire('Error', 'Hubo un error al crear el usuario', 'error');
+			
+		
+			if (!responseUsuario.ok) {
+				throw new Error('Error al crear el usuario');
 			}
-		} catch (error) {
-			console.error(error);
-			Swal.fire('Error', 'Hubo un error al crear el usuario', 'error');
-		}
-	});
+				// Obtener el ID del usuario creado desde la respuesta
+			const { idUsuario } = await responseUsuario.json();
+			recepcionista.idUsuario = idUsuario;
+		
+			
+			const usuarioIdField = document.getElementById('idUsuario');
+			usuarioIdField.value = idUsuario;
 
-	// Capturar el envío del formulario
-	const form = document.querySelector('form');
-
-	form.addEventListener('submit', async function (event) {
-		event.preventDefault(); // Detener el envío del formulario
-
-		const formData = new FormData(form);
-
-		try {
+			console.log(usuarioIdField.value);	
+							
+		       console.log(idUsuario)
 			const response = await fetch('/recepcionista', {
 				method: 'POST',
-				body: formData,
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(recepcionista),
 			});
-
-			if (response.ok) {
-				// El usuario de recepción se guardó correctamente
-
-				Swal.fire({
-					icon: 'success',
-					title: 'El usuario de recepción se guardó correctamente',
-					showConfirmButton: true,
-				});
-			} else {
-				// Hubo un error al guardar el usuario de recepción
-				Swal.fire(
-					'Error',
-					'Hubo un error al guardar el usuario de recepción',
-					'error'
-				);
+		
+		console.log(recepcionista)
+			if (!response.ok) {
+				throw new Error('Error al crear el recepcionista');
 			}
+		
+			console.log('Recepcionista creado exitosamente');
+			console.log(recepcionista);
 		} catch (error) {
-			console.error(error);
-			Swal.fire(
-				'Error',
-				'Hubo un error al guardar el usuario de recepción',
-				'error'
-			);
+			console.error('Hubo un error al procesar la solicitud:', error);
 		}
+		
 	});
+	
+
 });
