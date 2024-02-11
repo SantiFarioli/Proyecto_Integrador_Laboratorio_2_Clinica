@@ -18,7 +18,8 @@ export const createValorReferencia = async (req, res) => {
           edadMaxima,
           valorMinimo,
           valorMaximo,
-          embarazo
+          embarazo,
+          idDeterminacion
           } = req.body;
     try {
         
@@ -29,7 +30,8 @@ export const createValorReferencia = async (req, res) => {
             edadMaxima,
             valorMinimo,
             valorMaximo,
-            embarazo
+            embarazo,
+            idDeterminacion
         });
         console.log('Valor Referencia creada:', newValorReferencia);
 

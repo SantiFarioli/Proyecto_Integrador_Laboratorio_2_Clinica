@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import {tecnicoBioquimico} from '../models/tecnicoBioquimico.js';
 
 export const getTecnicoBioquimico = async (req, res) => {
@@ -17,15 +18,21 @@ export const createTecnicoBioquimico = async (req, res) => {
         apellido,
         dni,
         telefono,
-        correo
+        correo,
+        contrasenia,
+        idUsuario
     } = req.body;
     try {
+        const contrasenaHash = await bcrypt.hash(contrasenia, 10);
+
         const newTecnicoBioquimico = await tecnicoBioquimico.create({
             nombre,
             apellido,
             dni,
             telefono,
-            correo
+            correo,
+            contrasenia: contrasenaHash,
+            idUsuario
         });
         res.json(newTecnicoBioquimico);
     } catch (error) {
@@ -43,7 +50,8 @@ export const updateTecnicoBioquimico = async (req, res) => {
         apellido,
         dni,
         telefono,
-        correo
+        correo,
+        contrasenia
     } = req.body;
     try {
         const actualizarTecnicoBioquimico = await tecnicoBioquimico.findByPk(idTecnicoBioquimico);
@@ -59,6 +67,7 @@ export const updateTecnicoBioquimico = async (req, res) => {
     actualizarTecnicoBioquimico.dni = dni;
     actualizarTecnicoBioquimico.telefono = telefono;
     actualizarTecnicoBioquimico.correo = correo;
+    actualizarTecnicoBioquimico.contrasenia = contrasenia;
 
     await actualizarTecnicoBioquimico.save();
     res.json(actualizarTecnicoBioquimico);

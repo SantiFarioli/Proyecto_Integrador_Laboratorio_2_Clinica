@@ -3,7 +3,7 @@ import { getTecnicoBioquimico, createTecnicoBioquimico, updateTecnicoBioquimico,
 
 const router = Router();
 
-router.get('/tecnicoBioquimico', getTecnicoBioquimico);
+router.get('/tecnicosBioquimicos', getTecnicoBioquimico);
 router.post('/tecnicoBioquimico', createTecnicoBioquimico);
 router.put('/tecnicoBioquimico/:id', updateTecnicoBioquimico);
 router.delete('/tecnicoBioquimico/:id', deleteTecnicoBioquimico);

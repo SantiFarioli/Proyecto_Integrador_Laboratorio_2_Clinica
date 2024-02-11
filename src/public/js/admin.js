@@ -14,6 +14,7 @@ const $formValorReferencia = document.getElementById('formValorReferencia');
 const $guardarExamen = document.getElementById('guardarExamen');
 const $guardarMuestra = document.getElementById('guardarMuestra');
 const $guardarDeterminacion = document.getElementById('guardarDeterminacion');
+const $guardarValorReferencia = document.getElementById('guardarValorReferencia');
 const $actualizarDeterminacion = document.getElementById('actualizarDeterminacion');
 const $actualizarMuestra = document.getElementById('actualizarMuestra');
 const $actualizarExamene = document.getElementById('actualizarExamen');
@@ -948,7 +949,6 @@ function renderDeterminaciones(deteminaciones) {
 			const response = await fetch('/determinacion');
 			if (response.ok) {
 				const determinaciones = await response.json();
-				$formValorReferencia.classList.remove('d-none');
 				renderDeterminacionesParaValor(determinaciones);
 			}
 		} catch (error) {
@@ -956,7 +956,7 @@ function renderDeterminaciones(deteminaciones) {
 		}				
 	});
 
-	function renderDeterminacionesParaValor(deteminaciones) {
+	function renderDeterminacionesParaValor(determinaciones) {
 		const table = `
 			<table class="tablita table table-bordered table-striped mx-auto" id='tablaDeterminacionParaValor'>
 			<thead>
@@ -964,15 +964,15 @@ function renderDeterminaciones(deteminaciones) {
 					<th scope="col" class="text-center">Id Determinacion</th>
 					<th scope="col" class="text-center">Nombre</th>
 					<th scope="col" class="text-center">Descripcion</th>
-					<th scope="col" class="text-center">Unidad Medida</th>	
+					<th scope="col" class="text-center">Unidad Medida</th>   
 					<th scope="col" class="text-center">Metodo Analisis</th>
 					<th scope="col" class="text-center">Id Examen</th>
 					<th scope="col" class="text-center">Acciones</th>
 				</tr>
 			</thead>
 			<tbody class="text-center">
-				${deteminaciones.map((determinacion) => `
-					<tr>		
+				${determinaciones.map((determinacion, index) => `
+					<tr>        
 						<td>${determinacion.idDeterminacion}</td>
 						<td>${determinacion.nombre}</td>
 						<td>${determinacion.descripcion}</td>
@@ -981,7 +981,8 @@ function renderDeterminaciones(deteminaciones) {
 						<td>${determinacion.idExamen}</td>
 						<td class="text-center">
 						<div class="icon-container">
-						<a href="#" type="button" class="btn btn-light btn-sm"><i class="fa-regular fa-file-lines" id="crearValorReferenciaIcon"></i></a>
+						<a href="#" class="btn btn-light btn-sm crearValorReferenciaIcon" data-index="${index}">
+						<i class="fa-regular fa-file-lines"></i></a>
 						<span class="tooltip">Crear Valores Referencia</span>
 						</div>
 						<div class="icon-container">
@@ -993,7 +994,6 @@ function renderDeterminaciones(deteminaciones) {
 						<span class="tooltip">Eliminar Valores Referencia</span>
 						</div>
 						</td>
-						
 					</tr>
 				`).join('')}
 			</tbody>
@@ -1002,8 +1002,68 @@ function renderDeterminaciones(deteminaciones) {
 		$tablaDeterminacion.innerHTML = table;
 	
 		$(document).ready(function () {
-			$('#tablaDeterminacionParaValor').DataTable( {
-				
-			})
+			$('#tablaDeterminacionParaValor').DataTable();
+		});
+	
+		
+		document.querySelectorAll('.crearValorReferenciaIcon').forEach((icon) => {
+			icon.addEventListener('click', (e) => {
+				e.preventDefault();
+				const index = icon.getAttribute('data-index');
+				const idDeterminacion = determinaciones[index].idDeterminacion;
+				// Ocultar la tabla de determinaciones y mostrar el formulario de referencia de valores
+				$tablaDeterminacion.classList.add('d-none');
+				$formValorReferencia.classList.remove('d-none');
+				// Rellenar el campo de entrada idDeterminacion con el ID recuperado
+				$formValorReferencia.querySelector('#idDeterminacion1').value = idDeterminacion;
+			});
 		});
 	}
+
+
+	$guardarValorReferencia.addEventListener('click', async (e) => {
+		e.preventDefault();
+		const idDeterminacion = document.getElementById('idDeterminacion1').value;
+		const valorReferencia = {
+			sexo: document.getElementById('sexo').value,
+			edadMinima: document.getElementById('edadMinima').value,
+			edadMaxima: document.getElementById('edadMaxima').value,
+			valorMinimo: document.getElementById('valorMinimo').value,
+			valorMaximo: document.getElementById('valorMaximo').value,
+			embarazo: document.getElementById('embarazo').value,
+			idDeterminacion
+		}
+
+		console.log(valorReferencia);
+
+		try {
+			const response = await fetch ('/valorReferencia', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(valorReferencia),
+			});
+
+			if(response.ok){
+				Swal.fire({
+					icon: 'success',
+					title: 'Valores Referencia guardada con exito',
+					text: 'Valores Referencia guardada con exito',
+				}).then(() => {
+					window.location.href = 'http://localhost:3000/';
+					window.location.href = 'http://localhost:3000/admin';
+				});
+			} else {
+				Swal.fire({
+					icon: 'error',
+					title: 'Error al guardar Valores Referencia',
+					text: 'Error al guardar Valores Referencia',
+				})
+			}
+		} catch (error) {
+			console.log('Error al guardar Valores Referencia:', error);
+		}
+	})
+
+
