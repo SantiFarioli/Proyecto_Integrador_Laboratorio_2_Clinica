@@ -3,8 +3,8 @@ import {tecnicoBioquimico} from '../models/tecnicoBioquimico.js';
 
 export const getTecnicoBioquimico = async (req, res) => {
     try {
-        const tecnicoBioquimico = await tecnicoBioquimico.findAll();
-        res.json(tecnicoBioquimico);
+        const tecnicoBioquimicos = await tecnicoBioquimico.findAll();
+        res.json(tecnicoBioquimicos);
     } catch (error) {
         res.status(500).json({
             message: error.message

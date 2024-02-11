@@ -40,12 +40,12 @@ function renderTecnicoBioquimico(tecnicoBioquimico) {
 		const newRow = tableBody.insertRow();
 		newRow.innerHTML = `
       <td>${tecnicoBioquimicos.idTecnicoBioquimico}</td>
-      <td>${tecnicoBioquimicos.nombreTecnicoBioquimico}</td>
-      <td>${tecnicoBioquimicos.apellidoTecnicoBioquimico}</td>
-      <td>${tecnicoBioquimicos.dniTecnicoBioquimico}</td>
-      <td>${tecnicoBioquimicos.telefonoTecnicoBioquimico}</td>
-      <td>${tecnicoBioquimicos.correoTecnicoBioquimico}</td>
-      <td>${tecnicoBioquimicos.contraseniaTecnicoBioquimico}</td>
+      <td>${tecnicoBioquimicos.nombre}</td>
+      <td>${tecnicoBioquimicos.apellido}</td>
+      <td>${tecnicoBioquimicos.dni}</td>
+      <td>${tecnicoBioquimicos.telefono}</td>
+      <td>${tecnicoBioquimicos.correo}</td>
+      <td>${tecnicoBioquimicos.contrasenia}</td>
       <td>
       <div class="d-flex justify-content-center ">
                 <div class="icon-container" id="iconoEditarContainer${tecnicoBioquimicos.idTecnicoBioquimico}">
