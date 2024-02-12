@@ -79,7 +79,7 @@
 							<a
 								href='#'
 								class='sidebar-link'
-								id='formulario-busqueda'
+								id='adminBioquimico'
 							>Administrar Bioquímico</a>
 						</li>
 						<li class='sidebar-item'>
@@ -614,6 +614,81 @@
 					<input type='hidden'id='idUsuario2'name='idUsuario2'value=''/>
 
 					<button type='submit' class='btn btn-success' id='btnCrearAdmin'>Crear Admin</button>
+				</form>
+			</div>
+
+
+			<div class='container d-none' id='userBioquimico'>
+				<h2>Tabla de Bioquimicos</h2>
+				<div class='row d-flex flex-column mb-3 text-center'>
+					<label for='ususarioTecnicoBioquimico' class='form-label'>Crear Usuario
+						 Bioquimico</label>
+					<div class='col-12 d-flex justify-content-center text-center'>
+						<button
+							type='button'
+							class='btn btn-success btn-lg'
+							id='crearBio'
+						>Crear</button>
+					</div>
+				</div>
+				<table
+					class='table table-striped display compact text-center'
+					id='tableUserBioquimico'
+				>
+					<thead>
+						<tr>
+							<th>ID Bioquimico</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>DNI</th>
+							<th>Teléfono</th>
+							<th>Correo</th>
+							<th>Contraseña</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class='container d-none col-lg-6 offset-md-3' id='formUserBioquimico'>
+				<h2>Formulario para Crear Bioquimico</h2>
+				<form action='/newbioquimico' method='POST'>
+					<div class='mb-3'>
+						<label for='idBioquimico' class='form-label'>ID Bioquimico</label>
+						<input type='number' class='form-control' id='idBioquimico' name='idBioquimico' readonly>
+					</div>
+					<div class='mb-3'>
+						<label for='nombreBioquimico' class='form-label'>Nombre</label>
+						<input type='text'class='form-control'id='nombreBioquimico'name='nombreBioquimico' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='apellidoBioquimico' class='form-label'>Apellido</label>
+						<input type='text'class='form-control'id='apellidoBioquimico'name='apellidoBioquimico' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='dniBioquimico' class='form-label'>DNI</label>
+						<input type='number'class='form-control'id='dniBioquimico'name='dniBioquimico' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='telefonoBioquimico' class='form-label'>Teléfono</label>
+						<input type='number'class='form-control'id='telefonoBioquimico'name='telefonoBioquimico' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='correoBioquimico' class='form-label'>Correo</label>
+						<input type='email'class='form-control'id='correoBioquimico'name='correoBioquimico' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='especialidadBioquimico' class='form-label'>Especialidad</label>
+						<input type='text'class='form-control'id='especialidadBioquimico'name='especialidadBioquimico' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='contraseniaBioquimico' class='form-label'>Contraseña</label>
+						<input type='text'class='form-control'id='contraseniaBioquimico'name='contraseniaBioquimico' required/>
+					</div>
+					<input type='hidden'id='idUsuario3'name='idUsuario3'value=''/>
+
+					<button type='submit' class='btn btn-success' id='btnCrearBioquimico'>Crear Bioquimico</button>
 				</form>
 			</div>
 
