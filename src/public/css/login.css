@@ -1,8 +1,17 @@
 body {
 	font-family: 'Poppins', sans-serif !important;
-	background-image: url('/img/fondoLaboratorio.png'), -o-repeating-linear-gradient( 135deg, #007bff, #007bff 10px, #fff 10px, #fff 20px );
-	background-image: url('/img/fondoLaboratorio.png'), repeating-linear-gradient( 135deg, #007bff, #007bff 10px, #fff 10px, #fff 20px );
-	
+	background-image: url('/img/fondoLaboratorio.png'),
+		-o-repeating-linear-gradient(135deg, #007bff, #007bff 10px, #fff 10px, #fff
+					20px);
+	background-image: url('/img/fondoLaboratorio.png'),
+		repeating-linear-gradient(
+			135deg,
+			#007bff,
+			#007bff 10px,
+			#fff 10px,
+			#fff 20px
+		);
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -37,4 +46,44 @@ body {
 .select-fila:hover {
 	background-color: lightsalmon;
 	cursor: pointer;
+}
+.card {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+}
+
+.card:hover {
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.form-control,
+.btn {
+	border-radius: 20px; /* Ajusta este valor según prefieras */
+}
+.btn {
+	background-image: linear-gradient(to right, #007bff, #6699ff);
+}
+body {
+	line-height: 1.6;
+}
+
+.card-header,
+.btn {
+	letter-spacing: 1px;
+}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.card {
+	animation: fadeIn 0.5s ease-out;
+}
+
+.form-control:focus {
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+	border-color: #007bff;
 }
