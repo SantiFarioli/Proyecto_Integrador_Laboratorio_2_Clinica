@@ -1,4 +1,3 @@
-{{> header}}
 <div class='wrapper'>
 
 	<aside id='sidebar'>
@@ -13,8 +12,8 @@
 				</li>
 				<li class='sidebar-item'>
 					<a
-					href='#'
-					class='sidebar-link collapsed'
+						href='#'
+						class='sidebar-link collapsed'
 						data-bs-toggle='collapse'
 						data-bs-target='#ordenTrabajo'
 						aria-expanded='false'
@@ -29,21 +28,19 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a 
-							href='#'
-							 class='sidebar-link'
-							 id="cargar-ordenes"
-					>	Consultar Nuevas Orden de Trabajo
-					</a> <!-- consultar orden de trabajo(buscar)-->
+							<a href='#' class='sidebar-link' id='cargar-ordenes'>
+								Consultar Nuevas Orden de Trabajo
+							</a>
+							<!-- consultar orden de trabajo(buscar)-->
 						</li>
 					</ul>
 				</li>
 
 				<li class='sidebar-item'>
-					<a 
-					href='#'
-					class='sidebar-link collapsed'
-					data-bs-toggle='collapse'
+					<a
+						href='#'
+						class='sidebar-link collapsed'
+						data-bs-toggle='collapse'
 						data-bs-target='#muestra'
 						aria-expanded='false'
 						aria-controls='muestra'
@@ -57,20 +54,15 @@
 						data-bs-parent='#sidebar'
 					>
 						<li class='sidebar-item'>
-							<a
-							href='#'
-							class='sidebar-link'
-							id="cargar-muestras-btn"
-					>
-							Cargar Muestras
-							</a> <!-- consultar orden de trabajo(buscar)-->
+							<a href='#' class='sidebar-link' id='cargar-muestras-btn'>
+								Cargar Muestras
+							</a>
+							<!-- consultar orden de trabajo(buscar)-->
 						</li>
 						<li class='sidebar-item'>
-							<a href='#'
-							class='sidebar-link'
-							id="cargar-examen-btn"
-					>
-							Cargar Examen</a> <!-- consultar orden de trabajo(buscar)-->
+							<a href='#' class='sidebar-link' id='cargar-examen-btn'>
+								Cargar Examen</a>
+							<!-- consultar orden de trabajo(buscar)-->
 						</li>
 					</ul>
 				</li>
@@ -142,66 +134,29 @@
 				<div class='mb-3'>
 					<h3>Bienvenido al Sistema</h3>
 				</div>
-
-				<div id="ordenes-table">
-					
+				<div id='ordenes-table' class='d-none'>
+					<table
+						id='tabla-ordenes'
+						class='table table-striped'
+						style='width:100%'
+					>
+						<thead>
+							<tr>
+								<th>Fecha Creación</th>
+								<th>Estado</th>
+								<th>Diagnóstico</th>
+								<th>Cancelada</th>
+								<th>Paciente</th>
+								<th>Médico</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- Los datos de las filas se llenarán dinámicamente -->
+						</tbody>
+					</table>
 				</div>
 
-						
-				<div class='row'>
-					<div class='col-lg-6 offset-md-3'>				
-						<form action="/muestra"  method="post"  id="form" class="d-none">
-							<h3>Registro de Muestra</h3>
-								<div class="mb-3">
-    								<label for="idMuestra" class="form-label">ID de Muestra</label>
-    								<input type="number" class="form-control" id="idMuestra" name="idMuestra" readonly>
-								</div>
-								<div class="mb-3">
-									<label for="tipoMuestra" class="form-label">Tipo de Muestra</label>
-									<input type="text" class="form-control" id="tipo" name="tipo" required>
-								</div>
-								<div class="mb-3">
-									<label for="fechaHoraRecepcion" class="form-label">Fecha y Hora de Recepción</label>
-									<input type="datetime-local" class="form-control" id="fechaRecepcion" name="fechaRecepcion" required>
-								</div>
-								<div class="mb-3">
-									<label for="etiqueta" class="form-label">Etiqueta</label>
-									<input type="text" class="form-control" id="etiqueta" name="etiqueta" required>
-								</div>
-								<div class="mb-3">
-									<leabel for="idOrdenTrabajo" class="form-label">Orden de Trabajo</label>
-									<input type="number" class="form-control" id="idOrdenTrabajo" name="idOrdenTrabajo" required>
-								</div>
-								<button type="submit" class="mb-3 btn btn-primary" id="guardar">Guardar Muestra</button>
-								<button type="button" class="mb-3 btn btn-primary" id="actualizar">Actualizar</button>
-						</form>
-					</div>
-				</div>
-
-				<div id="muestra-table">
-
-				</div>
-
-				<div class='row'>
-					<div class='col-lg-6 offset-md-3'>				
-						<form action="/muestra"  method="post"  id="form-examen" class="d-none">
-							<h3>Registro de Examen</h3>
-								<div class="mb-3">
-    								<label for="idExamen" class="form-label">ID de Examen</label>
-    								<input type="number" class="form-control" id="idExamen" name="idExamen" readonly>
-								</div>
-								<div class="mb-3">
-									<label for="nombre" class="form-label">Nombre</label>
-									<input type="text" class="form-control" id="nombre" name="nombre" required>
-								</div>
-								<div class="mb-3">
-									<label for="descripcion" class="form-label">Descripción</label>
-									<input type="text" class="form-control" id="descripcion" name="descripcion" required>
-								</div>
-								<button type="submit" class="mb-3 btn btn-primary" id="guardar-examen">Guardar Examen</button>
-						</form>
-					</div>
-				</div>	
 			</div>
 		</main>
 	</div>

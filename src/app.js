@@ -152,7 +152,7 @@ app.use('/admin', (req, res) => {
 
 app.use('/tecnicoBioquimico', (req, res) => {
 	// Establecer la variable isTecnico en true para la vista
-	res.render('tecnicoBioquimico', { isTecnico: true });
+	res.render('tecnicoBioquimico', { isTecnicoBioquimico: true });
 });
 
 app.use('/recepcionista', (req, res) => {

@@ -9,7 +9,7 @@ export const getOrdenesTrabajo = async (req, res) => {
 				{
 					model: paciente,
 					as: 'paciente',
-					attributes: ['apellido'],
+					attributes: ['nombre', 'apellido'],
 				},
 				{
 					model: paciente,
@@ -19,7 +19,7 @@ export const getOrdenesTrabajo = async (req, res) => {
 				{
 					model: medico,
 					as: 'medico',
-					attributes: ['nombre'],
+					attributes: ['nombre', 'apellido'],
 				},
 			],
 		});
