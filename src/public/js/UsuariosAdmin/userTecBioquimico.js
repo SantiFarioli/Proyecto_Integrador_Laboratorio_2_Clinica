@@ -131,7 +131,7 @@ const crearTecBio = document.getElementById('crearTecBio');
 				Swal.fire({
 					icon: 'success',
 					title: 'Bioquimica Doña ADN',
-					text: 'Recepcionista creado con exito',
+					text: 'Tecnico Bioquimico creado con exito',
 				}).then(() => {
 					window.location.href = 'http://localhost:3000/';
 					window.location.href = 'http://localhost:3000/admin';
