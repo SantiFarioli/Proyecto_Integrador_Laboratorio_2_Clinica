@@ -3,8 +3,8 @@ import { getAdmins, createAdmin, updateAdmin, deleteAdmin } from "../controllers
 
 const router = Router();
 
-router.get('/admin', getAdmins);
-router.post('/admin', createAdmin);
+router.get('/alladmins', getAdmins);
+router.post('/newAdmin', createAdmin);
 router.put('/admin/:id', updateAdmin);
 router.delete('/admin/:id', deleteAdmin);
 

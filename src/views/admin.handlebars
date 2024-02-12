@@ -93,7 +93,7 @@
 							<a
 								href='#'
 								class='sidebar-link'
-								id='formulario-busqueda'
+								id='administradorAdmin'
 							>Administrar Admin</a>
 						</li>
 					</ul>
@@ -543,6 +543,77 @@
 					<input type='hidden'id='idUsuario1'name='idUsuario1'value=''/>
 
 					<button type='submit' class='btn btn-success' id='btnCreartecnicoBioquimico'>Crear Tecnico Bioquimico</button>
+				</form>
+			</div>
+
+
+			<div class='container d-none' id='userAdmin'>
+				<h2>Tabla de Admin</h2>
+				<div class='row d-flex flex-column mb-3 text-center'>
+					<label for='usuarioAdmin' class='form-label'>Crear Usuario
+						Admin</label>
+					<div class='col-12 d-flex justify-content-center text-center'>
+						<button
+							type='button'
+							class='btn btn-success btn-lg'
+							id='crearAdmin'
+						>Crear</button>
+					</div>
+				</div>
+				<table
+					class='table table-striped display compact text-center'
+					id='tableUserAdmin'
+				>
+					<thead>
+						<tr>
+							<th>ID Admin</th>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th>DNI</th>
+							<th>Teléfono</th>
+							<th>Correo</th>
+							<th>Contraseña</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class='container d-none col-lg-6 offset-md-3' id='formUserAdmin'>
+				<h2>Formulario para Crear Admin</h2>
+				<form action='/newAdmin' method='POST'>
+					<div class='mb-3'>
+						<label for='idAdmin' class='form-label'>ID Tecnico Bioquimico</label>
+						<input type='number' class='form-control' id='idAdmin' name='idAdmin' readonly>
+					</div>
+					<div class='mb-3'>
+						<label for='nombreAdmin' class='form-label'>Nombre</label>
+						<input type='text'class='form-control'id='nombreAdmin'name='nombreAdmin' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='apellidoAdmin' class='form-label'>Apellido</label>
+						<input type='text'class='form-control'id='apellidoAdmin'name='apellidoAdmin' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='dniAdmin' class='form-label'>DNI</label>
+						<input type='number'class='form-control'id='dniAdmin'name='dniAdmin' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='telefonoAdmin' class='form-label'>Teléfono</label>
+						<input type='number'class='form-control'id='telefonoAdmin'name='telefonoAdmin' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='correoAdmin' class='form-label'>Correo</label>
+						<input type='email'class='form-control'id='correoAdmin'name='correoAdmin' required/>
+					</div>
+					<div class='mb-3'>
+						<label for='contraseniaAdmin' class='form-label'>Contraseña</label>
+						<input type='text'class='form-control'id='contraseniaAdmin'name='contraseniaAdmin' required/>
+					</div>
+					<input type='hidden'id='idUsuario2'name='idUsuario2'value=''/>
+
+					<button type='submit' class='btn btn-success' id='btnCrearAdmin'>Crear Admin</button>
 				</form>
 			</div>
 

@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { admin } from "../models/admin.js";
 
 export const getAdmins = async (req, res) => {
@@ -17,15 +18,21 @@ export const createAdmin = async (req, res) => {
         apellido,
         dni,
         telefono,
-        correo
+        correo,
+        contrasenia,
+        idUsuario
     } = req.body;
     try{
+        const contrasenaHash = await bcrypt.hash(contrasenia, 10);
+
         const newAdmin = await admin.create({
             nombre,
             apellido,
             dni,
             telefono,
-            correo
+            correo,
+            contrasenia: contrasenaHash,
+            idUsuario
         });
         res.json(newAdmin);
     }catch (error) {
