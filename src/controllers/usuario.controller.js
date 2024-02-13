@@ -66,7 +66,7 @@ export const deleteUsuario = async (req, res) => {
 	const idUsuario = req.params.id;
 	try {
 		await usuario.destroy({
-			where: { id: idUsuario },
+			where: {idUsuario},
 		});
 		res.sendStatus(204);
 	} catch {

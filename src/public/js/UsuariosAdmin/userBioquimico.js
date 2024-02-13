@@ -1,6 +1,7 @@
 const adminBioquimicoLink = document.getElementById('adminBioquimico');
 const userBioquimico = document.getElementById('userBioquimico');
 const actulizarBioquimico = document.getElementById('btnEditarBioquimico');
+const eliminarBioquimico = document.getElementById('btnEliminarBioquimico');
 let bioquimicoDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -69,42 +70,31 @@ function renderBioquimico(bioquimico) {
 		editable: true, // Habilitar la edición en línea
 	});
 
-    document.querySelectorAll('.fa-pen').forEach((icono) => {
-		icono.addEventListener('click', (e) => {
-			e.preventDefault();
 
-			const row = e.target.closest('tr');
-			const idBioquimico = row.querySelector('td:first-child').textContent;
-			const nombre = row.querySelector('td:nth-child(2)').textContent;
-			const apellido = row.querySelector('td:nth-child(3)').textContent;
-			const dni = row.querySelector('td:nth-child(4)').textContent;
-            const telefono = row.querySelector('td:nth-child(5)').textContent;
-            const correo = row.querySelector('td:nth-child(6)').textContent;
-            const especialidad = row.querySelector('td:nth-child(7)').textContent;
-            const contrasenia = row.querySelector('td:nth-child(8)').textContent;
-            const idUsuario = row.querySelector('td:nth-child(9)').textContent;
-	
-			
-			document.getElementById('idBioquimico').value = idBioquimico;
-            document.getElementById('nombreBioquimico').value = nombre;
-            document.getElementById('apellidoBioquimico').value = apellido;
-            document.getElementById('dniBioquimico').value = dni;
-            document.getElementById('telefonoBioquimico').value = telefono;
-            document.getElementById('correoBioquimico').value = correo;
-            document.getElementById('especialidadBioquimico').value = especialidad;
-            document.getElementById('contraseniaBioquimico').value = contrasenia;
-            document.getElementById('idUsuario3').value = idUsuario;
+	// Evento de click al icono de la tabla para capturar los datos de la tabla y cargarlos en el formulario
+    document.querySelectorAll('.fa-pen').forEach((icono, index) => {
+		icono.addEventListener('click', (e) => {
+
+			formUserBioquimico.querySelector('#idBioquimico').value = bioquimico[index].idBioquimico;
+			formUserBioquimico.querySelector('#nombreBioquimico').value = bioquimico[index].nombre;
+			formUserBioquimico.querySelector('#apellidoBioquimico').value = bioquimico[index].apellido;
+			formUserBioquimico.querySelector('#dniBioquimico').value = bioquimico[index].dni;
+			formUserBioquimico.querySelector('#telefonoBioquimico').value = bioquimico[index].telefono;
+			formUserBioquimico.querySelector('#correoBioquimico').value = bioquimico[index].correo;
+			formUserBioquimico.querySelector('#especialidadBioquimico').value = bioquimico[index].especialidad;
+			formUserBioquimico.querySelector('#contraseniaBioquimico').value = bioquimico[index].contrasenia;
+			formUserBioquimico.querySelector('#idUsuario3').value = bioquimico[index].idUsuario;
 	
 		   
 			document.getElementById('btnCrearBioquimico').disabled = true;
 			document.getElementById('btnEditarBioquimico').disabled = false;
 			document.getElementById('btnEliminarBioquimico').disabled = true;
 	
-            
+        
 			formUserBioquimico.classList.remove('d-none');
             userBioquimico.classList.add('d-none');
 			
-
+		// Boton actualizar Bioquimico
 			actulizarBioquimico.addEventListener('click', async (e) => {
 				e.preventDefault();
                 
@@ -124,28 +114,7 @@ function renderBioquimico(bioquimico) {
 				};
 				console.log(bioquimico);
                 		
-				try {
-					const responseUsuario = await fetch('/usuario', {
-						method: 'POST',
-						body: JSON.stringify({ rol: 'bioquimico' }),
-						headers: { 'Content-Type': 'application/json' },
-					});
-		
-					if (!responseUsuario.ok) {
-						throw new Error('Error al crear el usuario');
-					}
-					// Obtener el ID del usuario creado desde la respuesta
-					const { idUsuario } = await responseUsuario.json();
-					bioquimico.idUsuario = idUsuario;
-		
-					const usuarioIdField = document.getElementById('idUsuario3');
-					usuarioIdField.value = idUsuario;
-		
-					console.log(usuarioIdField.value);
-		
-					console.log(idUsuario);
-
-					
+				try {				
 					const response = await fetch(`/bioquimicoss/${idBioquimico}`, {
 						method: 'PUT',
 						headers: {
@@ -175,8 +144,71 @@ function renderBioquimico(bioquimico) {
 			});
 		});
 	});
+
+	document.querySelectorAll('.fa-trash').forEach((eliminarIcono, index) => {
+		eliminarIcono.addEventListener('click', (e) => {
+	
+			formUserBioquimico.querySelector('#idBioquimico').value = bioquimico[index].idBioquimico;
+			formUserBioquimico.querySelector('#nombreBioquimico').value = bioquimico[index].nombre;
+			formUserBioquimico.querySelector('#apellidoBioquimico').value = bioquimico[index].apellido;
+			formUserBioquimico.querySelector('#dniBioquimico').value = bioquimico[index].dni;
+			formUserBioquimico.querySelector('#telefonoBioquimico').value = bioquimico[index].telefono;
+			formUserBioquimico.querySelector('#correoBioquimico').value = bioquimico[index].correo;
+			formUserBioquimico.querySelector('#especialidadBioquimico').value = bioquimico[index].especialidad;
+			formUserBioquimico.querySelector('#contraseniaBioquimico').value = bioquimico[index].contrasenia;
+			formUserBioquimico.querySelector('#idUsuario3').value = bioquimico[index].idUsuario;
+	
+		   
+			document.getElementById('btnCrearBioquimico').disabled = true;
+			document.getElementById('btnEditarBioquimico').disabled = true;
+			document.getElementById('btnEliminarBioquimico').disabled = false;
+	
+		
+			formUserBioquimico.classList.remove('d-none');
+			userBioquimico.classList.add('d-none');
+	
+		});
+	});
+
+	eliminarBioquimico.addEventListener('click', async (e) => {
+		e.preventDefault();
+
+		const idBioquimico = document.getElementById('idBioquimico').value;
+
+		try {
+			const response = await fetch(`/borrarbioquimico/${idBioquimico}`, {
+				method: 'DELETE',
+			});
+
+			const idUsuario = document.getElementById('idUsuario3').value;
+			console.log(idUsuario);
+
+			const responseUsuario = await fetch(`/eliminarusuario/${idUsuario}`, {
+				method: 'DELETE',
+			});
+
+			if(response.ok) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Bioquimica Doña ADN',
+					text: 'Bioquimico eliminada con exito',
+				}).then(() => {
+					window.location.href = 'http://localhost:3000/';
+					window.location.href = 'http://localhost:3000/admin';
+				});
+			}else{
+				Swal.fire({
+					icon: 'error',
+					title: 'Bioquimica Doña ADN',
+					text: 'Error al eliminar la bioquimico',
+				});
+			}
+		} catch (error) {
+			console.error('Error al eliminar la bioquimico:', error);
+		}
+	});
 }
-const userBioquimicoContainer = document.getElementById('userBioquimico');
+
 const formUserBioquimico = document.getElementById('formUserBioquimico');
 const crearBioquimico = document.getElementById('btnCrearBioquimico');
 
@@ -188,7 +220,7 @@ const crearBio = document.getElementById('crearBio');
 	crearBio.addEventListener('click', async function () {
 		console.log('hola');
 
-		userBioquimicoContainer.classList.add('d-none');
+		userBioquimico.classList.add('d-none');
 		formUserBioquimico.classList.remove('d-none');
 	});
 
@@ -256,3 +288,4 @@ const crearBio = document.getElementById('crearBio');
 		}
 	});
 })
+

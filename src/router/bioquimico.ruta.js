@@ -6,6 +6,6 @@ const router = Router();
 router.get('/bioquimicos', getBioquimicos);
 router.post('/newbioquimico', createBioquimico);
 router.put('/bioquimicoss/:id', updateBioquimico);
-router.delete('/bioquimico/:id', deleteBioquimico);
+router.delete('/borrarbioquimico/:id', deleteBioquimico);
 
 export default router;
