@@ -224,7 +224,6 @@ const crearBio = document.getElementById('crearBio');
 		formUserBioquimico.classList.remove('d-none');
 	});
 
-	
 	crearBioquimico.addEventListener('click', async function (e) {
 		e.preventDefault();
 
