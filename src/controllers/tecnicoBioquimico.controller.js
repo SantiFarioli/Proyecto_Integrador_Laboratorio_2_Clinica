@@ -38,23 +38,26 @@ export const createTecnicoBioquimico = async (req, res) => {
 
 export const updateTecnicoBioquimico = async (req, res) => {
 	const idTecnicoBioquimico = req.params.id;
-	const { nombre, apellido, dni, telefono, correo, contrasenia } = req.body;
+	const { nombre, apellido, dni, telefono, correo, contrasenia, idUsuario} = req.body;
 	try {
-		const actualizarTecnicoBioquimico = await tecnicoBioquimico.findByPk(
-			idTecnicoBioquimico
-		);
+		const actualizarTecnicoBioquimico = await tecnicoBioquimico.findByPk(idTecnicoBioquimico);
 		if (!actualizarTecnicoBioquimico) {
 			return res.status(404).json({
 				message: 'TecnicoBioquimico no encontrado',
 			});
 		}
 
+		if (contrasenia) {
+            const contrasenaHash = await bcrypt.hash(contrasenia, 10);
+            actualizarTecnicoBioquimico.contrasenia = contrasenaHash;
+        }
+
 		actualizarTecnicoBioquimico.nombre = nombre;
 		actualizarTecnicoBioquimico.apellido = apellido;
 		actualizarTecnicoBioquimico.dni = dni;
 		actualizarTecnicoBioquimico.telefono = telefono;
 		actualizarTecnicoBioquimico.correo = correo;
-		actualizarTecnicoBioquimico.contrasenia = contrasenia;
+		actualizarTecnicoBioquimico.idUsuario = idUsuario;
 
 		await actualizarTecnicoBioquimico.save();
 		res.json(actualizarTecnicoBioquimico);
@@ -69,7 +72,7 @@ export const deleteTecnicoBioquimico = async (req, res) => {
 	const idTecnicoBioquimico = req.params.id;
 	try {
 		const result = await tecnicoBioquimico.destroy({
-			where: { idTecnicoBioquimico },
+			where: {idTecnicoBioquimico},
 		});
 		console.log(result);
 		return res.sendStatus(204);

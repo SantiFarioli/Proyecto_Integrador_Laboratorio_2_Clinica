@@ -468,10 +468,14 @@
 						<label for='contrasenia' class='form-label'>Contraseña</label>
 						<input type='text'class='form-control'id='contrasenia'name='contrasenia' required/>
 					</div>
-					<input type='hidden'id='idUsuario'name='idUsuario'value=''/>
+					<div class='mb-3'>
+					<label for='idUsuario' class='form-label'>ID Usuario</label>
+					<input type='number'class='form-control'id='idUsuario'name='idUsuario' readonly/>
+					</div>
 
-					<button type='submit' class='btn btn-success' id='btnCrearRecep'>Crear
-						Recepcionista</button>
+					<button type='submit' class='btn btn-success' id='btnCrearRecep'>Crear Recepcionista</button>
+					<button type='submit' class='btn btn-primary' id='btnEditarRecep'>Editar Recepcionista</button>
+					<button type='submit' class='btn btn-danger' id='btnEliminarRecep'>Eliminar Recepcionista</button>
 				</form>
 			</div>
 
@@ -540,9 +544,14 @@
 						<label for='contraseniaTecnicoBioquimico' class='form-label'>Contraseña</label>
 						<input type='text'class='form-control'id='contraseniaTecnicoBioquimico'name='contraseniaTecnicoBioquimico' required/>
 					</div>
-					<input type='hidden'id='idUsuario1'name='idUsuario1'value=''/>
+					<div class='mb-3'>
+					<label for='idUsuario1' class='form-label'>ID Usuario</label>
+					<input type='number'class='form-control'id='idUsuario1'name='idUsuario1' readonly/>
+					</div>
 
-					<button type='submit' class='btn btn-success' id='btnCreartecnicoBioquimico'>Crear Tecnico Bioquimico</button>
+					<button type='submit' class='btn btn-success' id='btnCrearTecnicoBioquimico'>Crear Tecnico Bioquimico</button>
+					<button type='submit' class='btn btn-primary' id='btnEditarTecnicoBioquimico'>Editar Tecnico Bioquimico</button>
+					<button type='submit' class='btn btn-danger' id='btnEliminarTecnicoBioquimico'>Eliminar Tecnico Bioquimico</button>
 				</form>
 			</div>
 
@@ -611,9 +620,14 @@
 						<label for='contraseniaAdmin' class='form-label'>Contraseña</label>
 						<input type='text'class='form-control'id='contraseniaAdmin'name='contraseniaAdmin' required/>
 					</div>
+					<div class='mb-3'>
+					<label for='idUsuario2' class='form-label'>ID Usuario</label>	
 					<input type='hidden'id='idUsuario2'name='idUsuario2'value=''/>
+					</div>
 
 					<button type='submit' class='btn btn-success' id='btnCrearAdmin'>Crear Admin</button>
+					<button type='submit' class='btn btn-primary' id='btnEditarBioquimico'>Editar Admin</button>
+					<button type='submit' class='btn btn-danger' id='btnEliminarBioquimico'>Eliminar Admin</button>
 				</form>
 			</div>
 

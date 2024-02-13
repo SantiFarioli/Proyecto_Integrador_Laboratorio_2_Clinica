@@ -4,8 +4,8 @@ import { getTecnicoBioquimico, createTecnicoBioquimico, updateTecnicoBioquimico,
 const router = Router();
 
 router.get('/tecnicosBioquimicos', getTecnicoBioquimico);
-router.post('/tecnicoBioquimico', createTecnicoBioquimico);
-router.put('/tecnicoBioquimico/:id', updateTecnicoBioquimico);
-router.delete('/tecnicoBioquimico/:id', deleteTecnicoBioquimico);
+router.post('/newtecnicoBioquimico', createTecnicoBioquimico);
+router.put('/actualizarTecnicoBioquimico/:id', updateTecnicoBioquimico);
+router.delete('/borrarTecnicoBioquimico/:id', deleteTecnicoBioquimico);
 
 export default router;
