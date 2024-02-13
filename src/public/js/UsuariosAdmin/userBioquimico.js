@@ -146,7 +146,7 @@ function renderBioquimico(bioquimico) {
 					console.log(idUsuario);
 
 					
-					const response = await fetch(`/bioquimico/${idBioquimico}`, {
+					const response = await fetch(`/bioquimicoss/${idBioquimico}`, {
 						method: 'PUT',
 						headers: {
 							'Content-Type': 'application/json',
