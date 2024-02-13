@@ -67,13 +67,19 @@ export const updateBioquimico = async (req, res) => {
                 message: 'Bioquimico no encontrado'
             });
         }
+
+        if (contrasenia) {
+            const contrasenaHash = await bcrypt.hash(contrasenia, 10);
+            actualizarBioquimico.contrasenia = contrasenaHash;
+        }
+
+
         actualizarBioquimico.nombre = nombre;
         actualizarBioquimico.apellido = apellido;
         actualizarBioquimico.dni = dni;
         actualizarBioquimico.telefono = telefono;
         actualizarBioquimico.correo = correo;
         actualizarBioquimico.especialidad = especialidad;
-        actualizarBioquimico.contrasenia = contrasenia;
         actualizarBioquimico.idUsuario = idUsuario;
 
         await actualizarBioquimico.save();
