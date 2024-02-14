@@ -9,8 +9,8 @@ import {
 const router = Router();
 
 router.get('/recepcionistas', getRecepcionistas);
-router.post('/newrecepcionista', createRecepcionista);
-router.put('/recepcionista/:id', updateRecepcionista);
-router.delete('/recepcionista/:id', deleteRecepcionista);
+router.post('/newRecepcionista', createRecepcionista);
+router.put('/actualizarRecepcionista/:id', updateRecepcionista);
+router.delete('/borrarRecepcionista/:id', deleteRecepcionista);
 
 export default router;

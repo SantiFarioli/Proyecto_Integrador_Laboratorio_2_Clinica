@@ -1,5 +1,7 @@
 const adminRecepcionLink = document.getElementById('adminRecepcion');
 const userRecepcionista = document.getElementById('userRecepcionista');
+const actualizarRecepcionista = document.getElementById('btnEditarRecep');
+const eliminarRecepcionista = document.getElementById('btnEliminarRecep');
 let recepcionistasDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -68,7 +70,143 @@ function renderRecepcionistasTable(recepcionistas) {
 		// Otras opciones de configuración
 		editable: true, // Habilitar la edición en línea
 	});
+	
+	
+	document.querySelectorAll('.fa-pen').forEach((icono, index) => {
+		icono.addEventListener('click', (e) => {
+
+			formUserRecepContainer.querySelector('#idRecepcionista').value = recepcionistas[index].idRecepcionista;
+			formUserRecepContainer.querySelector('#nombre').value = recepcionistas[index].nombre;
+			formUserRecepContainer.querySelector('#apellido').value = recepcionistas[index].apellido;
+			formUserRecepContainer.querySelector('#dni').value = recepcionistas[index].dni;
+			formUserRecepContainer.querySelector('#telefono').value = recepcionistas[index].telefono;
+			formUserRecepContainer.querySelector('#correo').value = recepcionistas[index].correo;
+			formUserRecepContainer.querySelector('#contrasenia').value = recepcionistas[index].contrasenia;
+			formUserRecepContainer.querySelector('#idUsuario').value = recepcionistas[index].idUsuario;
+	
+		   
+			document.getElementById('btnCrearRecep').disabled = true;
+			document.getElementById('btnEditarRecep').disabled = false;
+			document.getElementById('btnEliminarRecep').disabled = true;
+	
+        
+			formUserRecepContainer.classList.remove('d-none');
+            userRecepcionista.classList.add('d-none');
+			
+		// Boton actualizar Bioquimico
+			actualizarRecepcionista.addEventListener('click', async (e) => {
+				e.preventDefault();
+                
+				const idRecepcionista = document.getElementById('idRecepcionista').value;
+                const idUsuario = document.getElementById('idUsuario').value;
+				const recep ={
+                    idRecepcionista: idRecepcionista,
+                    nombre: document.getElementById('nombre').value,
+                    apellido: document.getElementById('apellido').value,
+                    dni: document.getElementById('dni').value,
+                    telefono: document.getElementById('telefono').value,
+                    correo: document.getElementById('correo').value,
+                    contrasenia: document.getElementById('contrasenia').value,
+                    idUsuario: idUsuario
+
+				};
+				console.log(recep);
+                		
+				try {				
+					const response = await fetch(`/actualizarRecepcionista/${idRecepcionista}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(recep),
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Recepcionista actualizada con exito',
+						}).then(() => {
+							window.location.href = 'http://localhost:3000/';
+							window.location.href = 'http://localhost:3000/admin';
+						});
+					}else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Bioquimica Doña ADN',
+							text: 'Error al actualizar la Recepcionista',
+						});
+					}
+				} catch (error) {
+					console.error('Error al actualizar Recepcionista:', error);
+				}
+			});
+		});
+	});
+
+	document.querySelectorAll('.fa-trash').forEach((eliminarIcono, index) => {
+		eliminarIcono.addEventListener('click', (e) => {
+	
+			formUserRecepContainer.querySelector('#idRecepcionista').value = recepcionistas[index].idRecepcionista;
+			formUserRecepContainer.querySelector('#nombre').value = recepcionistas[index].nombre;
+			formUserRecepContainer.querySelector('#apellido').value = recepcionistas[index].apellido;
+			formUserRecepContainer.querySelector('#dni').value = recepcionistas[index].dni;
+			formUserRecepContainer.querySelector('#telefono').value = recepcionistas[index].telefono;
+			formUserRecepContainer.querySelector('#correo').value = recepcionistas[index].correo;
+			formUserRecepContainer.querySelector('#contrasenia').value = recepcionistas[index].contrasenia;
+			formUserRecepContainer.querySelector('#idUsuario').value = recepcionistas[index].idUsuario;
+	
+		   
+			document.getElementById('btnCrearRecep').disabled = true;
+			document.getElementById('btnEditarRecep').disabled = true;
+			document.getElementById('btnEliminarRecep').disabled = false;
+	
+		
+			formUserRecepContainer.classList.remove('d-none');
+			userRecepcionista.classList.add('d-none');
+	
+		});
+	});
+
+	eliminarRecepcionista.addEventListener('click', async (e) => {
+		e.preventDefault();
+
+		const idRecepcionista = document.getElementById('idRecepcionista').value;
+
+		try {
+			const response = await fetch(`/borrarRecepcionista/${idRecepcionista}`, {
+				method: 'DELETE',
+			});
+
+			const idUsuario = document.getElementById('idUsuario').value;
+			console.log(idUsuario);
+
+			const responseUsuario = await fetch(`/eliminarusuario/${idUsuario}`, {
+				method: 'DELETE',
+			});
+
+			if(response.ok) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Bioquimica Doña ADN',
+					text: 'Recepcionista eliminada con exito',
+				}).then(() => {
+					window.location.href = 'http://localhost:3000/';
+					window.location.href = 'http://localhost:3000/admin';
+				});
+			}else{
+				Swal.fire({
+					icon: 'error',
+					title: 'Bioquimica Doña ADN',
+					text: 'Error al eliminar el Recepcionista',
+				});
+			}
+		} catch (error) {
+			console.error('Error al eliminar Recepcionista:', error);
+		}
+	});
 }
+
+
 const userRecepcionistaContainer = document.getElementById('userRecepcionista');
 const formUserRecepContainer = document.getElementById('formUserRecep');
 const btnCrearRecep = document.getElementById('btnCrearRecep');
@@ -81,6 +219,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		userRecepcionistaContainer.classList.add('d-none');
 		formUserRecepContainer.classList.remove('d-none');
+
+
+		document.getElementById('btnCrearRecep').disabled = false;
+		document.getElementById('btnEditarRecep').disabled = true;
+		document.getElementById('btnEliminarRecep').disabled = true;
 	});
 
 	// En el evento click del botón btnCrearRecep
@@ -119,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.log(usuarioIdField.value);
 
 			console.log(idUsuario);
-			const response = await fetch('/newrecepcionista', {
+			const response = await fetch('/newRecepcionista', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(recepcionista),

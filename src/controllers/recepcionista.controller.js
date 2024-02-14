@@ -49,7 +49,7 @@ export const createRecepcionista = async (req, res) => {
 export const updateRecepcionista = async (req, res) => {
 	const idRecepcionista = req.params.id;
 
-	const { nombre, apellido, dni, telefono, correo } = req.body;
+	const { nombre, apellido, dni, telefono, correo, idUsuario } = req.body;
 
 	try {
 		const updateRecepcionista = await recepcionista.findByPk(idRecepcionista);
@@ -58,14 +58,21 @@ export const updateRecepcionista = async (req, res) => {
 			res.status(404).json({
 				message: 'Recepcionista no encontrado',
 			});
+
+			if (contrasenia) {
+				const contrasenaHash = await bcrypt.hash(contrasenia, 10);
+				updateRecepcionista.contrasenia = contrasenaHash;
+			}
 		}
 		updateRecepcionista.nombre = nombre;
 		updateRecepcionista.apellido = apellido;
 		updateRecepcionista.dni = dni;
 		updateRecepcionista.telefono = telefono;
 		updateRecepcionista.correo = correo;
+		updateRecepcionista.idUsuario = idUsuario
 
 		await updateRecepcionista.save();
+		res.json(updateRecepcionista);
 	} catch (error) {
 		res.status(500).json({
 			message: error.message,
