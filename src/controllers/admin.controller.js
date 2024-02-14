@@ -49,7 +49,9 @@ export const updateAdmin = async (req, res) => {
         apellido,
         dni,
         telefono,
-        correo
+        correo,
+        contrasenia,
+        idUsuario
     } = req.body;
     try {
         const actualizarAdmin = await admin.findByPk(idAdmin);
@@ -60,11 +62,17 @@ export const updateAdmin = async (req, res) => {
             });
         }
 
+        if (contrasenia) {
+            const contrasenaHash = await bcrypt.hash(contrasenia, 10);
+            actualizarAdmin.contrasenia = contrasenaHash;
+        }
+
         actualizarAdmin.nombre = nombre;
         actualizarAdmin.apellido = apellido;
         actualizarAdmin.dni = dni;
         actualizarAdmin.telefono = telefono;
         actualizarAdmin.correo = correo;
+        actualizarAdmin.idUsuario = idUsuario;
 
         await actualizarAdmin.save();
         res.json(actualizarAdmin);
