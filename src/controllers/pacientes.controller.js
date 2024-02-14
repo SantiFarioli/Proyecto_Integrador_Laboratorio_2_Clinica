@@ -11,6 +11,20 @@ export const getPacientes = async (req, res) => {
 	}
 };
 
+export const getPacientePorId = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const pacienteEncontrado = await paciente.findByPk(id);
+		if (!pacienteEncontrado) {
+			res.status(404).json({ message: 'Paciente no encontrado' });
+		} else {
+			res.json(pacienteEncontrado);
+		}
+	} catch (error) {
+		res.status(500).json({ message: 'Error al obtener el paciente' });
+	}
+};
+
 export const createPaciente = async (req, res) => {
 	const {
 		nombre,
@@ -141,13 +155,13 @@ export const deletePaciente = async (req, res) => {
 	const idPaciente = req.params.id;
 	try {
 		const result = await paciente.destroy({
-			where: {idPaciente}
+			where: { idPaciente },
 		});
 		console.log(result);
 		return res.sendStatus(204);
 	} catch (error) {
 		return res.status(500).json({
-			message: error.message
-		})
+			message: error.message,
+		});
 	}
 };

@@ -1,4 +1,50 @@
-tr:hover {
-    background-color: lightsalmon;
-    cursor: pointer;
+#iconoOrden {
+	cursor: pointer;
+}
+
+#iconoPen {
+	cursor: pointer;
+}
+/* Estilo base para el contenedor de íconos */
+.icon-container {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+/* Estilo para agrandar el ícono cuando el puntero pasa por encima */
+.icon-container:hover {
+	transform: scale(
+		1.5
+	); /* Puedes ajustar el factor de escala según tus preferencias */
+}
+
+/* Estilo para el tooltip */
+.tooltip {
+	visibility: hidden;
+	opacity: 0;
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 5px;
+	padding: 5px;
+	position: absolute;
+	z-index: 1;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	transition: opacity 0.2s;
+}
+
+/* Mostrar el tooltip cuando el puntero pasa por encima del contenedor */
+.icon-container:hover .tooltip {
+	visibility: visible;
+	opacity: 1;
+}
+.dataTable td {
+	text-align: center; /* Alinea el texto (y por lo tanto el icono) al centro */
+}
+.nombre-paciente {
+	cursor: pointer;
 }

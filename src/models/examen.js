@@ -3,7 +3,9 @@ import { sequelize } from '../database/database.js';
 import { determinacion } from './determinacion.js';
 import { muestra } from './muestra.js';
 
-export const examen = sequelize.define('examenes', {
+export const examen = sequelize.define(
+	'examenes',
+	{
 		idExamen: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
@@ -34,7 +36,7 @@ export const examen = sequelize.define('examenes', {
 
 examen.hasMany(determinacion, {
 	foreignKey: 'idExamen',
-	surceKey: 'idExamen',
+	sourceKey: 'idExamen',
 });
 
 determinacion.belongsTo(examen, {
@@ -45,5 +47,5 @@ determinacion.belongsTo(examen, {
 muestra.belongsTo(examen, {
 	foreignKey: 'idExamen',
 	targetKey: 'idExamen',
-	as: 'examen'
+	as: 'examen',
 });
