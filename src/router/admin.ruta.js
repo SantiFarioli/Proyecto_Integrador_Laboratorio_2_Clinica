@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/alladmins', getAdmins);
 router.post('/newAdmin', createAdmin);
-router.put('/admin/:id', updateAdmin);
-router.delete('/admin/:id', deleteAdmin);
+router.put('/actualizarAdmin/:id', updateAdmin);
+router.delete('/borrarAdmin/:id', deleteAdmin);
 
 export default router;

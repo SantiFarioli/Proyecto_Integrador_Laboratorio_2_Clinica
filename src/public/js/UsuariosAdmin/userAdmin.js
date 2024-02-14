@@ -1,5 +1,7 @@
 const administradorAdminLink = document.getElementById('administradorAdmin');
 const userAdmin = document.getElementById('userAdmin');
+const actulizarAdmin = document.getElementById('btnEditarAdmin');
+const eliminarAdmin = document.getElementById('btnEliminarAdmin');
 let adminDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -66,7 +68,142 @@ function renderAdministradores(admin) {
 		// Otras opciones de configuración
 		editable: true, // Habilitar la edición en línea
 	});
+
+	document.querySelectorAll('.fa-pen').forEach((icono, index) => {
+		icono.addEventListener('click', (e) => {
+
+			formUserAdmin.querySelector('#idAdmin').value = admin[index].idAdmin;
+			formUserAdmin.querySelector('#nombreAdmin').value = admin[index].nombre;
+			formUserAdmin.querySelector('#apellidoAdmin').value = admin[index].apellido;
+			formUserAdmin.querySelector('#dniAdmin').value = admin[index].dni;
+			formUserAdmin.querySelector('#telefonoAdmin').value = admin[index].telefono;
+			formUserAdmin.querySelector('#correoAdmin').value = admin[index].correo;
+			formUserAdmin.querySelector('#contraseniaAdmin').value = admin[index].contrasenia;
+			formUserAdmin.querySelector('#idUsuario2').value = admin[index].idUsuario;
+	
+		   
+			document.getElementById('btnCrearAdmin').disabled = true;
+			document.getElementById('btnEditarAdmin').disabled = false;
+			document.getElementById('btnEliminarAdmin').disabled = true;
+	
+        
+			formUserAdmin.classList.remove('d-none');
+            userAdmin.classList.add('d-none');
+			
+		// Boton actualizar Bioquimico
+			actulizarAdmin.addEventListener('click', async (e) => {
+				e.preventDefault();
+                
+				const idAdmin = document.getElementById('idAdmin').value;
+                const idUsuario = document.getElementById('idUsuario2').value;
+				const administrador ={
+                    idAdmin: idAdmin,
+                    nombre: document.getElementById('nombreAdmin').value,
+                    apellido: document.getElementById('apellidoAdmin').value,
+                    dni: document.getElementById('dniAdmin').value,
+                    telefono: document.getElementById('telefonoAdmin').value,
+                    correo: document.getElementById('correoAdmin').value,
+                    contrasenia: document.getElementById('contraseniaAdmin').value,
+                    idUsuario: idUsuario
+
+				};
+				console.log(administrador);
+                		
+				try {				
+					const response = await fetch(`/actualizarAdmin/${idAdmin}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(administrador),
+					});
+					if (response.ok) {
+						Swal.fire({
+							icon: 'success',
+							title: 'Bioquimica Doña ADN',
+							text: 'Admin actualizada con exito',
+						}).then(() => {
+							window.location.href = 'http://localhost:3000/';
+							window.location.href = 'http://localhost:3000/admin';
+						});
+					}else {
+						Swal.fire({
+							icon: 'error',
+							title: 'Error al actualizar la bioquimico',
+							text: 'Error al actualizar la Admin',
+						});
+					}
+				} catch (error) {
+					console.error('Error al actualizar Admin:', error);
+				}
+			});
+		});
+	});
+
+	document.querySelectorAll('.fa-trash').forEach((eliminarIcono, index) => {
+		eliminarIcono.addEventListener('click', (e) => {
+	
+			formUserAdmin.querySelector('#idAdmin').value = admin[index].idAdmin;
+			formUserAdmin.querySelector('#nombreAdmin').value = admin[index].nombre;
+			formUserAdmin.querySelector('#apellidoAdmin').value = admin[index].apellido;
+			formUserAdmin.querySelector('#dniAdmin').value = admin[index].dni;
+			formUserAdmin.querySelector('#telefonoAdmin').value = admin[index].telefono;
+			formUserAdmin.querySelector('#correoAdmin').value = admin[index].correo;
+			formUserAdmin.querySelector('#contraseniaAdmin').value = admin[index].contrasenia;
+			formUserAdmin.querySelector('#idUsuario2').value = admin[index].idUsuario;
+	
+		   
+			document.getElementById('btnCrearAdmin').disabled = true;
+			document.getElementById('btnEditarAdmin').disabled = true;
+			document.getElementById('btnEliminarAdmin').disabled = false;
+	
+		
+			formUserAdmin.classList.remove('d-none');
+			userAdmin.classList.add('d-none');
+	
+		});
+	});
+
+	eliminarAdmin.addEventListener('click', async (e) => {
+		e.preventDefault();
+
+		const idAdmin = document.getElementById('idAdmin').value;
+
+		try {
+			const response = await fetch(`/borrarAdmin/${idAdmin}`, {
+				method: 'DELETE',
+			});
+
+			const idUsuario = document.getElementById('idUsuario2').value;
+			console.log(idUsuario);
+
+			const responseUsuario = await fetch(`/eliminarusuario/${idUsuario}`, {
+				method: 'DELETE',
+			});
+
+			if(response.ok) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Bioquimica Doña ADN',
+					text: 'Admin eliminada con exito',
+				}).then(() => {
+					window.location.href = 'http://localhost:3000/';
+					window.location.href = 'http://localhost:3000/admin';
+				});
+			}else{
+				Swal.fire({
+					icon: 'error',
+					title: 'Bioquimica Doña ADN',
+					text: 'Error al eliminar el Admin',
+				});
+			}
+		} catch (error) {
+			console.error('Error al eliminar Admin:', error);
+		}
+	});
 }
+
+
 const userAdminContainer = document.getElementById('userAdmin');
 const formUserAdmin = document.getElementById('formUserAdmin');
 const crearUsuarioAdmin= document.getElementById('btnCrearAdmin');
@@ -81,6 +218,10 @@ const crearAdm = document.getElementById('crearAdmin');
 
 		userAdminContainer.classList.add('d-none');
 		formUserAdmin.classList.remove('d-none');
+
+		document.getElementById('btnCrearAdmin').disabled = false;
+		document.getElementById('btnEditarAdmin').disabled = true;
+		document.getElementById('btnEliminarAdmin').disabled = true;
 	});
 
 	
