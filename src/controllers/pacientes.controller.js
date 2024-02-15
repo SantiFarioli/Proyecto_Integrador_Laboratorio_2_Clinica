@@ -1,4 +1,6 @@
 import { paciente } from '../models/paciente.js';
+import { valor_referencia } from '../models/valor_referencia.js';
+import { Op } from 'sequelize'; // Importa el operador de Sequelize
 
 export const getPacientes = async (req, res) => {
 	try {
@@ -10,6 +12,52 @@ export const getPacientes = async (req, res) => {
 		});
 	}
 };
+
+export const getPacientePorIdValorReferencia = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const pacienteEncontrado = await paciente.findByPk(id);
+		if (!pacienteEncontrado) {
+			return res.status(404).json({ message: 'Paciente no encontrado' });
+		} else {
+			const edad = calcularEdad(pacienteEncontrado.fecha_nac);
+			console.log(edad);
+			const sexo = pacienteEncontrado.sexo;
+			const embarazo = pacienteEncontrado.embarazo ? 'Sí' : 'No'; // Ajusta según cómo esté almacenado en tu DB
+
+			const valoresReferencia = await valor_referencia.findAll({
+				where: {
+					sexo: sexo,
+					edadMinima: { [Op.lte]: edad },
+					edadMaxima: { [Op.gte]: edad },
+					embarazo: embarazo,
+				},
+			});
+
+			res.json({
+				paciente: pacienteEncontrado,
+				valoresReferencia: valoresReferencia,
+			});
+		}
+	} catch (error) {
+		console.error(error); // Esto te dará más detalles sobre el error
+		res.status(500).json({
+			message: 'Error al obtener el paciente y sus valores de referencia',
+			error: error.message, // Agregar el mensaje de error puede ayudarte a diagnosticar el problema
+		});
+	}
+};
+
+function calcularEdad(fechaNacimiento) {
+	const hoy = new Date();
+	const fechaNac = new Date(fechaNacimiento);
+	let edad = hoy.getFullYear() - fechaNac.getFullYear();
+	const m = hoy.getMonth() - fechaNac.getMonth();
+	if (m < 0 || (m === 0 && hoy.getDate() < fechaNac.getDate())) {
+		edad--;
+	}
+	return edad;
+}
 
 export const getPacientePorId = async (req, res) => {
 	try {

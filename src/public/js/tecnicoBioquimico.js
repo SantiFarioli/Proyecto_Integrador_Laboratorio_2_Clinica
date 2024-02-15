@@ -83,4 +83,94 @@ document.addEventListener('DOMContentLoaded', function () {
 				})
 				.catch((error) => console.error('Error:', error));
 		});
+	// Delegación de eventos para manejar clics en íconos de "Cargar Resultados"
+	document.querySelector('body').addEventListener('click', function (e) {
+		if (e.target && e.target.id.startsWith('iconoOrden')) {
+			const idOrdenTrabajo = e.target.id.replace('iconoOrden', '');
+			console.log(idOrdenTrabajo);
+			cargarResultados(idOrdenTrabajo);
+		}
+	});
 });
+async function cargarResultados(idOrdenTrabajo) {
+	document.getElementById('ordenes-table').classList.add('d-none');
+	const resultadosContainer = document.getElementById('resultados-container');
+	resultadosContainer.classList.remove('d-none');
+
+	try {
+		const responseOrdenTrabajo = await fetch(`/ordenTrabajo`);
+		const dataOrden = await responseOrdenTrabajo.json();
+		const idPaciente = dataOrden[0].idPaciente; // Asegúrate de que esta línea coincida con la estructura de tu respuesta
+		console.log(idPaciente);
+
+		const responseExamen = await fetch(
+			`/examenes-y-ordenes/paciente/${idPaciente}`
+		);
+		const dataExamen = await responseExamen.json();
+
+		const responseValoresRef = await fetch(`/pacienteVslorRef/${idPaciente}`);
+		const dataPaciente = await responseValoresRef.json();
+		const { paciente, valoresReferencia } = dataPaciente;
+
+		resultadosContainer.innerHTML =
+			'<h2>Resultados de los Exámenes</h2><div class="examenes-resultados"></div>';
+		const examenesResultadosDiv = resultadosContainer.querySelector(
+			'.examenes-resultados'
+		);
+
+		for (const examen of dataExamen) {
+			// Obtiene los detalles del examen, incluido su idDeterminacion
+			const responseDetalleExamen = await fetch(
+				`/determinacion/examen/${examen.idExamen}`
+			);
+			const detalleExamen = await responseDetalleExamen.json();
+			const idDeterminacion = detalleExamen[0].idDeterminacion; // Asume que la primera entrada es la correcta
+
+			// Encuentra el valor de referencia correcto utilizando idDeterminacion
+			const valorRef = valoresReferencia.find(
+				(vr) => vr.idDeterminacion === idDeterminacion
+			);
+
+			const examenDiv = document.createElement('div');
+			examenDiv.className = 'examen-resultado';
+			examenDiv.innerHTML = `
+                <h3>${examen.descripcion}</h3>
+                <p><strong>Código:</strong> ${examen.codigo}</p>
+                <p><strong>Requisitos Examen:</strong> ${
+									examen.requisitosExamen
+								}</p>
+                <p><strong>Tiempo de Examen:</strong> ${
+									examen.tiempoDeExamen
+								} horas</p>
+                <p><strong>Resultado:</strong> <input type="text" id="resultadoExamen${
+									examen.idExamen
+								}" placeholder="Ingresar resultado"></p>
+                <p><strong>Valor de referencia:</strong> ${
+									valorRef
+										? `${valorRef.valorMinimo} - ${valorRef.valorMaximo}`
+										: 'No disponible'
+								}</p>
+                <p><strong>Método de análisis:</strong> ${
+									detalleExamen[0].metodoAnalisis
+								}</p>
+                <p><strong>Unidad de medida:</strong> ${
+									detalleExamen[0].unidadMedida
+								}</p>
+            `;
+			examenesResultadosDiv.appendChild(examenDiv);
+		}
+	} catch (error) {
+		console.error('Error:', error);
+	}
+}
+
+function calcularEdad(fechaNacimiento) {
+	const hoy = new Date();
+	const nacimiento = new Date(fechaNacimiento);
+	let edad = hoy.getFullYear() - nacimiento.getFullYear();
+	const m = hoy.getMonth() - nacimiento.getMonth();
+	if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) {
+		edad--;
+	}
+	return edad;
+}
