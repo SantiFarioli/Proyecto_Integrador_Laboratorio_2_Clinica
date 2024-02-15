@@ -26,7 +26,7 @@ const $borrarMuestra = document.getElementById('borrarMuestra');
 const $borrarDeterminacion = document.getElementById('borrarDeterminacion');
 const $borrarExamen = document.getElementById('borrarExamen');
 const $agregarDeterminacion = document.getElementById('agregarDeterminacion');
-let tableValorReferencia;
+let pacientesDataTable;
 
 document.addEventListener('DOMContentLoaded', function () {
 	adminPaciente.addEventListener('click', async function (e) {
@@ -179,7 +179,7 @@ document.addEventListener('click', function (event) {
 					Swal.fire({
 						icon: 'info',
 						title: 'Actualizando Datos...',
-
+						text: 'Espere por favor',
 						timer: 1500,
 					});
 
@@ -197,8 +197,11 @@ document.addEventListener('click', function (event) {
 									icon: 'success',
 									title: 'Paciente actualizado con éxito',
 									showConfirmButton: true,
+								}).then(() => {
+									window.location.href = 'http://localhost:3000/';
+									window.location.href = 'http://localhost:3000/admin';
 								});
-								refreshPacientesTable();
+								
 							} else {
 								Swal.fire({
 									icon: 'error',
