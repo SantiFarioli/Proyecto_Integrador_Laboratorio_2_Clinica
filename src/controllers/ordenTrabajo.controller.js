@@ -98,6 +98,34 @@ export const getOrdenesTrabajoFalse = async (req, res) => {
 	}
 };
 
+export const getOrdenesTrabajoTerminadas = async (req, res) => {
+	try {
+		const ordenesTrabajo = await orden_trabajo.findAll({
+			where: {
+				estado: 'terminada',
+			},
+			include: [
+				{
+					model: paciente,
+					as: 'paciente',
+					attributes: ['apellido', 'dni'],
+				},
+				{
+					model: medico,
+					as: 'medico',
+					attributes: ['nombre', 'apellido'],
+				},
+			],
+		});
+
+		res.json(ordenesTrabajo);
+	} catch (error) {
+		return res.status(500).json({
+			message: error.message,
+		});
+	}
+};
+
 export const createOrdenTrabajo = async (req, res) => {
 	const {
 		fechaCreacion,
@@ -165,7 +193,7 @@ export const updateOrdenesTrabajo = async (req, res) => {
 
 export const cacelarOrdenesTrabajo = async (req, res) => {
 	const { id } = req.params;
-	const { cancelada } = req.body;
+	const { cancelada, estado } = req.body; // Recibe ambos campos del cuerpo de la solicitud
 
 	try {
 		const ordenTrabajo = await orden_trabajo.findByPk(id);
@@ -174,7 +202,10 @@ export const cacelarOrdenesTrabajo = async (req, res) => {
 				.status(404)
 				.json({ message: 'Orden de trabajo no encontrada' });
 		}
+
+		// Actualiza ambos campos en el modelo
 		ordenTrabajo.cancelada = cancelada;
+		ordenTrabajo.estado = estado; // Asegúrate de actualizar este campo también
 
 		await ordenTrabajo.save();
 

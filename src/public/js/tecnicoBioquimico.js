@@ -8,40 +8,50 @@ document.addEventListener('DOMContentLoaded', function () {
 			fetch('/ordenTrabajo')
 				.then((response) => response.json())
 				.then((data) => {
-					// Asegúrate de que tu data incluya el ID del paciente en cada objeto de orden de trabajo
-					let modifiedData = data.map((item) => {
-						// Suponiendo que 'pacienteId' es la propiedad que contiene el ID del paciente
-						return { ...item, pacienteId: item.paciente.id };
+					// Filtrar solo órdenes con estado "Iniciada" (considerando posibles diferencias en mayúsculas)
+					let ordenesIniciadas = data.filter(
+						(orden) => orden.estado.toLowerCase() === 'iniciada'
+					);
+
+					// Modificar datos para incluir idPaciente y manejar médicos null
+					let modifiedData = ordenesIniciadas.map((item) => {
+						return {
+							...item,
+							pacienteId: item.paciente.id,
+							medicoNombre: item.medico
+								? `${item.medico.nombre} ${item.medico.apellido}`
+								: 'No asignado', // Manejar médicos null
+						};
 					});
 
-					// Inicializar DataTables
+					// Inicializar DataTables con datos modificados
 					let table = new DataTable('#tabla-ordenes', {
 						data: modifiedData,
 						columns: [
 							{ title: 'Fecha Creación', data: 'fechaCreacion' },
 							{ title: 'Estado', data: 'estado' },
 							{ title: 'Diagnóstico', data: 'diagnostico' },
-							{ title: 'Cancelada', data: 'cancelada' },
 							{
-								title: 'Paciente',
-								data: 'paciente.nombre',
-								className: 'nombre-paciente', // Agrega esta línea para asignar una clase a las celdas de esta columna
+								title: 'Cancelada',
+								data: 'cancelada',
+								render: (data) => (data ? 'Sí' : 'No'),
 							},
-							{ title: 'Médico', data: 'medico.nombre' },
+							{ title: 'Paciente', data: 'paciente.nombre' },
+							{ title: 'Médico', data: 'medicoNombre' }, // Usar el campo modificado para médico
 							{
 								title: 'Acciones',
 								data: 'idOrdenTrabajo',
 								render: function (data, type, row) {
 									return `<div class="icon-container" id="iconoOrdenContainer${data}">
-											<i class='fa-regular fa-file-lines' id="iconoOrden${data}" onclick="cargarResultados(${data})"></i>
-											<span class="tooltip">Cargar Resultados</span>
-										  </div>`;
+                                    <i class='fa-regular fa-file-lines' id="iconoOrden${data}" onclick="cargarResultados(${data})"></i>
+                                    <span class="tooltip">Cargar Resultados</span>
+                                  </div>`;
 								},
 								visible: true,
 							},
-							{ title: 'Paciente ID', data: 'idPaciente', visible: false }, // Columna oculta para ID del paciente
+							{ title: 'Paciente ID', data: 'idPaciente', visible: false },
 						],
-						destroy: true,
+						destroy: true, // Asegurarse de destruir y recrear la tabla cada vez
 					});
 
 					// Evento de clic para mostrar detalles del paciente
@@ -100,7 +110,7 @@ async function cargarResultados(idOrdenTrabajo) {
 	try {
 		const responseOrdenTrabajo = await fetch(`/ordenTrabajo`);
 		const dataOrden = await responseOrdenTrabajo.json();
-		const idPaciente = dataOrden[0].idPaciente; // Asegúrate de que esta línea coincida con la estructura de tu respuesta
+		const idPaciente = dataOrden[1].idPaciente; // Asegúrate de que esta línea coincida con la estructura de tu respuesta
 		console.log(idPaciente);
 
 		const responseExamen = await fetch(

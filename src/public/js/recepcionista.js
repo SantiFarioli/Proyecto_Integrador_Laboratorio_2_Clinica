@@ -911,6 +911,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		renderexamenTableOrdenTrabajo();
 		renderexamenTableOrdenTrabajo2();
+		renderOrdenesTrabajoTerminadas();
 	});
 });
 
@@ -1028,7 +1029,7 @@ tablaAdministrarOrdenes.addEventListener('click', function (event) {
 				// Si el usuario confirma la acción, actualiza la columna cancelada en la base de datos
 				const response = await fetch(`/orden-trabajo-cacelar/${ordenId}`, {
 					method: 'PUT',
-					body: JSON.stringify({ cancelada: true }), // Puedes ajustar según tu API
+					body: JSON.stringify({ cancelada: true, estado: 'Cancelada' }), // Puedes ajustar según tu API
 					headers: {
 						'Content-Type': 'application/json',
 					},
@@ -1067,7 +1068,7 @@ tablaAdministrarOrdenes2.addEventListener('click', function (event) {
 				// Si el usuario confirma la acción, actualiza la columna cancelada en la base de datos
 				const response = await fetch(`/orden-trabajo-cacelar/${ordenId}`, {
 					method: 'PUT',
-					body: JSON.stringify({ cancelada: false }), // Puedes ajustar según tu API
+					body: JSON.stringify({ cancelada: false, estado: 'Iniciada' }), // Puedes ajustar según tu API
 					headers: {
 						'Content-Type': 'application/json',
 					},
@@ -1086,3 +1087,36 @@ tablaAdministrarOrdenes2.addEventListener('click', function (event) {
 		});
 	}
 });
+
+async function renderOrdenesTrabajoTerminadas() {
+	const tablaOrden = document
+		.getElementById('tablaOrdenesTerminadas')
+		.querySelector('tbody');
+	try {
+		const response = await fetch('/ordenTrabajoTerminadas');
+		if (response.ok) {
+			const ordenesTerminadas = await response.json();
+			tablaOrden.innerHTML = '';
+			ordenesTerminadas.forEach((orden) => {
+				const newRow = tablaOrden.insertRow();
+				newRow.innerHTML = `
+                    <td>${orden.idOrdenTrabajo}</td>
+                    <td>${orden.fechaCreacion}</td>
+                    <td>${orden.estado}</td>
+                    <td>${orden.diagnostico}</td>
+                    <td>${orden.paciente.apellido}</td>
+                    <td>${orden.paciente.dni}</td>
+                    <td>Acciones específicas</td>
+                `;
+			});
+			// Inicializar DataTable después de cargar los datos
+			$(document).ready(function () {
+				$('#tablaOrdenesTerminadas').DataTable();
+			});
+		} else {
+			console.error('Error al obtener las órdenes de trabajo terminadas.');
+		}
+	} catch (error) {
+		console.error('Error al obtener las órdenes de trabajo terminadas:', error);
+	}
+}

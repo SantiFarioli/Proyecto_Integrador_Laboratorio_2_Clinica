@@ -775,7 +775,7 @@
 -->
 
 			<div class='container d-none' id='tablaConsultaOrdenes'>
-				<h2>Tabla de Órdenes de Trabajo</h2>
+				<h2>Tabla de Órdenes de Trabajo Iniciadas</h2>
 				<table
 					class='table table-bordered table-striped'
 					id='tablaAdministrarOrdenes'
@@ -795,6 +795,24 @@
 
 					</tbody>
 				</table>
+				<h2>Tabla de Órdenes de Trabajo Terminadas</h2>
+				<table id='tablaOrdenesTerminadas' class='table'>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Fecha de Creación</th>
+							<th>Estado</th>
+							<th>Diagnóstico</th>
+							<th>Apellido Paciente</th>
+							<th>DNI Paciente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Las filas se llenarán dinámicamente con JavaScript -->
+					</tbody>
+				</table>
+
 				<h2>Tabla de Órdenes de Trabajo Caceladas</h2>
 				<table
 					class='table table-bordered table-striped'
