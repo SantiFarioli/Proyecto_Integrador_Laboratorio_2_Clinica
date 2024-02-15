@@ -2,8 +2,8 @@ import {determinacion} from '../models/determinacion.js';
 
 export const getDeterminaciones = async (req, res) => {
     try {
-        const determinaciones = await determinacion.findAll();
-        res.json(determinaciones);
+        const determinacioness = await determinacion.findAll();
+        res.json(determinacioness);
     } catch (error) {
         return res.status(500).json({
             message: error.message

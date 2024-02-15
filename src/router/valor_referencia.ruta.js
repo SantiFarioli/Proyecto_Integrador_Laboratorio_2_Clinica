@@ -6,8 +6,8 @@ import { getValorReferencia,
 
 const router = Router();
 
-router.get('/valorReferencia', getValorReferencia);
-router.post('/valorReferencia', createValorReferencia);
+router.get('/allValorReferencia', getValorReferencia);
+router.post('/newValorReferencia', createValorReferencia);
 router.put('/valorReferencia/:id', updateValorReferencia);
 router.delete('/valorReferencia/:id', deleteValorReferencia);
 

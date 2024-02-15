@@ -3,7 +3,7 @@ import {getDeterminaciones, createDeterminacion, updateDeterminacion, deleteDete
 
 const router = Router();
 
-router.get('/determinacion', getDeterminaciones);
+router.get('/allDeterminacion', getDeterminaciones);
 router.post('/determinacion', createDeterminacion);
 router.put('/determinacion/:id', updateDeterminacion);
 router.delete('/determinacion/:id', deleteDeterminacion);

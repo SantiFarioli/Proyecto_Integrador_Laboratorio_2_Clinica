@@ -7,6 +7,7 @@ const $adminExamen = document.getElementById('adminExamen');
 const $adminMuestra = document.getElementById('adminMuestra');
 const $adminDeterminacion = document.getElementById('adminDeterminacion');
 const $adminValorReferencia = document.getElementById('adminValorReferencia');
+const $userValorReferencia = document.getElementById('userValorReferencia');
 const $formularioMuestra = document.getElementById('formMuestra');
 const $formExamen = document.getElementById('form');
 const $formDeterminacion = document.getElementById('formDeterminacion');
@@ -14,15 +15,18 @@ const $formValorReferencia = document.getElementById('formValorReferencia');
 const $guardarExamen = document.getElementById('guardarExamen');
 const $guardarMuestra = document.getElementById('guardarMuestra');
 const $guardarDeterminacion = document.getElementById('guardarDeterminacion');
+const crearValorReferencia = document.getElementById('crearValorReferencia');
 const $guardarValorReferencia = document.getElementById('guardarValorReferencia');
+const $actualizarValorReferencia = document.getElementById('actualizarValorReferencia');
 const $actualizarDeterminacion = document.getElementById('actualizarDeterminacion');
 const $actualizarMuestra = document.getElementById('actualizarMuestra');
 const $actualizarExamene = document.getElementById('actualizarExamen');
+const $borrarValorReferencia = document.getElementById('borrarValorReferencia');
 const $borrarMuestra = document.getElementById('borrarMuestra');
 const $borrarDeterminacion = document.getElementById('borrarDeterminacion');
 const $borrarExamen = document.getElementById('borrarExamen');
 const $agregarDeterminacion = document.getElementById('agregarDeterminacion');
-let pacientesDataTable;
+let tableValorReferencia;
 
 document.addEventListener('DOMContentLoaded', function () {
 	adminPaciente.addEventListener('click', async function (e) {
@@ -929,7 +933,7 @@ function renderDeterminaciones(deteminaciones) {
 
 	async function refreshDeterminaciones() {
 		try {
-			const response = await fetch('/determinacion');
+			const response = await fetch('/allDeterminacion');
 			if (response.ok) {
 				const determinaciones = await response.json();
 				renderDeterminaciones(determinaciones);
@@ -946,19 +950,80 @@ function renderDeterminaciones(deteminaciones) {
 	$adminValorReferencia.addEventListener('click',  async (e) => {	
 		e.preventDefault();
 		try {
-			const response = await fetch('/determinacion');
-			if (response.ok) {
-				const determinaciones = await response.json();
-				renderDeterminacionesParaValor(determinaciones);
+			const responseValor = await fetch('/allValorReferencia');
+			if (responseValor.ok) {
+				$userValorReferencia.classList.remove('d-none');
+				const valor = await responseValor.json();
+				crearValorReferencia.classList.remove('d-none');
+				renderValorReferencia(valor);
 			}
 		} catch (error) {
 			console.log(error);
 		}				
 	});
 
+	function renderValorReferencia(valor) {
+		
+
+		const tableBody = document.getElementById('tableValorReferencia').querySelector('tbody');
+		tableBody.innerHTML = '';
+
+		valor.forEach((valores) => {
+			const newRow = tableBody.insertRow();
+			newRow.innerHTML = `
+				<td>${valores.idValorReferencia}</td>
+				<td>${valores.sexo}</td>
+				<td>${valores.edadMinima}</td>
+				<td>${valores.edadMaxima}</td>
+				<td>${valores.valorMinimo}</td>
+				<td>${valores.valorMaximo}</td>
+				<td>${valores.embarazo}</td>
+				<td>${valores.idDeterminacion}</td>
+				<td>
+				<div class="d-flex justify-content-center ">
+                	<div class="icon-container" id="iconoEditarContainer${valores.idValorReferencia}">
+                    	<i class="fa-solid fa-pen" id="iconoEditar${valores.idValorReferencia}"></i>
+                    	<span class="tooltip">Editar Valor Referencia</span>
+                	</div>
+                	<div class="icon-container" id="iconoEliminarContainer${valores.idValorReferencia}">
+                    	<i class="fa-solid fa-trash" id="iconoEliminar${valores.idValorReferencia}"></i>
+                    	<span class="tooltip">Eliminar Valor Referencia</span>
+                	</div>
+            	</div>
+      			</td>
+			`;
+				tableBody.appendChild(newRow);
+		});
+
+		$(document).ready(function () {
+			$('#myTable').DataTable( {
+				
+			})
+		});
+
+	}
+
+
+	crearValorReferencia.addEventListener('click', async (e) => {
+
+		try {
+			const responseDeterminacion = await fetch('/allDeterminacion');
+			if (responseDeterminacion.ok) {
+				$userValorReferencia.classList.add('d-none');
+				crearValorReferencia.classList.add('d-none');
+				const determinacion = await responseDeterminacion.json();	
+				renderDeterminacionesParaValor(determinacion);
+			}
+		} catch (error) {
+			console.log(error);
+		}				
+	})
+
+
 	function renderDeterminacionesParaValor(determinaciones) {
 		const table = `
 			<table class="tablita table table-bordered table-striped mx-auto" id='tablaDeterminacionParaValor'>
+			<h1 class="text-center mt-3">Tabla Determinaciones Para Valor Referencia</h1>
 			<thead>
 				<tr>
 					<th scope="col" class="text-center">Id Determinacion</th>
@@ -982,7 +1047,7 @@ function renderDeterminaciones(deteminaciones) {
 						<td class="text-center">
 						<div class="icon-container">
 						<a href="#" class="btn btn-light btn-sm crearValorReferenciaIcon" data-index="${index}">
-						<i class="fa-regular fa-file-lines"></i></a>
+						<i class="fa-solid fa-plus "></i></a>
 						<span class="tooltip">Crear Valores Referencia</span>
 						</div>
 						<div class="icon-container">
@@ -1003,22 +1068,35 @@ function renderDeterminaciones(deteminaciones) {
 	
 		$(document).ready(function () {
 			$('#tablaDeterminacionParaValor').DataTable();
-		});
+		});	
 	
 		
-		document.querySelectorAll('.crearValorReferenciaIcon').forEach((icon) => {
-			icon.addEventListener('click', (e) => {
-				e.preventDefault();
-				const index = icon.getAttribute('data-index');
+		document.querySelectorAll('.fa-plus').forEach((icono, index) => {
+			icono.addEventListener('click', (e) => {
+
+				document.getElementById('table-determinacion').classList.add('d-none');
+				
 				const idDeterminacion = determinaciones[index].idDeterminacion;
-				// Ocultar la tabla de determinaciones y mostrar el formulario de referencia de valores
-				$tablaDeterminacion.classList.add('d-none');
 				$formValorReferencia.classList.remove('d-none');
-				// Rellenar el campo de entrada idDeterminacion con el ID recuperado
-				$formValorReferencia.querySelector('#idDeterminacion1').value = idDeterminacion;
-			});
-		});
-	}
+
+				document.getElementById('idDeterminacion1').value = idDeterminacion;
+
+				$guardarValorReferencia.disabled = true;
+				$actualizarValorReferencia.disabled = false;
+				$borrarValorReferencia.disabled = false;
+				
+	
+			
+			
+			
+
+			$guardarValorReferencia.disabled = false;
+			$actualizarValorReferencia.disabled = true;
+			$borrarValorReferencia.disabled = true;
+
+
+
+			$formValorReferencia.classList.remove('d-none');
 
 
 	$guardarValorReferencia.addEventListener('click', async (e) => {
@@ -1031,13 +1109,13 @@ function renderDeterminaciones(deteminaciones) {
 			valorMinimo: document.getElementById('valorMinimo').value,
 			valorMaximo: document.getElementById('valorMaximo').value,
 			embarazo: document.getElementById('embarazo').value,
-			idDeterminacion
+			idDeterminacion: idDeterminacion
 		}
 
 		console.log(valorReferencia);
 
 		try {
-			const response = await fetch ('/valorReferencia', {
+			const response = await fetch ('/newValorReferencia', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -1064,6 +1142,8 @@ function renderDeterminaciones(deteminaciones) {
 		} catch (error) {
 			console.log('Error al guardar Valores Referencia:', error);
 		}
-	})
+	});
+  });
+});
 
-
+}

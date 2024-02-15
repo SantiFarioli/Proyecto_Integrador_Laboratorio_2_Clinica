@@ -357,6 +357,36 @@
 					</div>
 				</div>
 
+				<div class='container d-none' id='userValorReferencia'>
+				<h2>Tabla Valor de Referencia</h2>
+				<div class='row d-flex flex-column mb-3 text-center'>
+					<label for='valorReferencia' class='form-label'>Crear Valor de Referencia</label>
+					<div class='col-12 d-flex justify-content-center text-center'>
+						<button type='button' class='btn btn-success btn-lg' id='crearValorReferencia'>Crear</button>
+					</div>
+				</div>
+				<table
+					class='table table-striped display compact text-center'
+					id='tableValorReferencia'
+				>
+					<thead>
+						<tr>
+							<th>ID Valor Referencia</th>
+							<th>Sexo</th>
+							<th>Edad Minima</th>
+							<th>Edad Maxima</th>
+							<th>Valor Minimo</th>
+							<th>Valor Maximo</th>
+							<th>Embarazo</th>
+							<th>id Determinacion</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+
 				<div id='row'>
 					<div class='col-lg-6 offset-md-3'>
 						<form action='/valorReferencia' method='POST' id='formValorReferencia' class='d-none'>
@@ -391,7 +421,7 @@
 							</div>
 							<div class='mb-3'>
 								<label for='idDeterminacion1' class='form-label'>Id Determinacion</label>
-								<input type='text' class='form-control' id='idDeterminacion1' name='idDeterminacion1' placeholder='idDeterminacion'>
+								<input type='text' class='form-control' id='idDeterminacion1' name='idDeterminacion1' placeholder='idDeterminacion' readonly>
 							</div>
 							<div class='offset-md-4'>
 								<button type='submit' class='mb-3 btn btn-primary' id='guardarValorReferencia'>Guardar</button>
