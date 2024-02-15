@@ -20,12 +20,10 @@ export const getDeterminacionPorExamen = async (req, res) => {
 		if (determinaciones.length > 0) {
 			res.json(determinaciones);
 		} else {
-			res
-				.status(404)
-				.json({
-					message:
-						'No se encontraron determinaciones para el examen proporcionado.',
-				});
+			res.status(404).json({
+				message:
+					'No se encontraron determinaciones para el examen proporcionado.',
+			});
 		}
 	} catch (error) {
 		console.log(error);
@@ -34,7 +32,6 @@ export const getDeterminacionPorExamen = async (req, res) => {
 			error: error.message,
 		});
 	}
->>>>>>> 71fceb5e07d241a9303f9d71fda1f76caabbef86
 };
 
 export const createDeterminacion = async (req, res) => {
