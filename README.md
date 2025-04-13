@@ -1,29 +1,41 @@
-# 🏥 Proyecto Integrador Laboratorio 2 - Clínica
+# Sistema de Gestión de Laboratorio Clínico 🧪
 
-**Proyecto Integrador Laboratorio 2 - Clínica** es una aplicación web desarrollada con **Node.js, Express, Handlebars y MySQL** para la gestión de laboratorios clínicos. Permite administrar **pacientes, médicos, técnicos, bioquímicos, órdenes de trabajo y resultados de exámenes**.
+Aplicación web desarrollada como proyecto integrador universitario para la gestión integral de un laboratorio clínico. El sistema permite registrar pacientes, generar órdenes de análisis clínicos, procesar muestras y gestionar resultados de exámenes de laboratorio. Implementado utilizando un stack completo en JavaScript, con arquitectura MVC (Modelo-Vista-Controlador) y conexión a base de datos relacional MySQL.
 
----
+## 🧬 Funcionalidades principales
 
-## 📌 Características
+- **Gestión de pacientes**: Registro, modificación y consulta de datos personales y clínicos.
+- **Órdenes de análisis clínicos**: Carga de solicitudes con múltiples estudios asociados.
+- **Manejo de muestras**: Seguimiento de muestras recolectadas y procesadas.
+- **Carga de resultados**: Ingreso de valores obtenidos y validación por parte del bioquímico.
+- **Valores de referencia**: Comparación automática según edad, sexo y embarazo.
+- **Roles diferenciados**:
+  - **Recepcionista**: Alta de pacientes y carga de órdenes.
+  - **Técnico Bioquímico**: Registro de muestras y resultados.
+  - **Bioquímico**: Validación final de resultados.
+  - **Administrador**: Gestión completa del sistema, usuarios y configuraciones.
 
-- 🏥 **Gestión de pacientes y personal médico** (médicos, bioquímicos, recepcionistas, técnicos).
-- 📋 **Administración de órdenes de trabajo y exámenes clínicos**.
-- 🔐 **Sistema de autenticación y control de acceso**.
-- 📄 **Interfaces dinámicas con Handlebars**.
-- 📊 **Base de datos MySQL** para almacenamiento estructurado de información.
-- 🎨 **Diseño responsivo y estilizado con CSS**.
+## ⚙️ Tecnologías utilizadas
 
----
+- **Backend**: Node.js + Express
+- **Frontend**: Handlebars + HTML/CSS + Bootstrap
+- **Base de datos**: MySQL con Sequelize ORM
+- **Autenticación**: Manejada por sesiones (express-session)
+- **Arquitectura**: Patrón MVC
 
-## 🛠️ Tecnologías utilizadas
+## 📁 Organización del proyecto
 
-- **Node.js & Express.js**: Servidor web y API REST.
-- **MySQL**: Base de datos relacional.
-- **Handlebars.js**: Motor de plantillas para renderizar HTML dinámico.
-- **CSS3**: Estilos personalizados.
-- **JavaScript (ES6+)**: Lógica del frontend y validaciones.
+- `src/controllers`: Lógica de negocio por módulo.
+- `src/models`: Definición de entidades y relaciones.
+- `src/router`: Rutas Express agrupadas por funcionalidad.
+- `src/views`: Plantillas dinámicas según el rol del usuario.
+- `src/app.js`: Configuración principal de la aplicación.
 
----
+## 🎓 Proyecto académico
+
+Este sistema fue desarrollado como trabajo integrador de la materia **Laboratorio de Computación II** en el marco de una carrera universitaria de informática.
+
+
 
 ## 📁 Estructura del Proyecto
 
